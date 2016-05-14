@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/res/merged/debug/menu/menu_import.xml",
+        "source": "/home/audakel/AndroidStudioProjects/asteroids/app/src/main/res/menu/menu_import.xml"
+    },
+    {
+        "merged": "/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/res/merged/debug/menu/main.xml",
+        "source": "/home/audakel/AndroidStudioProjects/asteroids/app/src/main/res/menu/main.xml"
+    },
+    {
+        "merged": "/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/res/merged/debug/menu/menu_main.xml",
+        "source": "/home/audakel/AndroidStudioProjects/asteroids/app/src/main/res/menu/menu_main.xml"
+    }
+]

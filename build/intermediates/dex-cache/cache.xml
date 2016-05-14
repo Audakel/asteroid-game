@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="d7f3adb10552b9ba25c297bb2f564a08b38b6eeb">
+        <dex dex="/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_a4f2d9985c19c5c0ffbf96366435519989750a31/classes.dex" />
+    </item>
+    <item
+        jar="/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28">
+        <dex dex="/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-19.1.0_3c294da378e5ad03299c779e2f65cce8db8ad7bb/classes.dex" />
+    </item>
+    <item
+        jar="/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="a595135cce1f799506f9304c6f938db35a4993b5">
+        <dex dex="/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_c898e8a79bf41fac835f0857f628200a4561ac81/classes.dex" />
+    </item>
+    <item
+        jar="/home/audakel/AndroidStudioProjects/asteroids/app/libs/json-simple-1.1.1.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="5d6f9b6a9ddca2a28c0216cc44efb2e20d9c23b5">
+        <dex dex="/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/transforms/dex/debug/folders/1000/2/json-simple-1.1.1_a7842cba4b1943cf787b5e8fbc72ce0c9373132d/classes.dex" />
+    </item>
+    <item
+        jar="/home/audakel/Android/Sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
+        <dex dex="/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-v4-19.1.0_85d43679a1a0c990f9b8b6cda2bfe4fb616c654f/classes.dex" />
+    </item>
+
+</items>
