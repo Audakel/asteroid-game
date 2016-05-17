@@ -1,0 +1,4 @@
+CHANGED,/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/edu/byu/cs/superasteroids/database/Provider$override.class
+CHANGED,/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/edu/byu/cs/superasteroids/main_menu/MainActivity$override.class
+CHANGED,/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/android/tools/fd/runtime/AppPatchesLoaderImpl.class
+CHANGED,/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/edu/byu/cs/superasteroids/database/Provider$Contract$override.class

@@ -8,31 +8,38 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.text.TextUtils;
+import android.util.Log;
 
 /**
  * Created by audakel on 5/14/16.
  */
 
 public class Provider extends ContentProvider {
+
     // URI matcher codes
-    private static final int URI_MATCHER_FOUNDERS = 1;
-    private static final int URI_MATCHER_FOUNDER_ID = 2;
-    private static final int URI_MATCHER_FTS = 3;
+    private static final int URI_MATCHER_ASTEROID = 1;
+    private static final int URI_MATCHER_LEVEL = 2;
+    private static final int URI_MATCHER_MAIN_BODY = 3;
+    private static final int URI_MATCHER_CANNON = 4;
+    private static final int URI_MATCHER_EXTRA_PART = 5;
+    private static final int URI_MATCHER_ENGINE = 6;
+    private static final int URI_MATCHER_POWER_CORE = 7;
 
     // MIME type codes
     private static final String MIME_COLLECTION = "vnd.android.cursor.dir/";
     private static final String MIME_ITEM = "vnd.android.cursor.item/";
     private static final String MIME_BASE = "vnd.helloandroid.";
 
+    private final String TAG = this.getClass().getSimpleName();
+
     /**
      * Handle to our underlying database.
      */
-    private FounderDatabaseHelper mDatabase = null;
+    private DatabaseHelper mDatabase = null;
 
     /**
      * URI matcher to identify what kind of request we're receiving.
@@ -41,10 +48,12 @@ public class Provider extends ContentProvider {
 
     // A static initializer executes when the Java VM first loads this class.
     // We use it to perform one-time initialization of static members like sUriMatcher.
-    static {
-        sUriMatcher.addURI(Contract.AUTHORITY, Contract.FOUNDER, URI_MATCHER_FOUNDERS);
-        sUriMatcher.addURI(Contract.AUTHORITY, Contract.FOUNDER + "/#", URI_MATCHER_FOUNDER_ID);
-        sUriMatcher.addURI(Contract.AUTHORITY, Contract.FULL_TEXT_SEARCH, URI_MATCHER_FTS);
+    public Provider(){
+        String auth = Contract.AUTHORITY;
+        String ast = Contract.ASTEROID;
+        sUriMatcher.addURI(auth, ast, URI_MATCHER_ASTEROID);
+//        sUriMatcher.addURI(Contract.AUTHORITY, Contract.FOUNDER + "/#", URI_MATCHER_FOUNDER_ID);
+//        sUriMatcher.addURI(Contract.AUTHORITY, Contract.FULL_TEXT_SEARCH, URI_MATCHER_FTS);
     }
 
     @Override
@@ -56,23 +65,23 @@ public class Provider extends ContentProvider {
     public String getType( Uri uri) {
         switch (sUriMatcher.match(uri)) {
             // This could be an if/else, but with more tables we'll want a switch instead.
-            case URI_MATCHER_FOUNDER_ID:
-                return MIME_ITEM + MIME_BASE + Contract.FOUNDER;
+            case URI_MATCHER_ASTEROID:
+                return MIME_ITEM + MIME_BASE + Contract.ASTEROID;
             default:
-                return MIME_COLLECTION + MIME_BASE + Contract.FOUNDER;
+                return MIME_COLLECTION + MIME_BASE + Contract.ASTEROID;
         }
     }
 
     @Override
     public Uri insert( Uri uri, ContentValues initialValues) {
-        long rowId = mDatabase.getWritableDatabase().insert(tableForUri(uri), Contract.IMAGE_URL, initialValues);
+        long rowId = mDatabase.getWritableDatabase().insert(tableForUri(uri), Contract.NULL_COLUMN_HACK, initialValues);
 
         if (rowId <= 0) {
             throw new SQLException("Failed insert: " + uri);
         }
 
         // Now notify the resolver of the change so it can inform any listeners.
-        Uri insertUri = ContentUris.withAppendedId(Contract.CONTENT_URI, rowId);
+        Uri insertUri = ContentUris.withAppendedId(Contract.URI_ASTEROID, rowId);
         Context context = getContext();
 
         if (context != null) {
@@ -108,7 +117,7 @@ public class Provider extends ContentProvider {
     @Override
     public boolean onCreate() {
         // We delegate creation to the helper.
-        mDatabase = new FounderDatabaseHelper(getContext());
+        mDatabase = new DatabaseHelper(getContext());
 
         return true;
     }
@@ -125,9 +134,9 @@ public class Provider extends ContentProvider {
             orderBy = sort;
         }
 
-        if (sUriMatcher.match(uri) == URI_MATCHER_FOUNDER_ID) {
-            qb.appendWhere(Contract._ID + "=" + uri.getLastPathSegment());
-        }
+//        if (sUriMatcher.match(uri) == URI_MATCHER_FOUNDER_ID) {
+//            qb.appendWhere(Contract._ID + "=" + uri.getLastPathSegment());
+//        }
 
         // Note that we're not really performing the query per se, but rather building a Cursor that will
         // iterate over all the query results.  We can use a read-only database here.
@@ -138,7 +147,7 @@ public class Provider extends ContentProvider {
         Context context = getContext();
 
         if (context != null) {
-            cursor.setNotificationUri(context.getContentResolver(), uri);
+//            cursor.setNotificationUri(context.getContentResolver(), uri);
         }
 
         return cursor;
@@ -152,11 +161,23 @@ public class Provider extends ContentProvider {
      */
     private String tableForUri(Uri uri) {
         switch (sUriMatcher.match(uri)) {
-            case URI_MATCHER_FTS:
-                return Contract.FULL_TEXT_SEARCH;
-            case URI_MATCHER_FOUNDER_ID:
+            case URI_MATCHER_ASTEROID:
+                return Contract.ASTEROID;
+            case URI_MATCHER_CANNON:
+                return Contract.CANNON;
+            case URI_MATCHER_ENGINE:
+                return Contract.ENGINE;
+            case URI_MATCHER_EXTRA_PART:
+                return Contract.EXTRA_PART;
+            case URI_MATCHER_LEVEL:
+                return Contract.LEVEL;
+            case URI_MATCHER_MAIN_BODY:
+                return Contract.MAIN_BODY;
+            case URI_MATCHER_POWER_CORE:
+                return Contract.POWER_CORE;
+
             default:
-                return Contract.FOUNDER;
+                return Contract.ASTEROID;
         }
     }
 
@@ -165,125 +186,8 @@ public class Provider extends ContentProvider {
         return modify(uri, values, where, whereArgs);
     }
 
-    /**
-     * Database helper to create a CET Founders SQLite3 database.
-     */
-    public class FounderDatabaseHelper extends SQLiteOpenHelper {
-        /**
-         * Database filename.
-         */
-        private static final String DATABASE_NAME = "founders.db";
-
-        /**
-         * Database version.
-         */
-        private static final int DATABASE_VERSION = 5;
-
-        /**
-         * Normal constructor.
-         *
-         * @param context The context in which this content provider operates
-         */
-        public FounderDatabaseHelper(Context context) {
-            super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        }
-
-        private void initDatabase(SQLiteDatabase db) {
-            String create = "CREATE TABLE ";
-            String idField = BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, ";
-
-            // ASTEROID
-            db.execSQL(create + Contract.ASTEROID + " (" + idField + //
-                    Contract.ASTEROID_NAME + " TEXT, " + //
-                    Contract.ASTEROID_IMAGE + " TEXT, " + //
-                    Contract.ASTEROID_IMAGE_WIDTH + " INTEGER, " + //
-                    Contract.ASTEROID_IMAGE_WIDTH + " INTEGER, " + //
-                    Contract.ASTEROID_TYPE + " TEXT, " + //
-            ");");
 
 
-            // LEVEL
-            db.execSQL(create + Contract.LEVEL + " (" + idField + //
-                    Contract.LEVEL_NUMBER + " INTEGER, " + //
-                    Contract.LEVEL_TITLE + " TEXT, " + //
-                    Contract.LEVEL_HINT + " TEXT, " + //
-                    Contract.LEVEL_WIDTH + " INTEGER, " + //
-                    Contract.LEVEL_HEIGHT + " INTEGER, " + //
-                    Contract.LEVEL_MUSIC + " TEXT, " + //
-                    Contract.LEVEL_OBJECT_POSITION + " TEXT, " + //
-                    Contract.LEVEL_OBJECT_OBJECT_ID + " INTEGER, " + //
-                    Contract.LEVEL_OBJECT_SCALE + " TEXT, " + //
-                    Contract.LEVEL_ASTEROID + " TEXT, " + //
-                    Contract.LEVEL_ASTEROID_NUMBER + " TEXT, " + //
-                    Contract.LEVEL_ASTEROID_ASTEROID_ID + " TEXT, " + //
-            ");");
-
-            // MAIN_BODY
-            db.execSQL(create + Contract.MAIN_BODY + " (" + idField + //
-                    Contract.MAIN_BODY_CANNON_ATTATCH + " TEXT, " + //
-                    Contract.MAIN_BODY_ENGINE_ATTATCH + " TEXT, " + //
-                    Contract.MAIN_BODY_EXTRA_ATTATCH + " TEXT, " + //
-                    Contract.MAIN_BODY_IMAGE + " TEXT, " + //
-                    Contract.MAIN_BODY_IMAGE_WIDTH + " TEXT, " + //
-                    Contract.MAIN_BODY_IMAGE_HEIGHT + " TEXT, " + //
-            ");");
-
-            // CANNON
-            db.execSQL(create + Contract.CANNON + " (" + idField + //
-                    Contract.CANNON_ATTATCH_POINT + " TEXT, " + //
-                    Contract.CANNON_EMIT_POINT + " TEXT, " + //
-                    Contract.CANNON_IMAGE + " TEXT, " + //
-                    Contract.CANNON_IMAGE_WIDTH + " TEXT, " + //
-                    Contract.CANNON_IMAGE_HEIGHT + " TEXT, " + //
-                    Contract.CANNON_ATTACK_IMAGE_WIDTH + " TEXT, " + //
-                    Contract.CANNON_ATTACK_IMAGE_HEIGHT + " TEXT, " + //
-                    Contract.CANNON_ATTACK_SOUND + " TEXT, " + //
-                    Contract.CANNON_DAMAGE+ " TEXT, " + //
-            ");");
-
-            // EXTRA_PART
-            db.execSQL(create + Contract.EXTRA_PART + " (" + idField + //
-                    Contract.EXTRA_PART_ATTATCH_POINT + " TEXT, " + //
-                    Contract.EXTRA_PART_IMAGE + " TEXT, " + //
-                    Contract.EXTRA_PART_IMAGE_WIDTH + " TEXT, " + //
-                    Contract.EXTRA_PART_IMAGE_HEIGHT + " TEXT, " + //
-            ");");
-
-            // ENGINE
-            db.execSQL(create + Contract.ENGINE + " (" + idField + //
-                    Contract.ENGINE_BASE_SPEED + " TEXT, " + //
-                    Contract.ENGINE_BASE_TURN_RATE + " TEXT, " + //
-                    Contract.ENGINE_ATTACH_POINT + " TEXT, " + //
-                    Contract.ENGINE_IMAGE + " TEXT, " + //
-                    Contract.ENGINE_IMAGE_WIDTH + " TEXT, " + //
-                    Contract.ENGINE_IMAGE_HEIGHT + " TEXT, " + //
-            ");");
-
-            // POWER_CORE
-            db.execSQL(create + Contract.POWER_CORE + " (" + idField + //
-                    Contract.POWER_CORE_CANNON_BOOST + " TEXT, " + //
-                    Contract.POWER_CORE_ENGINE_BOOST + " TEXT, " + //
-                    Contract.POWER_CORE_IMAGE + " TEXT, " + //
-            ");");
-
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            initDatabase(db);
-
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            if (oldVersion < DATABASE_VERSION) {
-                // NEEDSWORK: this is a very naive upgrade technique
-
-                db.execSQL("DROP DATABASE " + Contract.ASTEROIDS_GAME);
-                initDatabase(db);
-            }
-        }
-    }
 
     /**
      * This class is the contract that describes tables and fields in the
@@ -294,8 +198,8 @@ public class Provider extends ContentProvider {
         // Table names
         public static final String ASTEROIDS_GAME = "asteroids_game";
         public static final String ASTEROID = "asteroid";
-        public static final String LEVEL= "level";
-        public static final String MAIN_BODY= "main_body";
+        public static final String LEVEL = "level";
+        public static final String MAIN_BODY = "main_body";
         public static final String CANNON = "cannon";
         public static final String EXTRA_PART = "extra_part";
         public static final String ENGINE = "engine";
@@ -305,28 +209,28 @@ public class Provider extends ContentProvider {
         public static final String ASTEROID_IMAGE = "asteroid_image";
         public static final String ASTEROID_IMAGE_WIDTH = "asteroid_image_width";
         public static final String ASTEROID_IMAGE_HEIGHT = "asteroid_image_height";
-        public static final String ASTEROID_TYPE= "asteroid_type";
+        public static final String ASTEROID_TYPE = "asteroid_type";
 
-        public static final String LEVEL_NUMBER= "level_number";
-        public static final String LEVEL_TITLE= "level_title";
-        public static final String LEVEL_HINT= "level_hint";
-        public static final String LEVEL_WIDTH= "level_width";
-        public static final String LEVEL_HEIGHT= "level_height";
-        public static final String LEVEL_MUSIC= "level_music";
-        public static final String LEVEL_OBJECT= "level_object";
-        public static final String LEVEL_OBJECT_POSITION= "level_object_position";
-        public static final String LEVEL_OBJECT_OBJECT_ID= "level_object_position_id";
-        public static final String LEVEL_OBJECT_SCALE= "level_object_scale";
-        public static final String LEVEL_ASTEROID= "level_asteroid";
-        public static final String LEVEL_ASTEROID_NUMBER= "level_asteroi_numberd";
-        public static final String LEVEL_ASTEROID_ASTEROID_ID= "level_asteroid_asteroid_id";
+        public static final String LEVEL_NUMBER = "level_number";
+        public static final String LEVEL_TITLE = "level_title";
+        public static final String LEVEL_HINT = "level_hint";
+        public static final String LEVEL_WIDTH = "level_width";
+        public static final String LEVEL_HEIGHT = "level_height";
+        public static final String LEVEL_MUSIC = "level_music";
+        public static final String LEVEL_OBJECT = "level_object";
+        public static final String LEVEL_OBJECT_POSITION = "level_object_position";
+        public static final String LEVEL_OBJECT_OBJECT_ID = "level_object_position_id";
+        public static final String LEVEL_OBJECT_SCALE = "level_object_scale";
+        public static final String LEVEL_ASTEROID = "level_asteroid";
+        public static final String LEVEL_ASTEROID_NUMBER = "level_asteroi_numberd";
+        public static final String LEVEL_ASTEROID_ASTEROID_ID = "level_asteroid_asteroid_id";
 
-        public static final String MAIN_BODY_CANNON_ATTATCH= "main_body_cannon_attatch";
-        public static final String MAIN_BODY_ENGINE_ATTATCH= "main_body_engine_attatch";
-        public static final String MAIN_BODY_EXTRA_ATTATCH= "main_body_extra_attatch";
-        public static final String MAIN_BODY_IMAGE= "main_body_image";
-        public static final String MAIN_BODY_IMAGE_WIDTH= "main_body_image_width";
-        public static final String MAIN_BODY_IMAGE_HEIGHT= "main_body_image_height";
+        public static final String MAIN_BODY_CANNON_ATTATCH = "main_body_cannon_attatch";
+        public static final String MAIN_BODY_ENGINE_ATTATCH = "main_body_engine_attatch";
+        public static final String MAIN_BODY_EXTRA_ATTATCH = "main_body_extra_attatch";
+        public static final String MAIN_BODY_IMAGE = "main_body_image";
+        public static final String MAIN_BODY_IMAGE_WIDTH = "main_body_image_width";
+        public static final String MAIN_BODY_IMAGE_HEIGHT = "main_body_image_height";
 
         public static final String CANNON_ATTATCH_POINT = "cannon_attatch_point";
         public static final String CANNON_EMIT_POINT = "cannon_emit_point";
@@ -345,14 +249,19 @@ public class Provider extends ContentProvider {
 
         public static final String ENGINE_BASE_SPEED = "engine_base_speed";
         public static final String ENGINE_BASE_TURN_RATE = "engine_base_turn_rate";
-        public static final String ENGINE_ATTACH_POINT= "engine_attach_point";
-        public static final String ENGINE_IMAGE= "engine_image";
-        public static final String ENGINE_IMAGE_WIDTH= "engine_image_width";
-        public static final String ENGINE_IMAGE_HEIGHT= "engine_image_height";
+        public static final String ENGINE_ATTACH_POINT = "engine_attach_point";
+        public static final String ENGINE_IMAGE = "engine_image";
+        public static final String ENGINE_IMAGE_WIDTH = "engine_image_width";
+        public static final String ENGINE_IMAGE_HEIGHT = "engine_image_height";
 
         public static final String POWER_CORE_CANNON_BOOST = "power_core_cannon_boost";
         public static final String POWER_CORE_ENGINE_BOOST = "power_core_engine_boost";
         public static final String POWER_CORE_IMAGE = "power_core_image";
+
+        /**
+         * Protect against null inserts
+         */
+        public static final String NULL_COLUMN_HACK = "null_column_hack";
 
 
         /**
@@ -363,7 +272,7 @@ public class Provider extends ContentProvider {
         /**
          * Main URI pattern for CET Founders content.
          */
-        public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY );
+        public static final Uri URI_ASTEROID = Uri.parse("content://" + AUTHORITY + "/" + ASTEROID);
 
 
         /**
@@ -373,7 +282,7 @@ public class Provider extends ContentProvider {
          * @return List of fields in the Founder record.
          */
         public static String[] allAteroidsTables() {
-            return new String[] {
+            return new String[]{
                     ASTEROID, LEVEL, MAIN_BODY, CANNON, EXTRA_PART, ENGINE, POWER_CORE,
             };
         }

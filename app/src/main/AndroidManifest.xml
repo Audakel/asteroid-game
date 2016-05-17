@@ -43,6 +43,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.byu.cs.superasteroids.main_menu.MainActivity" />
         </activity>
+
+        <provider
+            android:name=".database.Provider"
+            android:authorities="edu.byu.cs.superasteroids.database"
+            android:exported="false" />
     </application>
 
 </manifest>

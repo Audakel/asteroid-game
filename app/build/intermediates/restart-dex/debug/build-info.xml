@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instant-run
-    abi="x86_64"
+    abi="x86_64,x86"
     api-level="23"
     density="xxhdpi"
     format="7"
-    timestamp="19615899777333" >
+    timestamp="12859312184255" >
 
     <task
         name="javac"
-        duration="1723" />
+        duration="0" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="364" />
+        duration="0" />
     <task
         name="verifier"
-        duration="11" />
+        duration="0" />
 
-    <artifact
-        location="/home/audakel/AndroidStudioProjects/asteroids/app/build/outputs/apk/app-debug.apk"
-        type="MAIN" />
-
-    <build timestamp="19615899777333" >
+    <build timestamp="10400059946862" >
         <artifact
             location="/home/audakel/AndroidStudioProjects/asteroids/app/build/outputs/apk/app-debug.apk"
             type="MAIN" />
     </build>
+    <build timestamp="12778436830054" >
+        <artifact
+            location="/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_7/classes.dex"
+            type="DEX" />
+        <artifact
+            location="/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_1/classes.dex"
+            type="DEX" />
+    </build>
+    <build timestamp="12859312184255" />
 
 </instant-run>

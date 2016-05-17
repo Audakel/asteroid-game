@@ -1,0 +1,9 @@
+edu.byu.cs.superasteroids.base
+edu.byu.cs.superasteroids.content
+edu.byu.cs.superasteroids.core
+edu.byu.cs.superasteroids.database
+edu.byu.cs.superasteroids.drawing
+edu.byu.cs.superasteroids.game
+edu.byu.cs.superasteroids.importer
+edu.byu.cs.superasteroids.main_menu
+edu.byu.cs.superasteroids.ship_builder

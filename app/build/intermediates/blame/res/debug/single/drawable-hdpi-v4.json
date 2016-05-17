@@ -84,12 +84,12 @@
         "source": "/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/drawable-hdpi/abc_menu_dropdown_panel_holo_dark.9.png"
     },
     {
-        "merged": "/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/abc_ic_cab_done_holo_light.png",
-        "source": "/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/drawable-hdpi/abc_ic_cab_done_holo_light.png"
-    },
-    {
         "merged": "/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/abc_ic_voice_search_api_holo_light.png",
         "source": "/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/drawable-hdpi/abc_ic_voice_search_api_holo_light.png"
+    },
+    {
+        "merged": "/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/abc_ic_cab_done_holo_light.png",
+        "source": "/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/drawable-hdpi/abc_ic_cab_done_holo_light.png"
     },
     {
         "merged": "/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/abc_ab_share_pack_holo_light.9.png",

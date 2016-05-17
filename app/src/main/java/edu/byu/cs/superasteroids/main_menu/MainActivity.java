@@ -1,22 +1,32 @@
 package edu.byu.cs.superasteroids.main_menu;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Random;
+
 import edu.byu.cs.superasteroids.R;
 import edu.byu.cs.superasteroids.base.ActionBarActivityView;
 import edu.byu.cs.superasteroids.content.ContentManager;
+import edu.byu.cs.superasteroids.database.Provider.Contract;
+import edu.byu.cs.superasteroids.database.DatabaseHelper;
 import edu.byu.cs.superasteroids.game.GameActivity;
 import edu.byu.cs.superasteroids.importer.ImportActivity;
 import edu.byu.cs.superasteroids.ship_builder.ShipBuildingActivity;
 
 public class MainActivity extends ActionBarActivityView implements IMainMenuView {
+    private final String TAG = this.getClass().getSimpleName();
+    private DatabaseHelper mDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +45,46 @@ public class MainActivity extends ActionBarActivityView implements IMainMenuView
 
 
         //TODO: Initialize your database
- 
+        String init = Contract.AUTHORITY;
+        mDatabase = new DatabaseHelper(this);
+        testDB();
 
         ContentManager.getInstance().setResources(getResources());
-
         ContentManager.getInstance().setAssets(getAssets());
+    }
+
+    private void testDB() {
+        ContentValues[] valueList = new ContentValues[10];
+
+        for (int i = 0; i < 10; i++) {
+            Random random = new Random();
+            int maxSize = 999999999;
+            int minSize = 111111111;
+
+            String name = "billy_"+i;
+            String image = "image_"+i;
+            String width = (random.nextInt(maxSize - minSize + 1) + minSize)+"";
+            String height = (random.nextInt(maxSize - minSize + 1) + minSize)+"";
+            String type = "type_"+i;
+
+            ContentValues values = new ContentValues();
+            values.put(Contract.ASTEROID_NAME, name);
+            values.put(Contract.ASTEROID_IMAGE, image);
+            values.put(Contract.ASTEROID_IMAGE_WIDTH, width);
+            values.put(Contract.ASTEROID_IMAGE_HEIGHT, height);
+            values.put(Contract.ASTEROID_TYPE, type);
+
+            valueList[i] = values;
+        }
+
+        Cursor cursor = getContentResolver().query(Contract.URI_ASTEROID, null, null, null, null);
+        Log.d(TAG, "onHandleIntent: cursor size b4 " + cursor.getCount());
+        if (cursor.getCount() == 0){
+            Log.d(TAG, "onHandleIntent: insert " + getContentResolver().bulkInsert(Contract.URI_ASTEROID, valueList));
+        }
+        Log.d(TAG, "onHandleIntent: cursor size after " + cursor.getCount());
+
+        cursor.close();
     }
 
     @Override
