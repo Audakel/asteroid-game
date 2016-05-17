@@ -32,7 +32,6 @@ import os
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.coverage',
-    'sphinx.ext.imgmath',
     'sphinx.ext.githubpages',
 ]
 
@@ -51,7 +50,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'Asteroids'
+project = 'Asteroids for Anderoid'
 copyright = '2016, audakel'
 author = 'audakel'
 
