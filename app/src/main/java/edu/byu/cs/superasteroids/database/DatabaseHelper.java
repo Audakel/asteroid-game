@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * Database version.
      */
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     /**
      * Normal constructor.
@@ -70,9 +70,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Contract.LEVEL_OBJECT_OBJECT_ID + " INTEGER, " + //
                 Contract.LEVEL_OBJECT_SCALE + " TEXT, " + //
                 Contract.LEVEL_ASTEROID_ID + " INTEGER, " + //
-                Contract.LEVELS + " INTEGER, " + //
-                "FOREIGN KEY(" + Contract.LEVELS + ") REFERENCES " + Contract.LEVELS + "(_ID), " + //
-                Contract.NULL_COLUMN_HACK + " TEXT " + //
+                Contract.LEVEL_ID + " INTEGER, " + //
+                Contract.NULL_COLUMN_HACK + " TEXT, " + //
+                "FOREIGN KEY(" + Contract.LEVEL_ID + ") REFERENCES " + Contract.LEVELS + "(_id) " + //
 
                 ");");
 
@@ -81,9 +81,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Contract.LEVEL_ASTEROID + " TEXT, " + //
                 Contract.LEVEL_ASTEROID_NUMBER + " TEXT, " + //
                 Contract.NULL_COLUMN_HACK + " TEXT, " + //
-                Contract.LEVELS + " INTEGER, " + //
-                "FOREIGN KEY(" + Contract.LEVELS + ") REFERENCES " + Contract.LEVELS + "(_ID), " + //
-                Contract.LEVEL_ASTEROID_ID + " INTEGER " + //
+                Contract.LEVEL_ID + " INTEGER, " + //
+                Contract.LEVEL_ASTEROID_ID + " INTEGER, " + //
+                "FOREIGN KEY(" + Contract.LEVEL_ID + ") REFERENCES " + Contract.LEVELS + "(_id) " + //
                 ");");
 
         // MAIN_BODIES

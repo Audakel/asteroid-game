@@ -1,37 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instant-run
-    abi="x86_64,x86"
+    abi="x86"
     api-level="23"
-    density="xxhdpi"
+    density="420dpi"
     format="7"
-    timestamp="12859312184255" >
+    timestamp="3384462499891" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="55" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="3" />
     <task
         name="verifier"
-        duration="0" />
+        duration="1" />
 
-    <build timestamp="10400059946862" >
+    <artifact
+        location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_0/classes.dex"
+        type="DEX" />
+
+    <build timestamp="615189677271" >
         <artifact
-            location="/home/audakel/AndroidStudioProjects/asteroids/app/build/outputs/apk/app-debug.apk"
+            location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/outputs/apk/app-debug.apk"
             type="MAIN" />
     </build>
-    <build timestamp="12778436830054" >
+    <build timestamp="3130330058361" >
         <artifact
-            location="/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_7/classes.dex"
-            type="DEX" />
-        <artifact
-            location="/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_1/classes.dex"
+            location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_7/classes.dex"
             type="DEX" />
     </build>
-    <build timestamp="12859312184255" />
+    <build timestamp="3384462499891" >
+        <artifact
+            location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_0/classes.dex"
+            type="DEX" />
+    </build>
 
 </instant-run>

@@ -26,6 +26,8 @@ public class Provider extends ContentProvider {
     private static final int URI_MATCHER_EXTRA_PART = 5;
     private static final int URI_MATCHER_ENGINE = 6;
     private static final int URI_MATCHER_POWER_CORE = 7;
+    private static final int URI_MATCHER_LEVEL_ASTEROID = 8;
+    private static final int URI_MATCHER_LEVEL_OBJECT = 9;
 
     // MIME type codes
     private static final String MIME_COLLECTION = "vnd.android.cursor.dir/";
@@ -47,9 +49,15 @@ public class Provider extends ContentProvider {
     // A static initializer executes when the Java VM first loads this class.
     // We use it to perform one-time initialization of static members like sUriMatcher.
     public Provider(){
-        String auth = Contract.AUTHORITY;
-        String ast = Contract.ASTEROIDS;
-        sUriMatcher.addURI(auth, ast, URI_MATCHER_ASTEROID);
+        sUriMatcher.addURI(Contract.AUTHORITY, Contract.ASTEROIDS, URI_MATCHER_ASTEROID);
+        sUriMatcher.addURI(Contract.AUTHORITY, Contract.LEVELS, URI_MATCHER_LEVEL);
+        sUriMatcher.addURI(Contract.AUTHORITY, Contract.MAIN_BODIES, URI_MATCHER_MAIN_BODY);
+        sUriMatcher.addURI(Contract.AUTHORITY, Contract.CANNONS, URI_MATCHER_CANNON);
+        sUriMatcher.addURI(Contract.AUTHORITY, Contract.EXTRA_PARTS, URI_MATCHER_EXTRA_PART);
+        sUriMatcher.addURI(Contract.AUTHORITY, Contract.ENGINES, URI_MATCHER_ENGINE);
+        sUriMatcher.addURI(Contract.AUTHORITY, Contract.POWER_CORES, URI_MATCHER_POWER_CORE);
+        sUriMatcher.addURI(Contract.AUTHORITY, Contract.LEVEL_ASTEROID, URI_MATCHER_LEVEL_ASTEROID);
+        sUriMatcher.addURI(Contract.AUTHORITY, Contract.LEVEL_OBJECT, URI_MATCHER_LEVEL_OBJECT);
 //        sUriMatcher.addURI(Contract.AUTHORITY, Contract.FOUNDER + "/#", URI_MATCHER_FOUNDER_ID);
 //        sUriMatcher.addURI(Contract.AUTHORITY, Contract.FULL_TEXT_SEARCH, URI_MATCHER_FTS);
     }
@@ -169,13 +177,17 @@ public class Provider extends ContentProvider {
                 return Contract.EXTRA_PARTS;
             case URI_MATCHER_LEVEL:
                 return Contract.LEVELS;
+            case URI_MATCHER_LEVEL_ASTEROID:
+                return Contract.LEVEL_ASTEROID;
+            case URI_MATCHER_LEVEL_OBJECT:
+                return Contract.LEVEL_OBJECT;
             case URI_MATCHER_MAIN_BODY:
                 return Contract.MAIN_BODIES;
             case URI_MATCHER_POWER_CORE:
                 return Contract.POWER_CORES;
 
             default:
-                return Contract.ASTEROIDS;
+                return null;
         }
     }
 

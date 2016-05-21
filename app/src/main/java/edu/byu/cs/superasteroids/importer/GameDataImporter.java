@@ -37,6 +37,16 @@ public class GameDataImporter implements IGameDataImporter {
         this.context = context;
     }
 
+    public AsteroidsGame getLevelInfoFromDb(int level){
+
+        // Asteroids
+
+        // Cannons
+
+        // Engines
+
+        //
+    }
 
     /**
      *
@@ -57,7 +67,7 @@ public class GameDataImporter implements IGameDataImporter {
         try {
             jsonObject = new JSONObject(stringBuilder.toString());
             jsonObject = jsonObject.getJSONObject(Contract.ASTEROIDS_GAME);
-            asteroidsGame = extractGameInfo(jsonObject);
+            asteroidsGame = extractJsonGameInfo(jsonObject);
             return importGameDataToDataBase(asteroidsGame, context);
 
         } catch (JSONException e) {
@@ -97,11 +107,21 @@ public class GameDataImporter implements IGameDataImporter {
             Uri levelUri = context.getContentResolver().insert(Contract.URI_LEVEL, level.getContentValues());
 
             if (level.getLevelAsteroids().length > 0){
-
-            }
+                for (Level.LevelAsteroid levelAsteroid : level.getLevelAsteroids()){
+                    ContentValues contentValues = new ContentValues();
+                    contentValues = levelAsteroid.getContentValues();
+                    contentValues.put(Contract.LEVEL_ID, levelUri.getLastPathSegment());
+                    context.getContentResolver().insert(Contract.URI_LEVEL_ASTEROID, contentValues);
+                }
+             }
 
             if (level.getLevelObjects().length > 0){
-
+                for (Level.LevelObject levelObject : level.getLevelObjects()) {
+                    ContentValues contentValues = new ContentValues();
+                    contentValues = levelObject.getContentValues();
+                    contentValues.put(Contract.LEVEL_ID, levelUri.getLastPathSegment());
+                    context.getContentResolver().insert(Contract.URI_LEVEL_OBJECT, contentValues);
+                }
             }
 
         }
@@ -114,7 +134,7 @@ public class GameDataImporter implements IGameDataImporter {
      * @param jsonObject file containing json info about all needed game stats to start
      * @return AsteroidsGame object with model objects (cannon, engine, etc.) of all the json info
      */
-    private AsteroidsGame extractGameInfo(JSONObject jsonObject) {
+    private AsteroidsGame extractJsonGameInfo(JSONObject jsonObject) {
         AsteroidsGame asteroidsGame = new AsteroidsGame();
         ArrayList<Asteroid> asteroids;
         ArrayList<Level> levels;

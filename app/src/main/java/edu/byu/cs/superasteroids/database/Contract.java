@@ -44,6 +44,7 @@ public final class Contract implements BaseColumns {
     public static final String LEVEL_HEIGHT = "level_height";
     public static final String LEVEL_MUSIC = "level_music";
     public static final String LEVEL_OBJECT = "level_object";
+    public static final String LEVEL_ID = "level_id";
     public static final String LEVEL_OBJECT_POSITION = "level_object_position";
     public static final String LEVEL_OBJECT_OBJECT_ID = "level_object_position_id";
     public static final String LEVEL_OBJECT_SCALE = "level_object_scale";
@@ -103,6 +104,8 @@ public final class Contract implements BaseColumns {
     public static final Uri URI_ENGINE = Uri.parse("content://" + AUTHORITY + "/" + ENGINES);
     public static final Uri URI_EXTRA_PART = Uri.parse("content://" + AUTHORITY + "/" + EXTRA_PARTS);
     public static final Uri URI_LEVEL = Uri.parse("content://" + AUTHORITY + "/" + LEVELS);
+    public static final Uri URI_LEVEL_OBJECT = Uri.parse("content://" + AUTHORITY + "/" + LEVEL_OBJECT);
+    public static final Uri URI_LEVEL_ASTEROID = Uri.parse("content://" + AUTHORITY + "/" + LEVEL_ASTEROID);
     public static final Uri URI_MAIN_BODY = Uri.parse("content://" + AUTHORITY + "/" + MAIN_BODIES);
     public static final Uri URI_POWER_CORE = Uri.parse("content://" + AUTHORITY + "/" + POWER_CORES);
 
