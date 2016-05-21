@@ -17,7 +17,9 @@ import java.util.List;
 
 import edu.byu.cs.superasteroids.R;
 import edu.byu.cs.superasteroids.base.FragmentView;
-import edu.byu.cs.superasteroids.content.ContentManager;
+import edu.byu.cs.superasteroids.helper.content.ContentManager;
+import edu.byu.cs.superasteroids.interfaces.IShipBuildingController;
+import edu.byu.cs.superasteroids.interfaces.IShipBuildingView;
 
 /**
  * This class represents a part selection fragment that can be reused for different ship parts.

@@ -10,9 +10,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
-import android.provider.BaseColumns;
 import android.text.TextUtils;
-import android.util.Log;
 
 /**
  * Created by audakel on 5/14/16.
@@ -50,7 +48,7 @@ public class Provider extends ContentProvider {
     // We use it to perform one-time initialization of static members like sUriMatcher.
     public Provider(){
         String auth = Contract.AUTHORITY;
-        String ast = Contract.ASTEROID;
+        String ast = Contract.ASTEROIDS;
         sUriMatcher.addURI(auth, ast, URI_MATCHER_ASTEROID);
 //        sUriMatcher.addURI(Contract.AUTHORITY, Contract.FOUNDER + "/#", URI_MATCHER_FOUNDER_ID);
 //        sUriMatcher.addURI(Contract.AUTHORITY, Contract.FULL_TEXT_SEARCH, URI_MATCHER_FTS);
@@ -66,9 +64,9 @@ public class Provider extends ContentProvider {
         switch (sUriMatcher.match(uri)) {
             // This could be an if/else, but with more tables we'll want a switch instead.
             case URI_MATCHER_ASTEROID:
-                return MIME_ITEM + MIME_BASE + Contract.ASTEROID;
+                return MIME_ITEM + MIME_BASE + Contract.ASTEROIDS;
             default:
-                return MIME_COLLECTION + MIME_BASE + Contract.ASTEROID;
+                return MIME_COLLECTION + MIME_BASE + Contract.ASTEROIDS;
         }
     }
 
@@ -162,22 +160,22 @@ public class Provider extends ContentProvider {
     private String tableForUri(Uri uri) {
         switch (sUriMatcher.match(uri)) {
             case URI_MATCHER_ASTEROID:
-                return Contract.ASTEROID;
+                return Contract.ASTEROIDS;
             case URI_MATCHER_CANNON:
-                return Contract.CANNON;
+                return Contract.CANNONS;
             case URI_MATCHER_ENGINE:
-                return Contract.ENGINE;
+                return Contract.ENGINES;
             case URI_MATCHER_EXTRA_PART:
-                return Contract.EXTRA_PART;
+                return Contract.EXTRA_PARTS;
             case URI_MATCHER_LEVEL:
-                return Contract.LEVEL;
+                return Contract.LEVELS;
             case URI_MATCHER_MAIN_BODY:
-                return Contract.MAIN_BODY;
+                return Contract.MAIN_BODIES;
             case URI_MATCHER_POWER_CORE:
-                return Contract.POWER_CORE;
+                return Contract.POWER_CORES;
 
             default:
-                return Contract.ASTEROID;
+                return Contract.ASTEROIDS;
         }
     }
 
@@ -189,104 +187,6 @@ public class Provider extends ContentProvider {
 
 
 
-    /**
-     * This class is the contract that describes tables and fields in the
-     * CET Founders database.
-     */
-    public static final class Contract implements BaseColumns {
-
-        // Table names
-        public static final String ASTEROIDS_GAME = "asteroids_game";
-        public static final String ASTEROID = "asteroid";
-        public static final String LEVEL = "level";
-        public static final String MAIN_BODY = "main_body";
-        public static final String CANNON = "cannon";
-        public static final String EXTRA_PART = "extra_part";
-        public static final String ENGINE = "engine";
-        public static final String POWER_CORE = "power_core";
-
-        public static final String ASTEROID_NAME = "asteroid_name";
-        public static final String ASTEROID_IMAGE = "asteroid_image";
-        public static final String ASTEROID_IMAGE_WIDTH = "asteroid_image_width";
-        public static final String ASTEROID_IMAGE_HEIGHT = "asteroid_image_height";
-        public static final String ASTEROID_TYPE = "asteroid_type";
-
-        public static final String LEVEL_NUMBER = "level_number";
-        public static final String LEVEL_TITLE = "level_title";
-        public static final String LEVEL_HINT = "level_hint";
-        public static final String LEVEL_WIDTH = "level_width";
-        public static final String LEVEL_HEIGHT = "level_height";
-        public static final String LEVEL_MUSIC = "level_music";
-        public static final String LEVEL_OBJECT = "level_object";
-        public static final String LEVEL_OBJECT_POSITION = "level_object_position";
-        public static final String LEVEL_OBJECT_OBJECT_ID = "level_object_position_id";
-        public static final String LEVEL_OBJECT_SCALE = "level_object_scale";
-        public static final String LEVEL_ASTEROID = "level_asteroid";
-        public static final String LEVEL_ASTEROID_NUMBER = "level_asteroi_numberd";
-        public static final String LEVEL_ASTEROID_ASTEROID_ID = "level_asteroid_asteroid_id";
-
-        public static final String MAIN_BODY_CANNON_ATTATCH = "main_body_cannon_attatch";
-        public static final String MAIN_BODY_ENGINE_ATTATCH = "main_body_engine_attatch";
-        public static final String MAIN_BODY_EXTRA_ATTATCH = "main_body_extra_attatch";
-        public static final String MAIN_BODY_IMAGE = "main_body_image";
-        public static final String MAIN_BODY_IMAGE_WIDTH = "main_body_image_width";
-        public static final String MAIN_BODY_IMAGE_HEIGHT = "main_body_image_height";
-
-        public static final String CANNON_ATTATCH_POINT = "cannon_attatch_point";
-        public static final String CANNON_EMIT_POINT = "cannon_emit_point";
-        public static final String CANNON_IMAGE = "cannon_image";
-        public static final String CANNON_IMAGE_WIDTH = "cannon_image_width";
-        public static final String CANNON_IMAGE_HEIGHT = "cannon_image_height";
-        public static final String CANNON_ATTACK_IMAGE_WIDTH = "cannon_attack_image_width";
-        public static final String CANNON_ATTACK_IMAGE_HEIGHT = "cannon_attack_image_height";
-        public static final String CANNON_ATTACK_SOUND = "cannon_attack_sound";
-        public static final String CANNON_DAMAGE = "cannon_damage";
-
-        public static final String EXTRA_PART_ATTATCH_POINT = "extra_part_attatch_point";
-        public static final String EXTRA_PART_IMAGE = "extra_part_image";
-        public static final String EXTRA_PART_IMAGE_WIDTH = "extra_part_image_width";
-        public static final String EXTRA_PART_IMAGE_HEIGHT = "extra_part_image_height";
-
-        public static final String ENGINE_BASE_SPEED = "engine_base_speed";
-        public static final String ENGINE_BASE_TURN_RATE = "engine_base_turn_rate";
-        public static final String ENGINE_ATTACH_POINT = "engine_attach_point";
-        public static final String ENGINE_IMAGE = "engine_image";
-        public static final String ENGINE_IMAGE_WIDTH = "engine_image_width";
-        public static final String ENGINE_IMAGE_HEIGHT = "engine_image_height";
-
-        public static final String POWER_CORE_CANNON_BOOST = "power_core_cannon_boost";
-        public static final String POWER_CORE_ENGINE_BOOST = "power_core_engine_boost";
-        public static final String POWER_CORE_IMAGE = "power_core_image";
-
-        /**
-         * Protect against null inserts
-         */
-        public static final String NULL_COLUMN_HACK = "null_column_hack";
-
-
-        /**
-         * The authority name for this ContentProvider.
-         */
-        public static final String AUTHORITY = "edu.byu.cs.superasteroids.database";
-
-        /**
-         * Main URI pattern for CET Founders content.
-         */
-        public static final Uri URI_ASTEROID = Uri.parse("content://" + AUTHORITY + "/" + ASTEROID);
-
-
-        /**
-         * Gives an array of fields in the Founder record, including ID and version fields,
-         * together with all content fields.
-         *
-         * @return List of fields in the Founder record.
-         */
-        public static String[] allAteroidsTables() {
-            return new String[]{
-                    ASTEROID, LEVEL, MAIN_BODY, CANNON, EXTRA_PART, ENGINE, POWER_CORE,
-            };
-        }
-    }
 }
 
 

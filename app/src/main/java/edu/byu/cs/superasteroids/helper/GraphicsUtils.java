@@ -1,4 +1,4 @@
-package edu.byu.cs.superasteroids.core;
+package edu.byu.cs.superasteroids.helper;
 
 import android.graphics.PointF;
 import android.graphics.RectF;

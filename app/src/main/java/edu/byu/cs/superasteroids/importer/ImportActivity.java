@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.byu.cs.superasteroids.R;
+import edu.byu.cs.superasteroids.interfaces.IGameDataImporter;
 
 public class ImportActivity extends ActionBarActivity {
 
@@ -40,8 +41,7 @@ public class ImportActivity extends ActionBarActivity {
                     .commit();
         }
 
-        //TODO: Set the dataimporter to an instance of your GameDataImporter
-        //dataImporter = an new instance of your data importer class
+        dataImporter = new GameDataImporter(this);
     }
 
 

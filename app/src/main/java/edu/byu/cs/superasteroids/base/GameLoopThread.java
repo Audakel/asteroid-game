@@ -2,7 +2,8 @@ package edu.byu.cs.superasteroids.base;
 
 import android.graphics.Canvas;
 
-import edu.byu.cs.superasteroids.content.ContentManager;
+import edu.byu.cs.superasteroids.helper.content.ContentManager;
+import edu.byu.cs.superasteroids.interfaces.IGameDelegate;
 
 public class GameLoopThread extends Thread {
 

@@ -11,9 +11,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import edu.byu.cs.superasteroids.R;
-import edu.byu.cs.superasteroids.base.IGameDelegate;
-import edu.byu.cs.superasteroids.content.ContentManager;
-import edu.byu.cs.superasteroids.drawing.DrawingHelper;
+import edu.byu.cs.superasteroids.interfaces.IGameDelegate;
+import edu.byu.cs.superasteroids.helper.content.ContentManager;
+import edu.byu.cs.superasteroids.helper.DrawingHelper;
 
 /**
  * A game view extended to draw a parallax space background

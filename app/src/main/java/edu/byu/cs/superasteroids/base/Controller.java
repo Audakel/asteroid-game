@@ -1,6 +1,9 @@
 package edu.byu.cs.superasteroids.base;
 
-public class Controller implements IController{
+import edu.byu.cs.superasteroids.interfaces.IController;
+import edu.byu.cs.superasteroids.interfaces.IView;
+
+public class Controller implements IController {
 
 	private IView view;
 	

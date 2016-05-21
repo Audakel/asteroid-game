@@ -1,6 +1,7 @@
 package edu.byu.cs.superasteroids.main_menu;
 
-import edu.byu.cs.superasteroids.base.IController;
+import edu.byu.cs.superasteroids.interfaces.IController;
+import edu.byu.cs.superasteroids.interfaces.IMainMenuView;
 
 /**
  * Created by audakel on 5/14/16.

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import java.util.List;
 
-import edu.byu.cs.superasteroids.content.ContentManager;
+import edu.byu.cs.superasteroids.helper.content.ContentManager;
 
 /**
  * The list adapter used to adapt a list of image IDs to a list of views containing the images of the

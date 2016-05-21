@@ -13,8 +13,10 @@ import java.util.List;
 
 import edu.byu.cs.superasteroids.R;
 import edu.byu.cs.superasteroids.base.ActivityView;
-import edu.byu.cs.superasteroids.content.ContentManager;
+import edu.byu.cs.superasteroids.helper.content.ContentManager;
 import edu.byu.cs.superasteroids.game.GameActivity;
+import edu.byu.cs.superasteroids.interfaces.IShipBuildingController;
+import edu.byu.cs.superasteroids.interfaces.IShipBuildingView;
 
 /**
  * The Android Activity used for the ship building process
@@ -39,10 +41,10 @@ public class ShipBuildingActivity extends ActivityView implements IShipBuildingV
         setContentView(R.layout.activity_ship_building);
 
 
-        //TODO: Set this activity's controller to an instance of your ShipBuildingController
-        //TODO: Pass the ShipBuildingController's constructor a reference to its IShipBuildingView (this)
-        //IShipBuildingController controller = new ShipBuildingController(this);
-        //setController(controller);
+        //Set this activity's controller to an instance of your ShipBuildingController
+        //Pass the ShipBuildingController's constructor a reference to its IShipBuildingView (this)
+        IShipBuildingController controller = new ShipBuildingController(this);
+        setController(controller);
 
 
         //Configure the part selection fragments

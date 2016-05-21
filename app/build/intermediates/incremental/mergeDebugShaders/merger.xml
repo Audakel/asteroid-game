@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/home/audakel/AndroidStudioProjects/asteroids/app/src/main/shaders"/></dataSet><dataSet config="debug"><source path="/home/audakel/AndroidStudioProjects/asteroids/app/src/debug/shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/src/main/shaders"/></dataSet><dataSet config="debug"><source path="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/src/debug/shaders"/></dataSet></merger>

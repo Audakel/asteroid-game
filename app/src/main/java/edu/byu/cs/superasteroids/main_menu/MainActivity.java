@@ -16,11 +16,13 @@ import java.util.Random;
 
 import edu.byu.cs.superasteroids.R;
 import edu.byu.cs.superasteroids.base.ActionBarActivityView;
-import edu.byu.cs.superasteroids.content.ContentManager;
-import edu.byu.cs.superasteroids.database.Provider.Contract;
+import edu.byu.cs.superasteroids.database.Contract;
+import edu.byu.cs.superasteroids.helper.content.ContentManager;
 import edu.byu.cs.superasteroids.database.DatabaseHelper;
 import edu.byu.cs.superasteroids.game.GameActivity;
 import edu.byu.cs.superasteroids.importer.ImportActivity;
+import edu.byu.cs.superasteroids.interfaces.IMainMenuController;
+import edu.byu.cs.superasteroids.interfaces.IMainMenuView;
 import edu.byu.cs.superasteroids.ship_builder.ShipBuildingActivity;
 
 public class MainActivity extends ActionBarActivityView implements IMainMenuView {
@@ -38,13 +40,13 @@ public class MainActivity extends ActionBarActivityView implements IMainMenuView
                     .commit();
         }
 
-        //TODO: Set this activity's controller to an instance of your MainMenuController
-        //TODO: Pass the MainMenuController's constructor a reference to its IMainMenuView (this)
-        //IMainMenuController controller = new MainMenuController(this);
-        //setController(controller);
+        //Set this activity's controller to an instance of your MainMenuController
+        //Pass the MainMenuController's constructor a reference to its IMainMenuView (this)
+        IMainMenuController controller = new MainMenuController(this);
+        setController(controller);
 
 
-        //TODO: Initialize your database
+        //Initialize your database
         String init = Contract.AUTHORITY;
         mDatabase = new DatabaseHelper(this);
         testDB();

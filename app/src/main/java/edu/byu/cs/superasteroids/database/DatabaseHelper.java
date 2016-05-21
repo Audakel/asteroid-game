@@ -7,9 +7,7 @@ package edu.byu.cs.superasteroids.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.net.Uri;
 import android.provider.BaseColumns;
-import edu.byu.cs.superasteroids.database.Provider.Contract;
 
 /**
  * Database helper to create a CET Founders SQLite3 database.
@@ -23,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * Database version.
      */
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     /**
      * Normal constructor.
@@ -38,8 +36,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String create = "CREATE TABLE ";
         String idField = BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, ";
 
-        // ASTEROID
-        db.execSQL(create + Contract.ASTEROID + " (" + idField + //
+        // ASTEROIDS
+        db.execSQL(create + Contract.ASTEROIDS + " (" + idField + //
                 Contract.ASTEROID_NAME + " TEXT, " + //
                 Contract.ASTEROID_IMAGE + " TEXT, " + //
                 Contract.ASTEROID_IMAGE_WIDTH + " INTEGER, " + //
@@ -49,8 +47,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ");");
 
 
-        // LEVEL
-        db.execSQL(create + Contract.LEVEL + " (" + idField + //
+        // LEVELS
+        db.execSQL(create + Contract.LEVELS + " (" + idField + //
                 Contract.LEVEL_NUMBER + " INTEGER, " + //
                 Contract.LEVEL_TITLE + " TEXT, " + //
                 Contract.LEVEL_HINT + " TEXT, " + //
@@ -63,58 +61,80 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Contract.LEVEL_ASTEROID + " TEXT, " + //
                 Contract.LEVEL_ASTEROID_NUMBER + " TEXT, " + //
                 Contract.NULL_COLUMN_HACK + " TEXT, " + //
-                Contract.LEVEL_ASTEROID_ASTEROID_ID + " TEXT " + //
+                Contract.LEVEL_ASTEROID_ID + " INTEGER " + //
                 ");");
 
-        // MAIN_BODY
-        db.execSQL(create + Contract.MAIN_BODY + " (" + idField + //
+        // LEVEL OBJECTS
+        db.execSQL(create + Contract.LEVEL_OBJECT + " (" + idField + //
+                Contract.LEVEL_OBJECT_POSITION + " TEXT, " + //
+                Contract.LEVEL_OBJECT_OBJECT_ID + " INTEGER, " + //
+                Contract.LEVEL_OBJECT_SCALE + " TEXT, " + //
+                Contract.LEVEL_ASTEROID_ID + " INTEGER, " + //
+                Contract.LEVELS + " INTEGER, " + //
+                "FOREIGN KEY(" + Contract.LEVELS + ") REFERENCES " + Contract.LEVELS + "(_ID), " + //
+                Contract.NULL_COLUMN_HACK + " TEXT " + //
+
+                ");");
+
+        // LEVEL ASTEROIDS
+        db.execSQL(create + Contract.LEVEL_ASTEROID + " (" + idField + //
+                Contract.LEVEL_ASTEROID + " TEXT, " + //
+                Contract.LEVEL_ASTEROID_NUMBER + " TEXT, " + //
+                Contract.NULL_COLUMN_HACK + " TEXT, " + //
+                Contract.LEVELS + " INTEGER, " + //
+                "FOREIGN KEY(" + Contract.LEVELS + ") REFERENCES " + Contract.LEVELS + "(_ID), " + //
+                Contract.LEVEL_ASTEROID_ID + " INTEGER " + //
+                ");");
+
+        // MAIN_BODIES
+        db.execSQL(create + Contract.MAIN_BODIES + " (" + idField + //
                 Contract.MAIN_BODY_CANNON_ATTATCH + " TEXT, " + //
                 Contract.MAIN_BODY_ENGINE_ATTATCH + " TEXT, " + //
                 Contract.MAIN_BODY_EXTRA_ATTATCH + " TEXT, " + //
                 Contract.MAIN_BODY_IMAGE + " TEXT, " + //
-                Contract.MAIN_BODY_IMAGE_WIDTH + " TEXT, " + //
+                Contract.MAIN_BODY_IMAGE_WIDTH + " INTEGER, " + //
                 Contract.NULL_COLUMN_HACK + " TEXT, " + //
-                Contract.MAIN_BODY_IMAGE_HEIGHT + " TEXT " + //
+                Contract.MAIN_BODY_IMAGE_HEIGHT + " INTEGER " + //
                 ");");
 
-        // CANNON
-        db.execSQL(create + Contract.CANNON + " (" + idField + //
+        // CANNONS
+        db.execSQL(create + Contract.CANNONS + " (" + idField + //
                 Contract.CANNON_ATTATCH_POINT + " TEXT, " + //
                 Contract.CANNON_EMIT_POINT + " TEXT, " + //
                 Contract.CANNON_IMAGE + " TEXT, " + //
-                Contract.CANNON_IMAGE_WIDTH + " TEXT, " + //
-                Contract.CANNON_IMAGE_HEIGHT + " TEXT, " + //
-                Contract.CANNON_ATTACK_IMAGE_WIDTH + " TEXT, " + //
-                Contract.CANNON_ATTACK_IMAGE_HEIGHT + " TEXT, " + //
+                Contract.CANNON_IMAGE_WIDTH + " INTEGER, " + //
+                Contract.CANNON_IMAGE_HEIGHT + " INTEGER, " + //
+                Contract.CANNON_ATTACK_IMAGE_WIDTH + " INTEGER, " + //
+                Contract.CANNON_ATTACK_IMAGE_HEIGHT + " INTEGER, " + //
                 Contract.CANNON_ATTACK_SOUND + " TEXT, " + //
                 Contract.NULL_COLUMN_HACK + " TEXT, " + //
-                Contract.CANNON_DAMAGE+ " TEXT " + //
+                Contract.CANNON_DAMAGE+ " INTEGER " + //
                 ");");
 
-        // EXTRA_PART
-        db.execSQL(create + Contract.EXTRA_PART + " (" + idField + //
+        // EXTRA_PARTS
+        db.execSQL(create + Contract.EXTRA_PARTS + " (" + idField + //
                 Contract.EXTRA_PART_ATTATCH_POINT + " TEXT, " + //
                 Contract.EXTRA_PART_IMAGE + " TEXT, " + //
-                Contract.EXTRA_PART_IMAGE_WIDTH + " TEXT, " + //
+                Contract.EXTRA_PART_IMAGE_WIDTH + " INTEGER, " + //
                 Contract.NULL_COLUMN_HACK + " TEXT, " + //
-                Contract.EXTRA_PART_IMAGE_HEIGHT + " TEXT " + //
+                Contract.EXTRA_PART_IMAGE_HEIGHT + " INTEGER " + //
                 ");");
 
-        // ENGINE
-        db.execSQL(create + Contract.ENGINE + " (" + idField + //
-                Contract.ENGINE_BASE_SPEED + " TEXT, " + //
-                Contract.ENGINE_BASE_TURN_RATE + " TEXT, " + //
+        // ENGINES
+        db.execSQL(create + Contract.ENGINES + " (" + idField + //
+                Contract.ENGINE_BASE_SPEED + " INTEGER, " + //
+                Contract.ENGINE_BASE_TURN_RATE + " INTEGER, " + //
                 Contract.ENGINE_ATTACH_POINT + " TEXT, " + //
                 Contract.ENGINE_IMAGE + " TEXT, " + //
-                Contract.ENGINE_IMAGE_WIDTH + " TEXT, " + //
+                Contract.ENGINE_IMAGE_WIDTH + " INTEGER, " + //
                 Contract.NULL_COLUMN_HACK + " TEXT, " + //
-                Contract.ENGINE_IMAGE_HEIGHT + " TEXT " + //
+                Contract.ENGINE_IMAGE_HEIGHT + " INTEGER " + //
                 ");");
 
-        // POWER_CORE
-        db.execSQL(create + Contract.POWER_CORE + " (" + idField + //
-                Contract.POWER_CORE_CANNON_BOOST + " TEXT, " + //
-                Contract.POWER_CORE_ENGINE_BOOST + " TEXT, " + //
+        // POWER_CORES
+        db.execSQL(create + Contract.POWER_CORES + " (" + idField + //
+                Contract.POWER_CORE_CANNON_BOOST + " INTEGER, " + //
+                Contract.POWER_CORE_ENGINE_BOOST + " INTEGER, " + //
                 Contract.NULL_COLUMN_HACK + " TEXT, " + //
                 Contract.POWER_CORE_IMAGE + " TEXT " + //
                 ");");
@@ -132,7 +152,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (oldVersion < DATABASE_VERSION) {
             // NEEDSWORK: this is a very naive upgrade technique
 
-            db.execSQL("DROP DATABASE " + Contract.ASTEROIDS_GAME);
+            db.execSQL("PRAGMA writable_schema = 1; " +
+                    "delete from sqlite_master where type = 'table'; " +
+                    "PRAGMA writable_schema = 0;");
+
             initDatabase(db);
         }
     }

@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/res/merged/debug/layout-hdpi-v4/fragment_part_chooser.xml",
+        "source": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/src/main/res/layout-hdpi/fragment_part_chooser.xml"
+    },
+    {
         "merged": "/home/audakel/AndroidStudioProjects/asteroids/app/build/intermediates/res/merged/debug/layout-hdpi-v4/fragment_part_chooser.xml",
         "source": "/home/audakel/AndroidStudioProjects/asteroids/app/src/main/res/layout-hdpi/fragment_part_chooser.xml"
     }

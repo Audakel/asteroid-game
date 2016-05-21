@@ -2,6 +2,9 @@ package edu.byu.cs.superasteroids.base;
 
 import android.support.v4.app.FragmentActivity;
 
+import edu.byu.cs.superasteroids.interfaces.IController;
+import edu.byu.cs.superasteroids.interfaces.IView;
+
 /**
  * A base class with the functionality of an android FragmentActivity and a generic view/controller
  * view.

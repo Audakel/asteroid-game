@@ -2,10 +2,13 @@ package edu.byu.cs.superasteroids.base;
 
 import android.support.v4.app.Fragment;
 
+import edu.byu.cs.superasteroids.interfaces.IController;
+import edu.byu.cs.superasteroids.interfaces.IView;
+
 /**
  * A base class with the functionality of a view and a an android fragment
  */
-public class FragmentView extends Fragment implements IView{
+public class FragmentView extends Fragment implements IView {
 
 	private IController controller;
 

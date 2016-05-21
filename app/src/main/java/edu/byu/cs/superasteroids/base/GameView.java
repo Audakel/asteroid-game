@@ -6,7 +6,8 @@ import android.graphics.Color;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
-import edu.byu.cs.superasteroids.drawing.DrawingHelper;
+import edu.byu.cs.superasteroids.helper.DrawingHelper;
+import edu.byu.cs.superasteroids.interfaces.IGameDelegate;
 
 public class GameView extends BaseSurfaceView {
 

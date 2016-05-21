@@ -9,10 +9,11 @@ import android.widget.FrameLayout;
 
 import edu.byu.cs.superasteroids.R;
 import edu.byu.cs.superasteroids.base.ActivityView;
+import edu.byu.cs.superasteroids.base.GameDelegate;
 import edu.byu.cs.superasteroids.base.GameView;
-import edu.byu.cs.superasteroids.base.IGameDelegate;
-import edu.byu.cs.superasteroids.content.AudioManagement;
-import edu.byu.cs.superasteroids.content.ContentManager;
+import edu.byu.cs.superasteroids.interfaces.IGameDelegate;
+import edu.byu.cs.superasteroids.helper.content.AudioManagement;
+import edu.byu.cs.superasteroids.helper.content.ContentManager;
 
 public class GameActivity extends ActivityView {
 
@@ -34,8 +35,7 @@ public class GameActivity extends ActivityView {
         FrameLayout frame = (FrameLayout)this.findViewById(R.id.game_frame);
         frame.addView(gameView);
 
-        //TODO: Set the gameDelegate to an instance of your game controller.
-        //gameDelegate = Instance of your game controller
+        gameDelegate = new GameDelegate();
 
         
         //Set the view's game delegate and have it load content
