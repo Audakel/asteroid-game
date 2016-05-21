@@ -1,11 +1,11 @@
 [
     {
-        "merged": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/res/merged/debug/layout/fragment_main.xml",
-        "source": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/src/main/res/layout/fragment_main.xml"
-    },
-    {
         "merged": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_icon.xml",
         "source": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/layout/abc_list_menu_item_icon.xml"
+    },
+    {
+        "merged": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/res/merged/debug/layout/fragment_main.xml",
+        "source": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/src/main/res/layout/fragment_main.xml"
     },
     {
         "merged": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/res/merged/debug/layout/abc_action_bar_title_item.xml",
@@ -14,10 +14,6 @@
     {
         "merged": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/res/merged/debug/layout/abc_action_bar_view_list_nav_layout.xml",
         "source": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/layout/abc_action_bar_view_list_nav_layout.xml"
-    },
-    {
-        "merged": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view.xml",
-        "source": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/layout/abc_activity_chooser_view.xml"
     },
     {
         "merged": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/res/merged/debug/layout/abc_search_dropdown_item_icons_2line.xml",

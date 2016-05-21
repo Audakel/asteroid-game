@@ -5,12 +5,9 @@ package edu.byu.cs.superasteroids.database;
  */
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Database helper to create a CET Founders SQLite3 database.
@@ -66,7 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Contract.LEVEL_ASTEROID + " TEXT, " + //
                 Contract.LEVEL_ASTEROID_NUMBER + " TEXT, " + //
                 Contract.NULL_COLUMN_HACK + " TEXT, " + //
-                Contract.LEVEL_ASTEROID_ID + " INTEGER " + //
+                Contract.LEVEL_ASTEROID_ASTEROID_ID + " INTEGER " + //
                 ");");
 
         // LEVEL OBJECTS
@@ -84,7 +81,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Contract.LEVEL_ASTEROID_NUMBER + " TEXT, " + //
                 Contract.NULL_COLUMN_HACK + " TEXT, " + //
                 Contract.LEVEL_ID + " INTEGER, " + //
-                Contract.LEVEL_ASTEROID_ID + " INTEGER, " + //
+                Contract.LEVEL_ASTEROID_ASTEROID_ID + " INTEGER, " + //
                 "FOREIGN KEY(" + Contract.LEVEL_ID + ") REFERENCES " + Contract.LEVELS + "(_id) " + //
                 ");");
 
@@ -157,6 +154,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.execSQL("PRAGMA writable_schema = 1; " +
                     "delete from sqlite_master where type = 'table'; " +
                     "PRAGMA writable_schema = 0;");
+
 
             initDatabase(db);
         }

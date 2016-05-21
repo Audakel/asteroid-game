@@ -17,14 +17,14 @@ public class LevelAsteroid{
     public LevelAsteroid(){}
     public LevelAsteroid(HashMap<String, String> map){
         this.number = Integer.valueOf(map.get(Contract.LEVEL_ASTEROID_NUMBER));
-        this.asteroidId = Integer.valueOf(map.get(Contract.LEVEL_ASTEROID_ID));
+        this.asteroidId = Integer.valueOf(map.get(Contract.LEVEL_ASTEROID_ASTEROID_ID));
     }
 
     public ContentValues getContentValues(){
         values = new ContentValues();
 
         values.put(Contract.LEVEL_ASTEROID_NUMBER, getNumber());
-        values.put(Contract.LEVEL_ASTEROID_ID, getAsteroidId());
+        values.put(Contract.LEVEL_ASTEROID_ASTEROID_ID, getAsteroidId());
 
         return values;
     }

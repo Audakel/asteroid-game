@@ -80,14 +80,14 @@ public class GameDataImporter implements IGameDataImporter {
                 map = new HashMap<>();
                 String columnName;
                 String data;
-                int i;
+                int row = 0;
 
-                for (i =0 ; i< count; i++) {
+                for (int i =0 ; i< count; i++) {
                     data = cursor.getString(i);
                     columnName = cursor.getColumnName(i);
                     map.put(columnName, data+"");
                 }
-                levelAsteroids[i] = new LevelAsteroid(map);
+                levelAsteroids[row++] = new LevelAsteroid(map);
             }
             gameLevel.setLevelAsteroids(levelAsteroids);
             Log.d(TAG, "getLevelInfoFromDb: got level Asteroids! (" + levelAsteroids.length+")");
@@ -106,14 +106,14 @@ public class GameDataImporter implements IGameDataImporter {
                 map = new HashMap<String, String>();
                 String columnName;
                 String data;
-                int i;
+                int row = 0;
 
-                for (i =0 ; i< count; i++) {
+                for (int i =0 ; i< count-1; i++) {
                     data = cursor.getString(i);
                     columnName = cursor.getColumnName(i);
                     map.put(columnName, data+"");
                 }
-                levelObjects[i] = new LevelObject(map);
+                levelObjects[row++] = new LevelObject(map);
             }
             gameLevel.setLevelObjects(levelObjects);
             Log.d(TAG, "getLevelInfoFromDb: got level Objects! (" + levelObjects.length+")");

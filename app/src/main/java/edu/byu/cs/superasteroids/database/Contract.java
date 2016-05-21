@@ -50,7 +50,7 @@ public final class Contract implements BaseColumns {
     public static final String LEVEL_OBJECT_SCALE = "level_object_scale";
     public static final String LEVEL_ASTEROID = "level_asteroid";
     public static final String LEVEL_ASTEROID_NUMBER = "level_asteroi_numberd";
-    public static final String LEVEL_ASTEROID_ID = "level_asteroid_asteroid_id";
+    public static final String LEVEL_ASTEROID_ASTEROID_ID = "level_asteroid_asteroid_id";
 
     public static final String MAIN_BODY_CANNON_ATTATCH = "main_body_cannon_attatch";
     public static final String MAIN_BODY_ENGINE_ATTATCH = "main_body_engine_attatch";
