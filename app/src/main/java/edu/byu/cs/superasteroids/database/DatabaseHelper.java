@@ -5,9 +5,12 @@ package edu.byu.cs.superasteroids.database;
  */
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Database helper to create a CET Founders SQLite3 database.
@@ -21,7 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * Database version.
      */
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 6;
 
     /**
      * Normal constructor.
@@ -35,6 +38,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void initDatabase(SQLiteDatabase db) {
         String create = "CREATE TABLE ";
         String idField = BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, ";
+
+
 
         // ASTEROIDS
         db.execSQL(create + Contract.ASTEROIDS + " (" + idField + //
@@ -69,16 +74,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Contract.LEVEL_OBJECT_POSITION + " TEXT, " + //
                 Contract.LEVEL_OBJECT_OBJECT_ID + " INTEGER, " + //
                 Contract.LEVEL_OBJECT_SCALE + " TEXT, " + //
-                Contract.LEVEL_ASTEROID_ID + " INTEGER, " + //
                 Contract.LEVEL_ID + " INTEGER, " + //
                 Contract.NULL_COLUMN_HACK + " TEXT, " + //
                 "FOREIGN KEY(" + Contract.LEVEL_ID + ") REFERENCES " + Contract.LEVELS + "(_id) " + //
-
                 ");");
 
         // LEVEL ASTEROIDS
         db.execSQL(create + Contract.LEVEL_ASTEROID + " (" + idField + //
-                Contract.LEVEL_ASTEROID + " TEXT, " + //
                 Contract.LEVEL_ASTEROID_NUMBER + " TEXT, " + //
                 Contract.NULL_COLUMN_HACK + " TEXT, " + //
                 Contract.LEVEL_ID + " INTEGER, " + //

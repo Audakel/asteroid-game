@@ -2,6 +2,10 @@ package edu.byu.cs.superasteroids.model;
 
 import android.content.ContentValues;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import edu.byu.cs.superasteroids.database.Contract;
 
 /**
@@ -19,6 +23,17 @@ public class Level {
     private LevelAsteroid[] levelAsteroids;
 
     private  ContentValues values;
+
+    public Level(){}
+
+    public Level(HashMap<String, String> map) {
+        this.number = Integer.valueOf(map.get(Contract.LEVEL_NUMBER));
+        this.title = map.get(Contract.LEVEL_TITLE);
+        this.hint = map.get(Contract.LEVEL_HINT);
+        this.width = Integer.valueOf(map.get(Contract.LEVEL_WIDTH));
+        this.height = Integer.valueOf(map.get(Contract.LEVEL_HEIGHT));
+        this.music = map.get(Contract.LEVEL_MUSIC);
+    }
 
     public ContentValues getContentValues(){
         values = new ContentValues();
@@ -97,77 +112,6 @@ public class Level {
         this.levelAsteroids = levelAsteroids;
     }
 
-    public class LevelObject {
-        private String position;
-        private int objectId;
-        private float scale;
 
-        private  ContentValues values;
 
-        public ContentValues getContentValues(){
-            values = new ContentValues();
-
-            values.put(Contract.LEVEL_OBJECT_POSITION, getPosition());
-            values.put(Contract.LEVEL_OBJECT_OBJECT_ID, getObjectId());
-            values.put(Contract.LEVEL_OBJECT_SCALE, getScale());
-
-            return values;
-        }
-
-        public String getPosition() {
-            return position;
-        }
-
-        public void setPosition(String position) {
-            this.position = position;
-        }
-
-        public int getObjectId() {
-            return objectId;
-        }
-
-        public void setObjectId(int objectId) {
-            this.objectId = objectId;
-        }
-
-        public float getScale() {
-            return scale;
-        }
-
-        public void setScale(float scale) {
-            this.scale = scale;
-        }
-    }
-
-    public class LevelAsteroid{
-        private int number;
-        private int asteroidId;
-
-        private  ContentValues values;
-
-        public ContentValues getContentValues(){
-            values = new ContentValues();
-
-            values.put(Contract.LEVEL_ASTEROID_NUMBER, getNumber());
-            values.put(Contract.LEVEL_ASTEROID_ID, getAsteroidId());
-
-            return values;
-        }
-
-        public int getNumber() {
-            return number;
-        }
-
-        public void setNumber(int number) {
-            this.number = number;
-        }
-
-        public int getAsteroidId() {
-            return asteroidId;
-        }
-
-        public void setAsteroidId(int asteroidId) {
-            this.asteroidId = asteroidId;
-        }
-    }
 }

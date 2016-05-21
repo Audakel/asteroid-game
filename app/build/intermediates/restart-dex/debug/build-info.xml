@@ -4,11 +4,11 @@
     api-level="23"
     density="420dpi"
     format="7"
-    timestamp="3384462499891" >
+    timestamp="14803096455597" >
 
     <task
         name="javac"
-        duration="55" />
+        duration="49" />
     <task
         name="instant-run-dex"
         duration="0" />
@@ -20,22 +20,27 @@
         duration="1" />
 
     <artifact
-        location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_0/classes.dex"
+        location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_7/classes.dex"
         type="DEX" />
 
-    <build timestamp="615189677271" >
+    <build timestamp="8502345400087" >
         <artifact
             location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/outputs/apk/app-debug.apk"
             type="MAIN" />
     </build>
-    <build timestamp="3130330058361" >
-        <artifact
-            location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_7/classes.dex"
-            type="DEX" />
-    </build>
-    <build timestamp="3384462499891" >
+    <build timestamp="13035221235572" >
         <artifact
             location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_0/classes.dex"
+            type="DEX" />
+    </build>
+    <build timestamp="14113575394055" >
+        <artifact
+            location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_1/classes.dex"
+            type="DEX" />
+    </build>
+    <build timestamp="14803096455597" >
+        <artifact
+            location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_7/classes.dex"
             type="DEX" />
     </build>
 

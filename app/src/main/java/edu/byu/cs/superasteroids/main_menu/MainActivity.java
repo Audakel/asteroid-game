@@ -20,6 +20,7 @@ import edu.byu.cs.superasteroids.database.Contract;
 import edu.byu.cs.superasteroids.helper.content.ContentManager;
 import edu.byu.cs.superasteroids.database.DatabaseHelper;
 import edu.byu.cs.superasteroids.game.GameActivity;
+import edu.byu.cs.superasteroids.importer.GameDataImporter;
 import edu.byu.cs.superasteroids.importer.ImportActivity;
 import edu.byu.cs.superasteroids.interfaces.IMainMenuController;
 import edu.byu.cs.superasteroids.interfaces.IMainMenuView;
@@ -28,11 +29,15 @@ import edu.byu.cs.superasteroids.ship_builder.ShipBuildingActivity;
 public class MainActivity extends ActionBarActivityView implements IMainMenuView {
     private final String TAG = this.getClass().getSimpleName();
     private DatabaseHelper mDatabase;
+    GameDataImporter gameDataImporter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mDatabase = new DatabaseHelper(this);
+
+
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -48,8 +53,12 @@ public class MainActivity extends ActionBarActivityView implements IMainMenuView
 
         //Initialize your database
         String init = Contract.AUTHORITY;
-        mDatabase = new DatabaseHelper(this);
         testDB();
+
+        gameDataImporter = new GameDataImporter(this);
+
+
+        gameDataImporter.getLevelInfoFromDb(1);
 
         ContentManager.getInstance().setResources(getResources());
         ContentManager.getInstance().setAssets(getAssets());

@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "edu.byu.cs.superasteroids"
-        minSdkVersion 13
+        minSdkVersion 16
         targetSdkVersion 21
     }
 
