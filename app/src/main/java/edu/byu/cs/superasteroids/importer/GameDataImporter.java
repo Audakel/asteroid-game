@@ -3,7 +3,6 @@ package edu.byu.cs.superasteroids.importer;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.CursorIndexOutOfBoundsException;
 import android.net.Uri;
 import android.util.Log;
 
@@ -15,7 +14,6 @@ import org.json.JSONObject;
 
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -30,6 +28,7 @@ import edu.byu.cs.superasteroids.model.Level;
 import edu.byu.cs.superasteroids.model.LevelAsteroid;
 import edu.byu.cs.superasteroids.model.LevelObject;
 import edu.byu.cs.superasteroids.model.MainBody;
+import edu.byu.cs.superasteroids.model.ObjectImage;
 import edu.byu.cs.superasteroids.model.PowerCore;
 
 /**
@@ -39,89 +38,13 @@ import edu.byu.cs.superasteroids.model.PowerCore;
 public class GameDataImporter implements IGameDataImporter {
     private final String TAG = this.getClass().getSimpleName();
     private Context context;
+    public AsteroidsGame mAsteroidsGame;
 
     public GameDataImporter(Context context) {
         this.context = context;
     }
 
 
-    public Level getLevelInfoFromDb(int level){
-        int count;
-        HashMap<String,String> map;
-        Cursor cursor;
-        Level gameLevel = null;
-
-        // Level stuff
-        cursor = context.getContentResolver().query(Contract.URI_LEVEL, null, "_id="+level, null, null);
-
-        if (cursor.moveToFirst()){
-            count = cursor.getColumnCount();
-            map = new HashMap<>();
-
-            for (int i =0 ; i< count; i++) {
-                String data = cursor.getString(i);
-                String column_name = cursor.getColumnName(i);
-                map.put(column_name, data+"");
-            }
-            Log.d(TAG, "getLevelInfoFromDb: got level info from db!");
-            gameLevel = new Level(map);
-        }
-        cursor.close();
-
-
-        // Level Asteroid stuff
-        cursor = context.getContentResolver().query(Contract.URI_LEVEL_ASTEROID, null, Contract.LEVEL_ID+"="+level, null, null);
-
-        if (cursor.moveToFirst()){
-            count = cursor.getColumnCount();
-            LevelAsteroid[] levelAsteroids = new LevelAsteroid[cursor.getCount()];
-
-            while (cursor.moveToNext()){
-                map = new HashMap<>();
-                String columnName;
-                String data;
-                int row = 0;
-
-                for (int i =0 ; i< count; i++) {
-                    data = cursor.getString(i);
-                    columnName = cursor.getColumnName(i);
-                    map.put(columnName, data+"");
-                }
-                levelAsteroids[row++] = new LevelAsteroid(map);
-            }
-            gameLevel.setLevelAsteroids(levelAsteroids);
-            Log.d(TAG, "getLevelInfoFromDb: got level Asteroids! (" + levelAsteroids.length+")");
-        }
-        cursor.close();
-
-
-        // Level Object stuff
-        cursor = context.getContentResolver().query(Contract.URI_LEVEL_OBJECT, null, Contract.LEVEL_ID+"="+level, null, null);
-
-        if (cursor.moveToFirst()){
-            count = cursor.getColumnCount();
-            LevelObject[] levelObjects = new LevelObject[cursor.getCount()];
-
-            while (cursor.moveToNext()){
-                map = new HashMap<String, String>();
-                String columnName;
-                String data;
-                int row = 0;
-
-                for (int i =0 ; i< count-1; i++) {
-                    data = cursor.getString(i);
-                    columnName = cursor.getColumnName(i);
-                    map.put(columnName, data+"");
-                }
-                levelObjects[row++] = new LevelObject(map);
-            }
-            gameLevel.setLevelObjects(levelObjects);
-            Log.d(TAG, "getLevelInfoFromDb: got level Objects! (" + levelObjects.length+")");
-        }
-        cursor.close();
-
-        return gameLevel;
-    }
 
     /**
      *
@@ -143,12 +66,18 @@ public class GameDataImporter implements IGameDataImporter {
             jsonObject = new JSONObject(stringBuilder.toString());
             jsonObject = jsonObject.getJSONObject(Contract.ASTEROIDS_GAME);
             asteroidsGame = extractJsonGameInfo(jsonObject);
+            mAsteroidsGame = asteroidsGame;
             return importGameDataToDataBase(asteroidsGame, context);
 
         } catch (JSONException e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public AsteroidsGame getTempAsteroidsGame() {
+        return mAsteroidsGame;
     }
 
     private boolean importGameDataToDataBase(AsteroidsGame asteroidsGame, Context context) {
@@ -222,10 +151,21 @@ public class GameDataImporter implements IGameDataImporter {
         ArrayList<Engine> engines;
         ArrayList<PowerCore> powerCores;
         ArrayList<ExtraPart> extraParts;
+        ArrayList<ObjectImage> objects;
         Gson gson = new Gson();
         JSONArray tempArray;
 
         try {
+            if (jsonObject.has(Contract.OBJECTS)) {
+                tempArray = jsonObject.getJSONArray(Contract.OBJECTS);
+                objects = new ArrayList<>();
+
+                for (int i = 0; i < tempArray.length(); i++) {
+                    objects.add(new ObjectImage(tempArray.getString(i)));
+                }
+                asteroidsGame.setObjectImages(objects);
+            }
+
             if (jsonObject.has(Contract.ASTEROIDS)) {
                 tempArray = jsonObject.getJSONArray(Contract.ASTEROIDS);
                 asteroids = new ArrayList<>();

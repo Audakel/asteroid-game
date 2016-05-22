@@ -4,7 +4,8 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.test.AndroidTestCase;
 
-import static edu.byu.cs.superasteroids.core.GraphicsUtils.*;
+import static edu.byu.cs.superasteroids.helper.GraphicsUtils.*;
+
 
 public class GraphicsUtilsTests extends AndroidTestCase {
 

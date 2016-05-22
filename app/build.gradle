@@ -28,6 +28,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile files('libs/json-simple-1.1.1.jar')
     testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.10.19'
+
 }
 
 task uninstallDemo(type:Exec)  {

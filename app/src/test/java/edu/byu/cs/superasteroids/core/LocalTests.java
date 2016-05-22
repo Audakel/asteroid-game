@@ -1,22 +1,37 @@
+/*
 package edu.byu.cs.superasteroids.core;
 
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.test.ProviderTestCase2;
+import android.test.mock.MockContentResolver;
 
-import static edu.byu.cs.superasteroids.core.GraphicsUtils.*;
 
 import org.junit.*;
+
+import static edu.byu.cs.superasteroids.helper.GraphicsUtils.*;
 import static org.junit.Assert.*;
 
 public class LocalTests {
 
-    @Test
-    public void testRadiansToDegrees() {
-        assertEquals(0.0, radiansToDegrees(ZERO), 0.0);
-        assertEquals(90.0, radiansToDegrees(HALF_PI), 0.0);
-        assertEquals(180.0, radiansToDegrees(PI), 0.0);
-        assertEquals(270.0, radiansToDegrees(THREE_HALF_PI), 0.0);
-        assertEquals(360.0, radiansToDegrees(TWO_PI), 0.0);
+    public class MyProviderTestCase2 extends ProviderTestCase2 {
+        */
+/**
+         * Constructor.
+         *
+         * @param providerClass     The class name of the provider under test
+         * @param providerAuthority The provider's authority string
+         *//*
+
+        public MyProviderTestCase2(Class providerClass, String providerAuthority) {
+            super(providerClass, providerAuthority);
+        }
+
+        @Override
+        public MockContentResolver getMockContentResolver () {
+//            return new MyMockContentResolver();
+        }
     }
 
 }
+*/

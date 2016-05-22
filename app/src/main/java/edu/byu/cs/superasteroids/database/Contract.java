@@ -12,6 +12,8 @@ import edu.byu.cs.superasteroids.model.Cannon;
 import edu.byu.cs.superasteroids.model.Engine;
 import edu.byu.cs.superasteroids.model.ExtraPart;
 import edu.byu.cs.superasteroids.model.Level;
+import edu.byu.cs.superasteroids.model.LevelAsteroid;
+import edu.byu.cs.superasteroids.model.LevelObject;
 import edu.byu.cs.superasteroids.model.MainBody;
 import edu.byu.cs.superasteroids.model.PowerCore;
 
@@ -30,6 +32,8 @@ public final class Contract implements BaseColumns {
     public static final String EXTRA_PARTS = "extraParts";
     public static final String ENGINES = "engines";
     public static final String POWER_CORES = "powerCores";
+    public static final String OBJECTS = "objects";
+
 
     public static final String ASTEROID_NAME = "asteroid_name";
     public static final String ASTEROID_IMAGE = "asteroid_image";
@@ -85,6 +89,8 @@ public final class Contract implements BaseColumns {
     public static final String POWER_CORE_ENGINE_BOOST = "power_core_engine_boost";
     public static final String POWER_CORE_IMAGE = "power_core_image";
 
+    public static final String OBJECT_IMAGES = "object_image";
+
     /**
      * Protect against null inserts
      */
@@ -128,9 +134,17 @@ public final class Contract implements BaseColumns {
         };
     }
 
-    public static Object allAteroidGameObjects() {
+    public static Object[] allAteroidGameObjects() {
         return new Object[]{
-            new Asteroid(), new Level(), new MainBody(), new Cannon(), new ExtraPart(), new Engine(), new PowerCore()
+            new Asteroid(), new Cannon(), new Engine(), new ExtraPart(), new Level(), new LevelObject(),
+                new LevelAsteroid(), new MainBody(), new PowerCore()
+        };
+    }
+
+    public static Uri[] allAteroidUris() {
+        return new Uri[]{
+            URI_ASTEROID, URI_CANNON, URI_ENGINE, URI_EXTRA_PART, URI_LEVEL, URI_LEVEL_OBJECT, URI_LEVEL_ASTEROID,
+                URI_MAIN_BODY, URI_POWER_CORE
         };
     }
 

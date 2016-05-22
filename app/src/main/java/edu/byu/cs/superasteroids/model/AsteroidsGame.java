@@ -13,6 +13,10 @@ public class AsteroidsGame {
     private ArrayList<Level> levels = new ArrayList<>();
     private ArrayList<MainBody> mainBodies = new ArrayList<>();
     private ArrayList<PowerCore> powerCores = new ArrayList<>();
+    private ArrayList<ObjectImage> objectImages = new ArrayList<>();
+
+
+
 
     public ArrayList<Asteroid> getAsteroids() {
         return asteroids;
@@ -68,5 +72,9 @@ public class AsteroidsGame {
 
     public void setPowerCores(ArrayList<PowerCore> powerCores) {
         this.powerCores = powerCores;
+    }
+
+    public void setObjectImages(ArrayList<ObjectImage> objectImages) {
+        this.objectImages = objectImages;
     }
 }

@@ -2,6 +2,8 @@ package edu.byu.cs.superasteroids.interfaces;
 
 import java.io.InputStreamReader;
 
+import edu.byu.cs.superasteroids.model.AsteroidsGame;
+
 /**
  * Created by Tyler on 3/13/2015.
  */
@@ -15,4 +17,5 @@ public interface IGameDataImporter {
      * to any error.
      */
     boolean importData(InputStreamReader dataInputReader);
+    AsteroidsGame getTempAsteroidsGame();
 }

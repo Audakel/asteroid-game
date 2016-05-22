@@ -1,5 +1,7 @@
 package edu.byu.cs.superasteroids.importer;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -22,6 +24,7 @@ import java.util.List;
 
 import edu.byu.cs.superasteroids.R;
 import edu.byu.cs.superasteroids.interfaces.IGameDataImporter;
+import edu.byu.cs.superasteroids.model.AsteroidsGame;
 
 public class ImportActivity extends ActionBarActivity {
 
@@ -30,11 +33,13 @@ public class ImportActivity extends ActionBarActivity {
     private AssetManager am;
     private List<String> fileList;
     private IGameDataImporter dataImporter;
+    public AsteroidsGame mAsteroidsGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_import);
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
@@ -92,6 +97,8 @@ public class ImportActivity extends ActionBarActivity {
 
                     boolean success = dataImporter.importData(new InputStreamReader(
                             new BufferedInputStream(am.open(fileList.get(i)))));
+
+                    mAsteroidsGame = dataImporter.getTempAsteroidsGame();
 
                     if (success)
                         toast.setText("The file was imported.");

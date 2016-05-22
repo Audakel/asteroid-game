@@ -58,7 +58,7 @@ public class MainActivity extends ActionBarActivityView implements IMainMenuView
         gameDataImporter = new GameDataImporter(this);
 
 
-        gameDataImporter.getLevelInfoFromDb(1);
+//        gameDataImporter.getLevelInfoFromDb(1);
 
         ContentManager.getInstance().setResources(getResources());
         ContentManager.getInstance().setAssets(getAssets());

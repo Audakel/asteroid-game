@@ -2,14 +2,12 @@ package edu.byu.cs.superasteroids.model;
 
 import android.content.ContentValues;
 
-import java.util.Scanner;
-
 import edu.byu.cs.superasteroids.database.Contract;
 
 /**
  * Created by audakel on 5/16/16.
  */
-public class Asteroid {
+public class Asteroid extends Object{
     private String name;
     private String image;
     private String imageWidth;
@@ -57,7 +55,7 @@ public class Asteroid {
         this.type = type;
     }
 
-    public Object getParam(String s) {
+    public ObjectImage getParam(String s) {
         return null;
     }
 
