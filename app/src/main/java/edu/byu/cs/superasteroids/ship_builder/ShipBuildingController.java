@@ -4,8 +4,11 @@ import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
+import edu.byu.cs.superasteroids.database.Contract;
 import edu.byu.cs.superasteroids.helper.content.ContentManager;
 import edu.byu.cs.superasteroids.importer.GameDataExtractor;
 import edu.byu.cs.superasteroids.importer.GameDataImporter;
@@ -21,6 +24,16 @@ import edu.byu.cs.superasteroids.model.Level;
 import edu.byu.cs.superasteroids.model.MainBody;
 import edu.byu.cs.superasteroids.model.PowerCore;
 
+import static edu.byu.cs.superasteroids.interfaces.IShipBuildingView.PartSelectionView.CANNON;
+import static edu.byu.cs.superasteroids.interfaces.IShipBuildingView.PartSelectionView.ENGINE;
+import static edu.byu.cs.superasteroids.interfaces.IShipBuildingView.PartSelectionView.EXTRA_PART;
+import static edu.byu.cs.superasteroids.interfaces.IShipBuildingView.PartSelectionView.MAIN_BODY;
+import static edu.byu.cs.superasteroids.interfaces.IShipBuildingView.PartSelectionView.POWER_CORE;
+import static edu.byu.cs.superasteroids.interfaces.IShipBuildingView.ViewDirection.DOWN;
+import static edu.byu.cs.superasteroids.interfaces.IShipBuildingView.ViewDirection.LEFT;
+import static edu.byu.cs.superasteroids.interfaces.IShipBuildingView.ViewDirection.RIGHT;
+import static edu.byu.cs.superasteroids.interfaces.IShipBuildingView.ViewDirection.UP;
+
 /**
  * Created by audakel on 5/16/16.
  */
@@ -28,6 +41,8 @@ public class ShipBuildingController implements IShipBuildingController{
     private Context context;
     private ShipBuildingActivity shipBuildingActivity;
     private String TAG = getClass().getSimpleName();
+    private int shipBuildingBoardPosition = 5;
+    private List<Boolean> board;
 
     public ShipBuildingController(ShipBuildingActivity shipBuildingActivity) {
         context = shipBuildingActivity.getApplicationContext();
@@ -50,7 +65,53 @@ public class ShipBuildingController implements IShipBuildingController{
     @Override
     public void onViewLoaded(IShipBuildingView.PartSelectionView partView) {
         Log.d(TAG, "onViewLoaded: partView- " + partView);
+//        setArrow(PartSelectionView partView, ViewDirection arrow, boolean visible, String text);
 
+        /*
+        *   case 2:
+                return EXTRA_PART;
+            case 4:
+                return ENGINE;
+            case 5:
+                return MAIN_BODY;
+            case 6:
+                return CANNON;
+            case 8:
+                return POWER_CORE;
+                */
+
+        switch(partView) {
+            case EXTRA_PART:
+                shipBuildingActivity.setArrow(partView, UP, false, "");
+                shipBuildingActivity.setArrow(partView, RIGHT, false, "");
+                shipBuildingActivity.setArrow(partView, DOWN, true, Contract.MAIN_BODIES);
+                shipBuildingActivity.setArrow(partView, LEFT, false, "");
+                break;
+            case ENGINE:
+                shipBuildingActivity.setArrow(partView, UP, false, "");
+                shipBuildingActivity.setArrow(partView, RIGHT, true, Contract.MAIN_BODIES);
+                shipBuildingActivity.setArrow(partView, DOWN, false, "");
+                shipBuildingActivity.setArrow(partView, LEFT, false, "");
+                break;
+            case MAIN_BODY:
+                shipBuildingActivity.setArrow(partView, UP, true, Contract.EXTRA_PARTS);
+                shipBuildingActivity.setArrow(partView, RIGHT, true, Contract.CANNONS);
+                shipBuildingActivity.setArrow(partView, DOWN, true, Contract.POWER_CORES);
+                shipBuildingActivity.setArrow(partView, LEFT, true, Contract.ENGINES);
+                break;
+            case CANNON:
+                shipBuildingActivity.setArrow(partView, UP, false, "");
+                shipBuildingActivity.setArrow(partView, RIGHT, false, "");
+                shipBuildingActivity.setArrow(partView, DOWN, false, "");
+                shipBuildingActivity.setArrow(partView, LEFT, true, Contract.MAIN_BODIES);
+                break;
+            case POWER_CORE:
+                shipBuildingActivity.setArrow(partView, UP, true, Contract.MAIN_BODIES);
+                shipBuildingActivity.setArrow(partView, RIGHT, false, "");
+                shipBuildingActivity.setArrow(partView, DOWN, false, "");
+                shipBuildingActivity.setArrow(partView, LEFT, false, "");
+                break;
+        }
     }
 
     @Override
@@ -83,7 +144,7 @@ public class ShipBuildingController implements IShipBuildingController{
             Integer id = content.loadImage(mainBody.getImage());
             pictureIdList.add(id);
         }
-        shipBuildingActivity.setPartViewImageList(IShipBuildingView.PartSelectionView.MAIN_BODY, pictureIdList);
+        shipBuildingActivity.setPartViewImageList(MAIN_BODY, pictureIdList);
 
         pictureIdList = new ArrayList<>();
         for (Cannon cannon : asteroidsGame.getCannons()) {
@@ -133,7 +194,76 @@ public class ShipBuildingController implements IShipBuildingController{
      */
     @Override
     public void onSlideView(IShipBuildingView.ViewDirection direction) {
-        Log.d(TAG, "onSlideView: direction- " + direction);
+        direction = shipBuildingActivity.getOppositeDirection(direction);
+        board = Arrays.asList(false, false, true, false, true, true, true, false, true, false);
+
+        int flag = 0;
+        switch(direction) {
+            case LEFT:
+                if(left()) flag++; break;
+            case RIGHT:
+                if(right()) flag++; break;
+            case UP:
+                if(up()) flag++; break;
+            case DOWN:
+                if(down()) flag++; break;
+        }
+
+        Log.d(TAG, "onSlideView: direction- " + direction + " can move = " + flag);
+
+        if (flag > 0){
+            shipBuildingActivity.animateToView( getViewForPosition(shipBuildingBoardPosition), direction);
+        }
+
+
+    }
+
+    private IShipBuildingView.PartSelectionView getViewForPosition(int position){
+        switch(position) {
+            case 2:
+                return EXTRA_PART;
+            case 4:
+                return ENGINE;
+            case 5:
+                return MAIN_BODY;
+            case 6:
+                return CANNON;
+            case 8:
+                return POWER_CORE;
+        }
+        return null;
+    }
+
+    private boolean up(){
+        if (shipBuildingBoardPosition - 3 <= 0) return false;
+        boolean position = board.get(shipBuildingBoardPosition - 3);
+        if (!position) return false;
+        shipBuildingBoardPosition = shipBuildingBoardPosition - 3;
+        return true;
+    }
+
+    private boolean down(){
+        if (shipBuildingBoardPosition + 3 > board.size()) return false;
+        boolean position = board.get(shipBuildingBoardPosition + 3);
+        if (!position) return false;
+        shipBuildingBoardPosition = shipBuildingBoardPosition + 3;
+        return true;
+    }
+
+    private boolean right(){
+        if (shipBuildingBoardPosition + 1 > board.size()) return false;
+        boolean position = board.get(shipBuildingBoardPosition + 1);
+        if (!position) return false;
+        shipBuildingBoardPosition = shipBuildingBoardPosition + 1;
+        return true;
+    }
+
+    private boolean left(){
+        if (shipBuildingBoardPosition - 1 <= 0) return false;
+        boolean position = board.get(shipBuildingBoardPosition - 1);
+        if (!position) return false;
+        shipBuildingBoardPosition = shipBuildingBoardPosition - 1;
+        return true;
     }
 
     /**
