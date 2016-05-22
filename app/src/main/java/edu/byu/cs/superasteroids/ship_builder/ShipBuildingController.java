@@ -1,6 +1,7 @@
 package edu.byu.cs.superasteroids.ship_builder;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 import edu.byu.cs.superasteroids.database.Contract;
+import edu.byu.cs.superasteroids.helper.DrawingHelper;
 import edu.byu.cs.superasteroids.helper.content.ContentManager;
 import edu.byu.cs.superasteroids.importer.GameDataExtractor;
 import edu.byu.cs.superasteroids.importer.GameDataImporter;
@@ -43,6 +45,14 @@ public class ShipBuildingController implements IShipBuildingController{
     private String TAG = getClass().getSimpleName();
     private int shipBuildingBoardPosition = 5;
     private List<Boolean> board;
+    private ContentManager content;
+    private AsteroidsGame asteroidsGame;
+
+    private MainBody shipPartMainBody;
+    private ExtraPart shipPartExtraPart;
+    private Cannon shipPartCannons;
+    private PowerCore shipPartPowerCores;
+    private Engine shipPartEngines;
 
     public ShipBuildingController(ShipBuildingActivity shipBuildingActivity) {
         context = shipBuildingActivity.getApplicationContext();
@@ -82,13 +92,13 @@ public class ShipBuildingController implements IShipBuildingController{
 
         switch(partView) {
             case EXTRA_PART:
-                shipBuildingActivity.setArrow(partView, UP, false, "");
+                shipBuildingActivity.setArrow(partView, UP, false, Contract.EXTRA_PARTS);
                 shipBuildingActivity.setArrow(partView, RIGHT, false, "");
                 shipBuildingActivity.setArrow(partView, DOWN, true, Contract.MAIN_BODIES);
                 shipBuildingActivity.setArrow(partView, LEFT, false, "");
                 break;
             case ENGINE:
-                shipBuildingActivity.setArrow(partView, UP, false, "");
+                shipBuildingActivity.setArrow(partView, UP, false, Contract.ENGINES);
                 shipBuildingActivity.setArrow(partView, RIGHT, true, Contract.MAIN_BODIES);
                 shipBuildingActivity.setArrow(partView, DOWN, false, "");
                 shipBuildingActivity.setArrow(partView, LEFT, false, "");
@@ -100,7 +110,7 @@ public class ShipBuildingController implements IShipBuildingController{
                 shipBuildingActivity.setArrow(partView, LEFT, true, Contract.ENGINES);
                 break;
             case CANNON:
-                shipBuildingActivity.setArrow(partView, UP, false, "");
+                shipBuildingActivity.setArrow(partView, UP, false, Contract.CANNONS);
                 shipBuildingActivity.setArrow(partView, RIGHT, false, "");
                 shipBuildingActivity.setArrow(partView, DOWN, false, "");
                 shipBuildingActivity.setArrow(partView, LEFT, true, Contract.MAIN_BODIES);
@@ -109,7 +119,7 @@ public class ShipBuildingController implements IShipBuildingController{
                 shipBuildingActivity.setArrow(partView, UP, true, Contract.MAIN_BODIES);
                 shipBuildingActivity.setArrow(partView, RIGHT, false, "");
                 shipBuildingActivity.setArrow(partView, DOWN, false, "");
-                shipBuildingActivity.setArrow(partView, LEFT, false, "");
+                shipBuildingActivity.setArrow(partView, LEFT, false, Contract.POWER_CORES);
                 break;
         }
     }
@@ -125,6 +135,7 @@ public class ShipBuildingController implements IShipBuildingController{
      */
     @Override
     public void loadContent(ContentManager content) {
+        this.content = content;
         Log.d(TAG, "loadContent: content- " + content);
 
         GameDataImporter gameDataImporter;
@@ -137,7 +148,7 @@ public class ShipBuildingController implements IShipBuildingController{
         gameDataExtractor = new GameDataExtractor(context);
 
         //TODO:: fix asteroids game for real
-        AsteroidsGame asteroidsGame = gameDataExtractor.getAsteroidsGameFromDb(level);
+        asteroidsGame = gameDataExtractor.getAsteroidsGameFromDb(level);
 
         ArrayList<Integer> pictureIdList = new ArrayList<>();
         for (MainBody mainBody : asteroidsGame.getMainBodies()) {
@@ -180,11 +191,69 @@ public class ShipBuildingController implements IShipBuildingController{
         Log.d(TAG, "unloadContent: ");
     }
 
+    private float calculateOffsetX(String offsetBase, String offsetAttatch){
+        float baseWidthOffset = Float.valueOf(offsetBase.split(",")[0])/2;
+        float attatchWidthOffset = Float.valueOf(offsetAttatch.split(",")[0])/2;
+        float x = DrawingHelper.getGameViewWidth()/2;
+
+        float newAttatchCenterX = (x + baseWidthOffset - attatchWidthOffset) ;
+        return newAttatchCenterX;
+    }
+
+    private float calculateOffsetY(String offsetBase, String offsetAttatch){
+        float baseWidthOffset = Float.valueOf(offsetBase.split(",")[1])/2;
+        float attatchWidthOffset = Float.valueOf(offsetAttatch.split(",")[1])/2;
+        float y = DrawingHelper.getGameViewHeight()/2;
+
+        float newAttatchCenterY = (y - baseWidthOffset + attatchWidthOffset) ;
+        return newAttatchCenterY;
+    }
+
+    float scaleX = .5f;
+    float scaleY = .5f;
+
     @Override
     public void draw() {
-//        if ()
-//        Log.d(TAG, "draw: ");
 
+        float rotationDegrees = 0.0f;
+        int alpha = 225;
+        float x = DrawingHelper.getGameViewWidth()/2;
+        float y = DrawingHelper.getGameViewHeight()/2;
+
+        if (shipPartMainBody == null) return;
+
+        if (shipPartMainBody != null){
+            DrawingHelper.drawImage(content.getImageId(shipPartMainBody.getImage()),
+                    x,y,rotationDegrees,scaleX,scaleY,alpha);
+        }
+
+        if (shipPartCannons != null){
+            DrawingHelper.drawImage(content.getImageId(shipPartCannons.getImage()),
+                    calculateOffsetX(shipPartMainBody.getCannonAttach(), shipPartCannons.getAttachPoint()),
+                    calculateOffsetY(shipPartMainBody.getCannonAttach(), shipPartCannons.getAttachPoint()),
+                    rotationDegrees,scaleX,scaleY,alpha);
+        }
+
+        if (shipPartEngines != null){
+            DrawingHelper.drawImage(content.getImageId(shipPartEngines.getImage()),
+                    calculateOffsetX(shipPartMainBody.getEngineAttach(), shipPartEngines.getAttachPoint()),
+                    calculateOffsetY(shipPartMainBody.getEngineAttach(), shipPartEngines.getAttachPoint()),
+                    rotationDegrees,scaleX,scaleY,alpha);
+        }
+
+        if (shipPartExtraPart != null){
+            DrawingHelper.drawImage(content.getImageId(shipPartExtraPart.getImage()),
+                    calculateOffsetX(shipPartMainBody.getExtraAttach(), shipPartExtraPart.getAttachPoint()),
+                    calculateOffsetY(shipPartMainBody.getExtraAttach(), shipPartExtraPart.getAttachPoint()),
+                    rotationDegrees,scaleX,scaleY,alpha);
+        }
+
+//        if (shipPartPowerCores != null){
+//            DrawingHelper.drawImage(content.getImageId(shipPartPowerCores.getImage()),
+//                    calculateOffsetX(shipPartMainBody.getA(), shipPartExtraPart.getAttachPoint()),
+//                    calculateOffsetY(shipPartMainBody.getExtraAttach(), shipPartExtraPart.getAttachPoint()),
+//                    rotationDegrees,scaleX,scaleY,alpha);
+//        }
     }
 
     /**
@@ -275,6 +344,25 @@ public class ShipBuildingController implements IShipBuildingController{
     public void onPartSelected(int index) {
         Log.d(TAG, "onPartSelected: index " + index);
 
+        switch(getViewForPosition(shipBuildingBoardPosition)) {
+            case EXTRA_PART:
+                shipPartExtraPart = asteroidsGame.getExtraParts().get(index);
+                break;
+            case ENGINE:
+                shipPartEngines = asteroidsGame.getEngines().get(index);
+                break;
+            case MAIN_BODY:
+                shipPartMainBody = asteroidsGame.getMainBodies().get(index);
+                break;
+            case CANNON:
+                shipPartCannons = asteroidsGame.getCannons().get(index);
+                break;
+            case POWER_CORE:
+                shipPartPowerCores = asteroidsGame.getPowerCores().get(index);
+                break;
+        }
+//        draw();
+
     }
 
     /**
@@ -283,6 +371,7 @@ public class ShipBuildingController implements IShipBuildingController{
     @Override
     public void onStartGamePressed() {
         Log.d(TAG, "onStartGamePressed: ");
+        shipBuildingActivity.startGame();
     }
 
     /**
