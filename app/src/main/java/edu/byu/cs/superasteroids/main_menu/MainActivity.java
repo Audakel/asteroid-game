@@ -17,6 +17,7 @@ import java.util.Random;
 import edu.byu.cs.superasteroids.R;
 import edu.byu.cs.superasteroids.base.ActionBarActivityView;
 import edu.byu.cs.superasteroids.database.Contract;
+import edu.byu.cs.superasteroids.game.GameHolder;
 import edu.byu.cs.superasteroids.helper.content.ContentManager;
 import edu.byu.cs.superasteroids.database.DatabaseHelper;
 import edu.byu.cs.superasteroids.game.GameActivity;
@@ -50,10 +51,11 @@ public class MainActivity extends ActionBarActivityView implements IMainMenuView
         IMainMenuController controller = new MainMenuController(this);
         setController(controller);
 
+        // Init the game
+        GameHolder.init(this.getBaseContext());
 
-        //Initialize your database
+        // Initialize your database
         String init = Contract.AUTHORITY;
-        testDB();
 
         gameDataImporter = new GameDataImporter(this);
 
@@ -64,39 +66,6 @@ public class MainActivity extends ActionBarActivityView implements IMainMenuView
         ContentManager.getInstance().setAssets(getAssets());
     }
 
-    private void testDB() {
-        ContentValues[] valueList = new ContentValues[10];
-
-        for (int i = 0; i < 10; i++) {
-            Random random = new Random();
-            int maxSize = 999999999;
-            int minSize = 111111111;
-
-            String name = "billy_"+i;
-            String image = "image_"+i;
-            String width = (random.nextInt(maxSize - minSize + 1) + minSize)+"";
-            String height = (random.nextInt(maxSize - minSize + 1) + minSize)+"";
-            String type = "type_"+i;
-
-            ContentValues values = new ContentValues();
-            values.put(Contract.ASTEROID_NAME, name);
-            values.put(Contract.ASTEROID_IMAGE, image);
-            values.put(Contract.ASTEROID_IMAGE_WIDTH, width);
-            values.put(Contract.ASTEROID_IMAGE_HEIGHT, height);
-            values.put(Contract.ASTEROID_TYPE, type);
-
-            valueList[i] = values;
-        }
-
-        Cursor cursor = getContentResolver().query(Contract.URI_ASTEROID, null, null, null, null);
-        Log.d(TAG, "onHandleIntent: cursor size b4 " + cursor.getCount());
-        if (cursor.getCount() == 0){
-            Log.d(TAG, "onHandleIntent: insert " + getContentResolver().bulkInsert(Contract.URI_ASTEROID, valueList));
-        }
-        Log.d(TAG, "onHandleIntent: cursor size after " + cursor.getCount());
-
-        cursor.close();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

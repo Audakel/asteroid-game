@@ -4,9 +4,12 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 
 import edu.byu.cs.superasteroids.game.GameHolder;
+import edu.byu.cs.superasteroids.helper.DrawingHelper;
 import edu.byu.cs.superasteroids.helper.GraphicsUtils;
+import edu.byu.cs.superasteroids.helper.content.ContentManager;
 
 import static edu.byu.cs.superasteroids.Constants.SCALE_FACTOR;
+import static edu.byu.cs.superasteroids.Constants.STARTING_SHIP_OPACITY;
 /**
  * Created by audakel on 5/23/16.
  */
@@ -31,6 +34,11 @@ public class MovableObject extends VisiableObject {
      * Position in space
      */
     protected PointF position;
+    /**
+     * Keep track of image id
+     */
+    private Integer imageIndex;
+
 
     /**
      * @param image image to be displayed
@@ -43,6 +51,22 @@ public class MovableObject extends VisiableObject {
         this.speed = speed;
         this.rotation = rotation;
         this.position = position;
+    }
+
+    @Override
+    public void draw() {
+        super.draw();
+        if(getImageIndex() < 0 ) return;
+
+        DrawingHelper.drawImage(
+                imageIndex,
+                position.x,
+                position.y,
+                getRotation(),
+                SCALE_FACTOR,
+                SCALE_FACTOR,
+                STARTING_SHIP_OPACITY
+        );
     }
 
     /**
@@ -69,6 +93,21 @@ public class MovableObject extends VisiableObject {
                 getPosition(),
                 GameHolder.getViewPort().getPosition()
         );
+    }
+
+
+    public int getImageIndex() {
+        if (imageIndex != null) return imageIndex;
+
+        if (getGameImage() == null) return -1;
+
+        setImageIndex(ContentManager.getInstance().getImageId(getGameImage().getFilePath()));
+
+        return imageIndex;
+    }
+
+    public void setImageIndex(int imageIndex) {
+        this.imageIndex = imageIndex;
     }
 
 

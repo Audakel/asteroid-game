@@ -8,8 +8,8 @@ package edu.byu.cs.superasteroids.model;
  * represents an image for the game
  */
 public class GameImage {
-    private int width;
-    private int height;
+    private int width = 0;
+    private int height = 0;
     private String filePath;
 
     /**
@@ -41,7 +41,7 @@ public class GameImage {
     }
 
     public String getFilePath() {
-        return filePath;
+        return (filePath == null) ? "" : filePath;
     }
 
     public void setFilePath(String filePath) {

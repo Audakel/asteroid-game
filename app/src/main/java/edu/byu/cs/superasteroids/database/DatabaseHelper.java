@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * Database version.
      */
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
 
     /**
      * Normal constructor.
@@ -90,19 +90,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Contract.MAIN_BODY_CANNON_ATTATCH + " TEXT, " + //
                 Contract.MAIN_BODY_ENGINE_ATTATCH + " TEXT, " + //
                 Contract.MAIN_BODY_EXTRA_ATTATCH + " TEXT, " + //
-                Contract.MAIN_BODY_IMAGE + " TEXT, " + //
-                Contract.MAIN_BODY_IMAGE_WIDTH + " INTEGER, " + //
+                Contract.IMAGE + " TEXT, " + //
+                Contract.IMAGE_WIDTH + " INTEGER, " + //
+                Contract.ATTACH_POINT + " TEXT, " + //
                 Contract.NULL_COLUMN_HACK + " TEXT, " + //
-                Contract.MAIN_BODY_IMAGE_HEIGHT + " INTEGER " + //
+                Contract.IMAGE_HEIGHT + " INTEGER " + //
                 ");");
 
         // CANNONS
         db.execSQL(create + Contract.CANNONS + " (" + idField + //
-                Contract.CANNON_ATTATCH_POINT + " TEXT, " + //
+                Contract.ATTACH_POINT + " TEXT, " + //
                 Contract.CANNON_EMIT_POINT + " TEXT, " + //
-                Contract.CANNON_IMAGE + " TEXT, " + //
-                Contract.CANNON_IMAGE_WIDTH + " INTEGER, " + //
-                Contract.CANNON_IMAGE_HEIGHT + " INTEGER, " + //
+                Contract.IMAGE + " TEXT, " + //
+                Contract.IMAGE_WIDTH + " INTEGER, " + //
+                Contract.IMAGE_HEIGHT + " INTEGER, " + //
                 Contract.CANNON_ATTACK_IMAGE_WIDTH + " INTEGER, " + //
                 Contract.CANNON_ATTACK_IMAGE_HEIGHT + " INTEGER, " + //
                 Contract.CANNON_ATTACK_SOUND + " TEXT, " + //
@@ -112,22 +113,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // EXTRA_PARTS
         db.execSQL(create + Contract.EXTRA_PARTS + " (" + idField + //
-                Contract.EXTRA_PART_ATTATCH_POINT + " TEXT, " + //
-                Contract.EXTRA_PART_IMAGE + " TEXT, " + //
-                Contract.EXTRA_PART_IMAGE_WIDTH + " INTEGER, " + //
+                Contract.ATTACH_POINT + " TEXT, " + //
+                Contract.IMAGE + " TEXT, " + //
+                Contract.IMAGE_WIDTH + " INTEGER, " + //
                 Contract.NULL_COLUMN_HACK + " TEXT, " + //
-                Contract.EXTRA_PART_IMAGE_HEIGHT + " INTEGER " + //
+                Contract.IMAGE_HEIGHT + " INTEGER " + //
                 ");");
 
         // ENGINES
         db.execSQL(create + Contract.ENGINES + " (" + idField + //
                 Contract.ENGINE_BASE_SPEED + " INTEGER, " + //
                 Contract.ENGINE_BASE_TURN_RATE + " INTEGER, " + //
-                Contract.ENGINE_ATTACH_POINT + " TEXT, " + //
-                Contract.ENGINE_IMAGE + " TEXT, " + //
-                Contract.ENGINE_IMAGE_WIDTH + " INTEGER, " + //
+                Contract.ATTACH_POINT + " TEXT, " + //
+                Contract.IMAGE + " TEXT, " + //
+                Contract.IMAGE_WIDTH + " INTEGER, " + //
                 Contract.NULL_COLUMN_HACK + " TEXT, " + //
-                Contract.ENGINE_IMAGE_HEIGHT + " INTEGER " + //
+                Contract.IMAGE_HEIGHT + " INTEGER " + //
                 ");");
 
         // POWER_CORES
@@ -135,7 +136,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Contract.POWER_CORE_CANNON_BOOST + " INTEGER, " + //
                 Contract.POWER_CORE_ENGINE_BOOST + " INTEGER, " + //
                 Contract.NULL_COLUMN_HACK + " TEXT, " + //
-                Contract.POWER_CORE_IMAGE + " TEXT " + //
+                Contract.IMAGE_WIDTH + " INTEGER, " + //
+                Contract.IMAGE_HEIGHT + " INTEGER, " + //
+                Contract.ATTACH_POINT + " TEXT, " + //
+                Contract.IMAGE + " TEXT " + //
                 ");");
 
     }

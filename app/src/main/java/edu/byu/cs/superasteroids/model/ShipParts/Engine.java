@@ -3,8 +3,13 @@ package edu.byu.cs.superasteroids.model.ShipParts;
 import android.content.ContentValues;
 import android.graphics.PointF;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import edu.byu.cs.superasteroids.database.Contract;
 import edu.byu.cs.superasteroids.model.GameImage;
+
+import static edu.byu.cs.superasteroids.Constants.SCALE_FACTOR;
 
 /**
  * Created by audakel on 5/16/16.
@@ -34,6 +39,30 @@ public class Engine extends ShipPart {
         this.baseSpeed = baseSpeed;
         this.baseTurnRate = baseTurnRate;
     }
+
+
+    /**
+     * Helper json constructor
+     */
+    public Engine(JSONObject jsonObject)  {
+        super(jsonObject, null);
+        try {
+            this.baseSpeed = (jsonObject.getInt("baseSpeed"));
+            this.baseTurnRate = (jsonObject.getInt("baseTurnRate"));
+            setAttachPoint(extractCoordinatesPointFromJson(jsonObject, "attachPoint"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * Helper empty constructor
+     */
+    public Engine()  {
+        super(new GameImage(0,0,""), 0, 0, null , null, SCALE_FACTOR);
+    }
+
 
     @Override
     public ContentValues getContentValues(){

@@ -59,35 +59,36 @@ public final class Contract implements BaseColumns {
     public static final String MAIN_BODY_CANNON_ATTATCH = "main_body_cannon_attatch";
     public static final String MAIN_BODY_ENGINE_ATTATCH = "main_body_engine_attatch";
     public static final String MAIN_BODY_EXTRA_ATTATCH = "main_body_extra_attatch";
-    public static final String MAIN_BODY_IMAGE = "main_body_image";
-    public static final String MAIN_BODY_IMAGE_WIDTH = "main_body_image_width";
-    public static final String MAIN_BODY_IMAGE_HEIGHT = "main_body_image_height";
+//    public static final String MAIN_BODY_IMAGE = "main_body_image";
+//    public static final String MAIN_BODY_IMAGE_WIDTH = "main_body_image_width";
+//    public static final String MAIN_BODY_IMAGE_HEIGHT = "main_body_image_height";
 
-    public static final String CANNON_ATTATCH_POINT = "cannon_attatch_point";
+//    public static final String CANNON_ATTATCH_POINT = "cannon_attatch_point";
     public static final String CANNON_EMIT_POINT = "cannon_emit_point";
-    public static final String CANNON_IMAGE = "cannon_image";
-    public static final String CANNON_IMAGE_WIDTH = "cannon_image_width";
-    public static final String CANNON_IMAGE_HEIGHT = "cannon_image_height";
+//    public static final String CANNON_IMAGE = "cannon_image";
+//    public static final String CANNON_IMAGE_WIDTH = "cannon_image_width";
+//    public static final String CANNON_IMAGE_HEIGHT = "cannon_image_height";
     public static final String CANNON_ATTACK_IMAGE_WIDTH = "cannon_attack_image_width";
     public static final String CANNON_ATTACK_IMAGE_HEIGHT = "cannon_attack_image_height";
     public static final String CANNON_ATTACK_SOUND = "cannon_attack_sound";
     public static final String CANNON_DAMAGE = "cannon_damage";
 
-    public static final String EXTRA_PART_ATTATCH_POINT = "extra_part_attatch_point";
-    public static final String EXTRA_PART_IMAGE = "extra_part_image";
-    public static final String EXTRA_PART_IMAGE_WIDTH = "extra_part_image_width";
-    public static final String EXTRA_PART_IMAGE_HEIGHT = "extra_part_image_height";
+//    public static final String EXTRA_PART_ATTATCH_POINT = "extra_part_attatch_point";
+//    public static final String EXTRA_PART_IMAGE = "extra_part_image";
+//    public static final String EXTRA_PART_IMAGE_WIDTH = "extra_part_image_width";
+//    public static final String EXTRA_PART_IMAGE_HEIGHT = "extra_part_image_height";
 
     public static final String ENGINE_BASE_SPEED = "engine_base_speed";
     public static final String ENGINE_BASE_TURN_RATE = "engine_base_turn_rate";
-    public static final String ENGINE_ATTACH_POINT = "engine_attach_point";
-    public static final String ENGINE_IMAGE = "engine_image";
-    public static final String ENGINE_IMAGE_WIDTH = "engine_image_width";
-    public static final String ENGINE_IMAGE_HEIGHT = "engine_image_height";
+
+    public static final String ATTACH_POINT = "attach_point";
+    public static final String IMAGE = "image";
+    public static final String IMAGE_WIDTH = "image_width";
+    public static final String IMAGE_HEIGHT = "image_height";
 
     public static final String POWER_CORE_CANNON_BOOST = "power_core_cannon_boost";
     public static final String POWER_CORE_ENGINE_BOOST = "power_core_engine_boost";
-    public static final String POWER_CORE_IMAGE = "power_core_image";
+//    public static final String POWER_CORE_IMAGE = "power_core_image";
 
     public static final String OBJECT_IMAGES = "object_image";
 

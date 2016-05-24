@@ -1,5 +1,6 @@
 package edu.byu.cs.superasteroids;
 
+import edu.byu.cs.superasteroids.model.Ship;
 import edu.byu.cs.superasteroids.model.ShipParts.Cannon;
 import edu.byu.cs.superasteroids.model.ShipParts.Engine;
 import edu.byu.cs.superasteroids.model.ShipParts.ExtraPart;
@@ -22,6 +23,10 @@ public class Constants {
     public final static String CANNON = "Cannon";
     public final static String ENGINE = "Engine";
     public final static String EXTRA_PART= "ExtraPart";
+
+    // Game Variables
+    public final static int GAME_WIDTH = 4000;
+    public final static int GAME_HEIGHT = 4000;
 
 
 }

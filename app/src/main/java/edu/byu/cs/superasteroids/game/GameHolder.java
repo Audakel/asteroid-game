@@ -1,11 +1,14 @@
 package edu.byu.cs.superasteroids.game;
 
+import android.content.Context;
 import android.graphics.PointF;
+import android.util.Log;
 
 import edu.byu.cs.superasteroids.database.DatabaseHelper;
 import edu.byu.cs.superasteroids.helper.DrawingHelper;
 import edu.byu.cs.superasteroids.model.AsteroidsGame;
 import edu.byu.cs.superasteroids.model.GameImage;
+import edu.byu.cs.superasteroids.model.Space;
 import edu.byu.cs.superasteroids.model.ViewPort;
 
 import static edu.byu.cs.superasteroids.helper.DrawingHelper.getGameViewHeight;
@@ -29,11 +32,13 @@ public class GameHolder {
     private static ViewPort viewPort;
 
 
-    public static void init(){
+    public static void init(Context baseContext){
         asteroidsGame = new AsteroidsGame();
         viewPort = new ViewPort(
-                new GameImage(getGameViewWidth(), getGameViewHeight(), ""), 0,0,
+                new GameImage(getGameViewWidth(), getGameViewHeight(), ""),
                 new PointF(getGameViewWidth() / 2, getGameViewHeight() / 2));
+
+        Log.d("GameHolder", "init: ");
     }
 
 

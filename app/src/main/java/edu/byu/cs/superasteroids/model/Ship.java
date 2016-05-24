@@ -17,6 +17,8 @@ import static edu.byu.cs.superasteroids.Constants.STARTING_SHIP_OPACITY;
 import static edu.byu.cs.superasteroids.Constants.STARTING_SHIP_ROTATION;
 import static edu.byu.cs.superasteroids.Constants.STARTING_SHIP_SAFE;
 import static edu.byu.cs.superasteroids.Constants.STARTING_SHIP_SAFE_TIME;
+import static edu.byu.cs.superasteroids.helper.DrawingHelper.getGameViewHeight;
+import static edu.byu.cs.superasteroids.helper.DrawingHelper.getGameViewWidth;
 
 /**
  * Created by audakel on 5/23/16.
@@ -77,11 +79,18 @@ public class Ship extends MovableObject {
 
 
     public Ship() {
-        super(new GameImage(0,0,""), 0, 0, new PointF(0,0));
+        super(new GameImage(0,0,""), 0, 0, new PointF(getGameViewWidth()/2,getGameViewHeight()/2));
         rotationDegrees = STARTING_SHIP_ROTATION;
         lives = STARTING_SHIP_LIVES;
         safe = STARTING_SHIP_SAFE;
         safeTime = STARTING_SHIP_SAFE_TIME;
+
+        mainBody = new MainBody();
+        engine = new Engine();
+        cannon = new Cannon();
+        extraPart = new ExtraPart();
+        powerCore = new PowerCore();
+
 
     }
 

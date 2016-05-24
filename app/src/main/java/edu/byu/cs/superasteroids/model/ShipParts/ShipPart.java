@@ -1,11 +1,13 @@
 package edu.byu.cs.superasteroids.model.ShipParts;
 
 import android.content.ContentValues;
+import android.graphics.Picture;
 import android.graphics.PointF;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import edu.byu.cs.superasteroids.Constants;
 import edu.byu.cs.superasteroids.database.Contract;
 import edu.byu.cs.superasteroids.helper.DrawingHelper;
 import edu.byu.cs.superasteroids.helper.GraphicsUtils;
@@ -24,7 +26,6 @@ public class ShipPart extends MovableObject {
     protected ContentValues contentValues;
     private PointF attachPoint;
     private float scale;
-    private Integer imageIndex;
 
     /**
      *
@@ -41,28 +42,74 @@ public class ShipPart extends MovableObject {
         this.scale = scale;
     }
 
+    public ShipPart(JSONObject jo, PointF attachPoint){
+        super(new GameImage(0,0,""),0, 0f,new PointF(getGameViewWidth() / 2, getGameViewHeight() / 2));
+        this.attachPoint = attachPoint;
+        this.scale = SCALE_FACTOR;
+        setGameImage(getImageFromJson(jo));
+
+    }
+
     /**
-     * Construct an object from a json object
-     * @param jo
-     * @throws JSONException
+     * Helper to easlily get image from json db string.
+     * @param jo json to extract from.
+     * @return new image
      */
+    private GameImage getImageFromJson(JSONObject jo){
+        int width = 0;
+        int height = 0;
+        String file = null;
+
+        try {
+            width = jo.getInt("imageWidth");
+            height = jo.getInt("imageHeight");
+            file = jo.getString("image");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return new GameImage(width,height,file);
+    }
 
 
-
-//        (new GameImage(jo.getInt("imageWidth"), jo.getInt("imageHeight"), jo.getString("image")),
-//                0, 0, new PointF(getGameViewWidth() / 2, getGameViewHeight() / 2), null, SCALE_FACTOR);
-
-
-
-
+    /**
+     * Helper to easlily get co.points from json db
+     * @param string string to extract from
+     * @return new point
+     */
     public PointF extractPointFromString(String string){
          return new PointF(Float.valueOf(string.split(",")[0]),
                 Float.valueOf(string.split(",")[1]));
     }
 
+
+    /**
+     *
+     * @param jsonObject string to eextract from
+     * @param key what to use with json
+     * @return new crd. string, or null if missing key
+     */
+    public PointF extractCoordinatesPointFromJson(JSONObject jsonObject, String key){
+        String string = null;
+        try {
+            string = jsonObject.getString(key);
+        } catch (JSONException e) {
+            return null;
+        }
+        return new PointF(Float.valueOf(string.split(",")[0]),
+                Float.valueOf(string.split(",")[1]));
+    }
+
+
+    /**
+     * Base draw for all parts to use to help draw themselves
+     * @param imageIndex pic id from content holder
+     * @param mainBody mainbody obj to attach to
+     */
     public void drawAttachedToMainBody(int imageIndex, MainBody mainBody){
-        super.draw();
+//        super.draw();
         if(mainBody == null) return;
+        if(imageIndex < 0) return;
 
         DrawingHelper.drawImage(
                 imageIndex,
@@ -74,6 +121,7 @@ public class ShipPart extends MovableObject {
                 STARTING_SHIP_OPACITY
         );
     }
+
 
     /**
      *
@@ -129,10 +177,10 @@ public class ShipPart extends MovableObject {
 
     protected void initContentValues(){
         contentValues = new ContentValues();
-        contentValues.put(Contract.EXTRA_PART_ATTATCH_POINT, getAttachPoint().x + "," + getAttachPoint().y);
-        contentValues.put(Contract.EXTRA_PART_IMAGE, getGameImage().getFilePath());
-        contentValues.put(Contract.EXTRA_PART_IMAGE_WIDTH, getGameImage().getWidth());
-        contentValues.put(Contract.EXTRA_PART_IMAGE_HEIGHT, getGameImage().getHeight());
+        contentValues.put(Contract.ATTACH_POINT, getAttachPoint().x + "," + getAttachPoint().y);
+        contentValues.put(Contract.IMAGE, getGameImage().getFilePath());
+        contentValues.put(Contract.IMAGE_WIDTH, getGameImage().getWidth());
+        contentValues.put(Contract.IMAGE_HEIGHT, getGameImage().getHeight());
     }
 
 
@@ -141,6 +189,9 @@ public class ShipPart extends MovableObject {
     }
 
     public PointF getAttachPoint() {
+        if (attachPoint == null){
+            return new PointF(0,0);
+        }
         return attachPoint;
     }
 
@@ -156,15 +207,5 @@ public class ShipPart extends MovableObject {
         this.scale = scale;
     }
 
-    public int getImageIndex() {
-        if (imageIndex != null) return imageIndex;
 
-        setImageIndex(ContentManager.getInstance().getImageId(getGameImage().getFilePath()));
-
-        return imageIndex;
-    }
-
-    public void setImageIndex(int imageIndex) {
-        this.imageIndex = imageIndex;
-    }
 }

@@ -14,6 +14,11 @@ import edu.byu.cs.superasteroids.model.ShipParts.ShipPart;
  * Created by audakel on 5/17/16.
  */
 public class AsteroidsGame {
+
+    public AsteroidsGame(){
+        ship = new Ship();
+    }
+
     private ArrayList<Asteroid> asteroids = new ArrayList<>();
     private ArrayList<Cannon> cannons = new ArrayList<>();
     private ArrayList<Engine> engines = new ArrayList<>();
@@ -22,11 +27,7 @@ public class AsteroidsGame {
     private ArrayList<MainBody> mainBodies = new ArrayList<>();
     private ArrayList<PowerCore> powerCores = new ArrayList<>();
     private ArrayList<ObjectImage> objectImages = new ArrayList<>();
-
-//    private ArrayList<ShipPart> shipParts = new ArrayList<>();
-
-
-
+    private Ship ship;
 
 
     public ArrayList<Asteroid> getAsteroids() {
@@ -87,5 +88,9 @@ public class AsteroidsGame {
 
     public void setObjectImages(ArrayList<ObjectImage> objectImages) {
         this.objectImages = objectImages;
+    }
+
+    public Ship getShip() {
+        return ship;
     }
 }

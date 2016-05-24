@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import edu.byu.cs.superasteroids.database.Contract;
+import edu.byu.cs.superasteroids.game.GameHolder;
 import edu.byu.cs.superasteroids.helper.DrawingHelper;
 import edu.byu.cs.superasteroids.helper.content.ContentManager;
 import edu.byu.cs.superasteroids.importer.GameDataExtractor;
@@ -47,11 +48,12 @@ public class ShipBuildingController implements IShipBuildingController{
     private AsteroidsGame asteroidsGame;
 
     private Ship ship;
-
+    GameHolder gameHolder;
 
     public ShipBuildingController(ShipBuildingActivity shipBuildingActivity) {
         context = shipBuildingActivity.getApplicationContext();
         this.shipBuildingActivity = shipBuildingActivity;
+        this.ship = GameHolder.getAsteroidsGame().getShip();
         Log.d(TAG, "ShipBuildingController: shipBuildingActivity- " + shipBuildingActivity);
 
     }
@@ -172,7 +174,6 @@ public class ShipBuildingController implements IShipBuildingController{
         Log.d(TAG, "unloadContent: ");
     }
 
-
     @Override
     public void draw() {
         ship.draw();
@@ -215,6 +216,7 @@ public class ShipBuildingController implements IShipBuildingController{
     }
 
     private IShipBuildingView.PartSelectionView getViewForPosition(int position) {
+        Log.d(TAG, "getViewForPosition: position = " + position);
         switch (position) {
             case 2:         return EXTRA_PART;
             case 4:         return ENGINE;

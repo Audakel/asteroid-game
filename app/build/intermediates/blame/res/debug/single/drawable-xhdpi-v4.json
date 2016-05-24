@@ -68,12 +68,12 @@
         "source": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/drawable-xhdpi/abc_ab_transparent_light_holo.9.png"
     },
     {
-        "merged": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/abc_spinner_ab_disabled_holo_dark.9.png",
-        "source": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/drawable-xhdpi/abc_spinner_ab_disabled_holo_dark.9.png"
-    },
-    {
         "merged": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/space.bmp",
         "source": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/src/main/res/drawable-xhdpi/space.bmp"
+    },
+    {
+        "merged": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/abc_spinner_ab_disabled_holo_dark.9.png",
+        "source": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/drawable-xhdpi/abc_spinner_ab_disabled_holo_dark.9.png"
     },
     {
         "merged": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/abc_ab_bottom_solid_dark_holo.9.png",
@@ -268,12 +268,12 @@
         "source": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/drawable-xhdpi/abc_ic_commit_search_api_holo_light.png"
     },
     {
-        "merged": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/abc_cab_background_top_holo_light.9.png",
-        "source": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/drawable-xhdpi/abc_cab_background_top_holo_light.9.png"
-    },
-    {
         "merged": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/abc_ic_clear_search_api_holo_light.png",
         "source": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/drawable-xhdpi/abc_ic_clear_search_api_holo_light.png"
+    },
+    {
+        "merged": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/abc_cab_background_top_holo_light.9.png",
+        "source": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/drawable-xhdpi/abc_cab_background_top_holo_light.9.png"
     },
     {
         "merged": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/abc_ab_stacked_transparent_dark_holo.9.png",

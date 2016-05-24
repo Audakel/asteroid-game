@@ -3,8 +3,14 @@ package edu.byu.cs.superasteroids.model.ShipParts;
 import android.content.ContentValues;
 import android.graphics.PointF;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import edu.byu.cs.superasteroids.database.Contract;
 import edu.byu.cs.superasteroids.model.GameImage;
+
+import static edu.byu.cs.superasteroids.Constants.SCALE_FACTOR;
+import static edu.byu.cs.superasteroids.helper.DrawingHelper.getGameViewWidth;
 
 /**
  * Created by audakel on 5/16/16.
@@ -32,12 +38,28 @@ public class PowerCore extends ShipPart{
         super(image, speed, rotation, position, attachPoint, scale);
     }
 
+    /**
+     * Helper json constructor
+     */
+    public PowerCore(JSONObject jsonObject)  {
+        super(jsonObject, null);
+        setAttachPoint(extractCoordinatesPointFromJson(jsonObject, "attachPoint"));
+
+    }
+
+
+    /**
+     * Helper empty constructor
+     */
+    public PowerCore()  {
+        super(new GameImage(0,0,""), 0, 0, null , null, SCALE_FACTOR);
+    }
+
     @Override
     public ContentValues getContentValues(){
         contentValues = new ContentValues();
         contentValues.put(Contract.POWER_CORE_CANNON_BOOST, getCannonBoost());
         contentValues.put(Contract.POWER_CORE_ENGINE_BOOST, getEngineBoost());
-        contentValues.put(Contract.POWER_CORE_IMAGE, getGameImage().getFilePath());
 
         return contentValues;
     }

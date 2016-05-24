@@ -4,29 +4,58 @@
     api-level="23"
     density="420dpi"
     format="7"
-    timestamp="36114623976473" >
+    timestamp="13170612823559"
+    verifier="FIELD_REMOVED" >
 
     <task
         name="javac"
-        duration="279" />
+        duration="77" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="299" />
+        duration="9" />
     <task
         name="verifier"
-        duration="9" />
+        duration="1" />
 
     <artifact
-        location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/outputs/apk/app-debug.apk"
-        type="MAIN" />
+        location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_1/classes.dex"
+        type="DEX" />
+    <artifact
+        location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_2/classes.dex"
+        type="DEX" />
 
-    <build timestamp="36114623976473" >
+    <build timestamp="4414993098295" >
         <artifact
             location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/outputs/apk/app-debug.apk"
             type="MAIN" />
+    </build>
+    <build timestamp="5699402158791" >
+        <artifact
+            location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_0/classes.dex"
+            type="DEX" />
+    </build>
+    <build timestamp="9769148371852" >
+        <artifact
+            location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_7/classes.dex"
+            type="DEX" />
+    </build>
+    <build timestamp="12865321743199" >
+        <artifact
+            location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_8/classes.dex"
+            type="DEX" />
+    </build>
+    <build
+        timestamp="13170612823559"
+        verifier="FIELD_REMOVED" >
+        <artifact
+            location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_1/classes.dex"
+            type="DEX" />
+        <artifact
+            location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_2/classes.dex"
+            type="DEX" />
     </build>
 
 </instant-run>

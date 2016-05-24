@@ -2,6 +2,7 @@ package edu.byu.cs.superasteroids.importer;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.graphics.PointF;
 import android.net.Uri;
 import android.util.Log;
 
@@ -13,6 +14,7 @@ import org.json.JSONObject;
 
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import edu.byu.cs.superasteroids.database.Contract;
@@ -146,110 +148,73 @@ public class GameDataImporter implements IGameDataImporter {
      */
     private AsteroidsGame extractJsonGameInfo(JSONObject jsonObject) {
         AsteroidsGame asteroidsGame = new AsteroidsGame();
-        ArrayList<Asteroid> asteroids;
-        ArrayList<Level> levels;
-        ArrayList<MainBody> mainBodies;
-        ArrayList<Cannon> cannons;
-        ArrayList<Engine> engines;
-        ArrayList<PowerCore> powerCores;
-        ArrayList<ExtraPart> extraParts;
-        ArrayList<ObjectImage> objects;
+        ArrayList<Asteroid> asteroids = new ArrayList<>();
+        ArrayList<Level> levels= new ArrayList<>();
+        ArrayList<MainBody> mainBodies= new ArrayList<>();
+        ArrayList<Cannon> cannons= new ArrayList<>();
+        ArrayList<Engine> engines= new ArrayList<>();
+        ArrayList<PowerCore> powerCores= new ArrayList<>();
+        ArrayList<ExtraPart> extraParts= new ArrayList<>();
+        ArrayList<ObjectImage> objectImages= new ArrayList<>();
         Gson gson = new Gson();
         JSONArray tempArray;
 
         try {
-            if (jsonObject.has(Contract.OBJECTS)) {
-                tempArray = jsonObject.getJSONArray(Contract.OBJECTS);
-                objects = new ArrayList<>();
+            Iterator<?> keys = jsonObject.keys();
+
+            while( keys.hasNext() ) {
+                String key = (String)keys.next();
+                tempArray = jsonObject.getJSONArray(key);
 
                 for (int i = 0; i < tempArray.length(); i++) {
-                    objects.add(new ObjectImage(tempArray.getString(i)));
+                    switch (key){
+                        case Contract.CANNONS:
+                            Cannon cannon = new Cannon(tempArray.getJSONObject(i));
+                            cannons.add(cannon);
+                            break;
+                        case Contract.ENGINES:
+                            Engine engine = new Engine(tempArray.getJSONObject(i));
+                            engines.add(engine);
+                            break;
+                        case Contract.EXTRA_PARTS:
+                            ExtraPart extraPart = new ExtraPart(tempArray.getJSONObject(i));
+                            extraParts.add(extraPart);
+                            break;
+                        case Contract.MAIN_BODIES:
+                            MainBody mainBody = new MainBody(tempArray.getJSONObject(i));
+                            mainBodies.add(mainBody);
+                            break;
+                        case Contract.POWER_CORES:
+                            PowerCore powerCore = new PowerCore(tempArray.getJSONObject(i));
+                            powerCores.add(powerCore);
+                            break;
+                        case Contract.OBJECTS:
+                            objectImages.add(new ObjectImage(tempArray.getString(i)));
+                            break;
+                        case Contract.ASTEROIDS:
+                            Asteroid asteroid = gson.fromJson(tempArray.getJSONObject(i).toString(), Asteroid.class);
+                            asteroids.add(asteroid);
+                            break;
+                        case Contract.LEVELS:
+                            Level level = gson.fromJson(tempArray.getJSONObject(i).toString(), Level.class);
+                            levels.add(level);
+                            break;
+                    }
                 }
-                asteroidsGame.setObjectImages(objects);
             }
+            asteroidsGame.setMainBodies(mainBodies);
+            asteroidsGame.setCannons(cannons);
+            asteroidsGame.setEngines(engines);
+            asteroidsGame.setPowerCores(powerCores);
+            asteroidsGame.setExtraParts(extraParts);
+            asteroidsGame.setObjectImages(objectImages);
+            asteroidsGame.setAsteroids(asteroids);
+            asteroidsGame.setLevels(levels);
 
-            if (jsonObject.has(Contract.ASTEROIDS)) {
-                tempArray = jsonObject.getJSONArray(Contract.ASTEROIDS);
-                asteroids = new ArrayList<>();
-
-                for (int i = 0; i < tempArray.length(); i++) {
-                    Asteroid asteroid = gson.fromJson(tempArray.getJSONObject(i).toString(), Asteroid.class);
-                    asteroids.add(asteroid);
-                }
-                asteroidsGame.setAsteroids(asteroids);
-            }
-
-            if (jsonObject.has(Contract.LEVELS)) {
-                tempArray = jsonObject.getJSONArray(Contract.LEVELS);
-                levels = new ArrayList<>();
-
-                for (int i = 0; i < tempArray.length(); i++) {
-                    Level level = gson.fromJson(tempArray.getJSONObject(i).toString(), Level.class);
-
-                    levels.add(level);
-                }
-                asteroidsGame.setLevels(levels);
-            }
-
-            if (jsonObject.has(Contract.MAIN_BODIES)) {
-                tempArray = jsonObject.getJSONArray(Contract.MAIN_BODIES);
-                mainBodies = new ArrayList<>();
-
-                for (int i = 0; i < tempArray.length(); i++) {
-                    MainBody mainBody = gson.fromJson(tempArray.getJSONObject(i).toString(), MainBody.class);
-                    mainBodies.add(mainBody);
-                }
-                asteroidsGame.setMainBodies(mainBodies);
-            }
-
-            if (jsonObject.has(Contract.CANNONS)) {
-                tempArray = jsonObject.getJSONArray(Contract.CANNONS);
-                cannons = new ArrayList<>();
-
-                for (int i = 0; i < tempArray.length(); i++) {
-                    Cannon cannon = gson.fromJson(tempArray.getJSONObject(i).toString(), Cannon.class);
-                    cannons.add(cannon);
-                }
-                asteroidsGame.setCannons(cannons);
-            }
-
-            if (jsonObject.has(Contract.ENGINES)) {
-                tempArray = jsonObject.getJSONArray(Contract.ENGINES);
-                engines = new ArrayList<>();
-
-                for (int i = 0; i < tempArray.length(); i++) {
-                    Engine engine = gson.fromJson(tempArray.getJSONObject(i).toString(), Engine.class);
-                    engines.add(engine);
-                }
-                asteroidsGame.setEngines(engines);
-            }
-
-            if (jsonObject.has(Contract.POWER_CORES)) {
-                tempArray = jsonObject.getJSONArray(Contract.POWER_CORES);
-                powerCores = new ArrayList<>();
-
-                for (int i = 0; i < tempArray.length(); i++) {
-                    PowerCore powerCore = gson.fromJson(tempArray.getJSONObject(i).toString(), PowerCore.class);
-                    powerCores.add(powerCore);
-                }
-                asteroidsGame.setPowerCores(powerCores);
-            }
-
-            if (jsonObject.has(Contract.EXTRA_PARTS)) {
-                tempArray = jsonObject.getJSONArray(Contract.EXTRA_PARTS);
-
-                extraParts = new ArrayList<>();
-
-                for (int i = 0; i < tempArray.length(); i++) {
-                    ExtraPart extraPart = gson.fromJson(tempArray.getJSONObject(i).toString(), ExtraPart.class);
-                    extraParts.add(extraPart);
-                }
-                asteroidsGame.setExtraParts(extraParts);
-
-            }
 
         } catch (JSONException e) {
             e.printStackTrace();
+            return null;
         }
 
         return asteroidsGame;

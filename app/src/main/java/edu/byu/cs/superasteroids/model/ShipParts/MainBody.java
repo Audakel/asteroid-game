@@ -10,9 +10,11 @@ import org.json.JSONObject;
 import edu.byu.cs.superasteroids.Constants;
 import edu.byu.cs.superasteroids.database.Contract;
 import edu.byu.cs.superasteroids.helper.DrawingHelper;
+import edu.byu.cs.superasteroids.helper.GraphicsUtils;
 import edu.byu.cs.superasteroids.model.GameImage;
 
 import static edu.byu.cs.superasteroids.Constants.SCALE_FACTOR;
+import static edu.byu.cs.superasteroids.helper.DrawingHelper.*;
 import static edu.byu.cs.superasteroids.helper.DrawingHelper.getGameViewHeight;
 import static edu.byu.cs.superasteroids.helper.DrawingHelper.getGameViewWidth;
 
@@ -52,16 +54,26 @@ public class MainBody extends ShipPart {
 
     /**
      * Construct an object from a json object
-     * @param jo
+     * @param jsonObject
      * @throws JSONException
      */
-    public MainBody(JSONObject jo) throws JSONException {
-        super(new GameImage(jo.getInt("imageWidth"), jo.getInt("imageHeight"), jo.getString("image")),
-                0, 0, new PointF(getGameViewWidth() / 2, getGameViewHeight() / 2), null, SCALE_FACTOR);
+    public MainBody(JSONObject jsonObject)  {
+        super(jsonObject, null);
+        try {
+            this.cannonAttach = extractPointFromString(jsonObject.getString("cannonAttach"));
+            this.engineAttach = extractPointFromString(jsonObject.getString("engineAttach"));
+            this.extraAttach = extractPointFromString(jsonObject.getString("extraAttach"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
-        this.cannonAttach = extractPointFromString(jo.getString("cannonAttach"));
-        this.engineAttach = extractPointFromString(jo.getString("engineAttach"));
-        this.extraAttach = extractPointFromString(jo.getString("extraAttach"));
+
+    /**
+     * Helper empty constructor
+     */
+    public MainBody()  {
+        super(new GameImage(0,0,""), 0, 0, new PointF(getGameViewWidth() / 2, getGameViewWidth() / 2) , null, SCALE_FACTOR);
     }
 
 
