@@ -15,9 +15,21 @@ import static edu.byu.cs.superasteroids.Constants.SCALE_FACTOR;
  * All objects that can move in the game
  */
 public class MovableObject extends VisiableObject {
+    /**
+     * Rectangle around an object
+     */
     protected RectF rectangle;
+    /**
+     * How fast an object is going through space
+     */
     protected int speed;
-    protected double rotation;
+    /**
+     * Rotation with respect to screen
+     */
+    protected float rotation;
+    /**
+     * Position in space
+     */
     protected PointF position;
 
     /**
@@ -26,14 +38,16 @@ public class MovableObject extends VisiableObject {
      * @param rotation current rotation of obj
      * @param position current position of obj in space
      */
-    public MovableObject(GameImage image, int speed, double rotation, PointF position) {
+    public MovableObject(GameImage image, int speed, float rotation, PointF position) {
         super(image);
         this.speed = speed;
         this.rotation = rotation;
         this.position = position;
     }
 
-
+    /**
+     * get correct rectangle bounderies for object
+     */
     private RectF generateRectangle(PointF position, GameImage image){
         float scaledCenteredImageHeight = SCALE_FACTOR * image.getHeight() / 2;
         float scaledCenteredImageWidth = SCALE_FACTOR * image.getWidth() / 2;
@@ -57,9 +71,7 @@ public class MovableObject extends VisiableObject {
         );
     }
 
-    /**
-     * get correct rectangle bounderies for object
-     */
+
     public RectF getRectangle() {
         if (rectangle != null) return rectangle;
 
@@ -80,11 +92,11 @@ public class MovableObject extends VisiableObject {
         this.speed = speed;
     }
 
-    public double getRotation() {
+    public float getRotation() {
         return rotation;
     }
 
-    public void setRotation(double rotation) {
+    public void setRotation(float rotation) {
         this.rotation = rotation;
     }
 

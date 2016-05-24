@@ -1,5 +1,9 @@
 package edu.byu.cs.superasteroids;
 
+import edu.byu.cs.superasteroids.model.ShipParts.Cannon;
+import edu.byu.cs.superasteroids.model.ShipParts.Engine;
+import edu.byu.cs.superasteroids.model.ShipParts.ExtraPart;
+
 /**
  * Created by audakel on 5/23/16.
  */
@@ -13,6 +17,11 @@ public class Constants {
     public static double STARTING_SHIP_SAFE_TIME = 0;
     public static boolean STARTING_SHIP_SAFE = false;
     public static float STARTING_SHIP_ROTATION = 0;
+
+    // Switch case on ship parts
+    public final static String CANNON = "Cannon";
+    public final static String ENGINE = "Engine";
+    public final static String EXTRA_PART= "ExtraPart";
 
 
 }

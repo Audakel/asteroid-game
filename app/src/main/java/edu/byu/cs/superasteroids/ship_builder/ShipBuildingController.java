@@ -16,6 +16,7 @@ import edu.byu.cs.superasteroids.interfaces.IShipBuildingController;
 import edu.byu.cs.superasteroids.interfaces.IShipBuildingView;
 import edu.byu.cs.superasteroids.interfaces.IView;
 import edu.byu.cs.superasteroids.model.AsteroidsGame;
+import edu.byu.cs.superasteroids.model.Ship;
 import edu.byu.cs.superasteroids.model.ShipParts.Cannon;
 import edu.byu.cs.superasteroids.model.ShipParts.Engine;
 import edu.byu.cs.superasteroids.model.ShipParts.ExtraPart;
@@ -45,11 +46,8 @@ public class ShipBuildingController implements IShipBuildingController{
     private ContentManager content;
     private AsteroidsGame asteroidsGame;
 
-    private MainBody shipPartMainBody;
-    private ExtraPart shipPartExtraPart;
-    private Cannon shipPartCannons;
-    private PowerCore shipPartPowerCores;
-    private Engine shipPartEngines;
+    private Ship ship;
+
 
     public ShipBuildingController(ShipBuildingActivity shipBuildingActivity) {
         context = shipBuildingActivity.getApplicationContext();
@@ -72,20 +70,6 @@ public class ShipBuildingController implements IShipBuildingController{
     @Override
     public void onViewLoaded(IShipBuildingView.PartSelectionView partView) {
         Log.d(TAG, "onViewLoaded: partView- " + partView);
-//        setArrow(PartSelectionView partView, ViewDirection arrow, boolean visible, String text);
-
-        /*
-        *   case 2:
-                return EXTRA_PART;
-            case 4:
-                return ENGINE;
-            case 5:
-                return MAIN_BODY;
-            case 6:
-                return CANNON;
-            case 8:
-                return POWER_CORE;
-                */
 
         switch(partView) {
             case EXTRA_PART:
@@ -149,35 +133,35 @@ public class ShipBuildingController implements IShipBuildingController{
 
         ArrayList<Integer> pictureIdList = new ArrayList<>();
         for (MainBody mainBody : asteroidsGame.getMainBodies()) {
-            Integer id = content.loadImage(mainBody.getImage());
+            Integer id = content.loadImage(mainBody.getGameImage().getFilePath());
             pictureIdList.add(id);
         }
         shipBuildingActivity.setPartViewImageList(MAIN_BODY, pictureIdList);
 
         pictureIdList = new ArrayList<>();
         for (Cannon cannon : asteroidsGame.getCannons()) {
-            Integer id = content.loadImage(cannon.getGameImage());
+            Integer id = content.loadImage(cannon.getGameImage().getFilePath());
             pictureIdList.add(id);
         }
         shipBuildingActivity.setPartViewImageList(IShipBuildingView.PartSelectionView.CANNON, pictureIdList);
 
         pictureIdList = new ArrayList<>();
         for (Engine engine: asteroidsGame.getEngines()) {
-            Integer id = content.loadImage(engine.getGameImage());
+            Integer id = content.loadImage(engine.getGameImage().getFilePath());
             pictureIdList.add(id);
         }
         shipBuildingActivity.setPartViewImageList(IShipBuildingView.PartSelectionView.ENGINE, pictureIdList);
 
         pictureIdList = new ArrayList<>();
         for (ExtraPart extraPart : asteroidsGame.getExtraParts()) {
-            Integer id = content.loadImage(extraPart.getImage());
+            Integer id = content.loadImage(extraPart.getGameImage().getFilePath());
             pictureIdList.add(id);
         }
         shipBuildingActivity.setPartViewImageList(IShipBuildingView.PartSelectionView.EXTRA_PART, pictureIdList);
 
         pictureIdList = new ArrayList<>();
         for (PowerCore powerCore : asteroidsGame.getPowerCores()) {
-            Integer id = content.loadImage(powerCore.getImage());
+            Integer id = content.loadImage(powerCore.getGameImage().getFilePath());
             pictureIdList.add(id);
         }
         shipBuildingActivity.setPartViewImageList(IShipBuildingView.PartSelectionView.POWER_CORE, pictureIdList);
@@ -188,69 +172,10 @@ public class ShipBuildingController implements IShipBuildingController{
         Log.d(TAG, "unloadContent: ");
     }
 
-    private float calculateOffsetX(String offsetBase, String offsetAttatch){
-        float baseWidthOffset = Float.valueOf(offsetBase.split(",")[0])/2;
-        float attatchWidthOffset = Float.valueOf(offsetAttatch.split(",")[0])/2;
-        float x = DrawingHelper.getGameViewWidth()/2;
-
-        float newAttatchCenterX = (x + baseWidthOffset - attatchWidthOffset) ;
-        return newAttatchCenterX;
-    }
-
-    private float calculateOffsetY(String offsetBase, String offsetAttatch){
-        float baseWidthOffset = Float.valueOf(offsetBase.split(",")[1])/2;
-        float attatchWidthOffset = Float.valueOf(offsetAttatch.split(",")[1])/2;
-        float y = DrawingHelper.getGameViewHeight()/2;
-
-        float newAttatchCenterY = (y - baseWidthOffset + attatchWidthOffset) ;
-        return newAttatchCenterY;
-    }
-
-    float scaleX = .5f;
-    float scaleY = .5f;
 
     @Override
     public void draw() {
-
-        float rotationDegrees = 0.0f;
-        int alpha = 225;
-        float x = DrawingHelper.getGameViewWidth()/2;
-        float y = DrawingHelper.getGameViewHeight()/2;
-
-        if (shipPartMainBody == null) return;
-
-        if (shipPartMainBody != null){
-            DrawingHelper.drawImage(content.getImageId(shipPartMainBody.getImage()),
-                    x,y,rotationDegrees,scaleX,scaleY,alpha);
-        }
-
-        if (shipPartCannons != null){
-            DrawingHelper.drawImage(content.getImageId(shipPartCannons.getGameImage()),
-                    calculateOffsetX(shipPartMainBody.getCannonAttach(), shipPartCannons.getAttachPoint()),
-                    calculateOffsetY(shipPartMainBody.getCannonAttach(), shipPartCannons.getAttachPoint()),
-                    rotationDegrees,scaleX,scaleY,alpha);
-        }
-
-        if (shipPartEngines != null){
-            DrawingHelper.drawImage(content.getImageId(shipPartEngines.getGameImage()),
-                    calculateOffsetX(shipPartMainBody.getEngineAttach(), shipPartEngines.getAttachPoint()),
-                    calculateOffsetY(shipPartMainBody.getEngineAttach(), shipPartEngines.getAttachPoint()),
-                    rotationDegrees,scaleX,scaleY,alpha);
-        }
-
-        if (shipPartExtraPart != null){
-            DrawingHelper.drawImage(content.getImageId(shipPartExtraPart.getImage()),
-                    calculateOffsetX(shipPartMainBody.getExtraAttach(), shipPartExtraPart.getAttachPoint()),
-                    calculateOffsetY(shipPartMainBody.getExtraAttach(), shipPartExtraPart.getAttachPoint()),
-                    rotationDegrees,scaleX,scaleY,alpha);
-        }
-
-//        if (shipPartPowerCores != null){
-//            DrawingHelper.drawImage(content.getImageId(shipPartPowerCores.getGameImage()),
-//                    calculateOffsetX(shipPartMainBody.getA(), shipPartExtraPart.getAttachPoint()),
-//                    calculateOffsetY(shipPartMainBody.getExtraAttach(), shipPartExtraPart.getAttachPoint()),
-//                    rotationDegrees,scaleX,scaleY,alpha);
-//        }
+        ship.draw();
     }
 
     /**
@@ -262,75 +187,44 @@ public class ShipBuildingController implements IShipBuildingController{
     public void onSlideView(IShipBuildingView.ViewDirection direction) {
         direction = shipBuildingActivity.getOppositeDirection(direction);
         board = Arrays.asList(false, false, true, false, true, true, true, false, true, false);
+        int temp = shipBuildingBoardPosition;
 
-        int flag = 0;
         switch(direction) {
             case LEFT:
-                if(left()) flag++; break;
+                if (shipBuildingBoardPosition - 1 <= 0) break;
+                if (!board.get(shipBuildingBoardPosition - 1)) break;
+                shipBuildingBoardPosition = shipBuildingBoardPosition - 1;break;
             case RIGHT:
-                if(right()) flag++; break;
+                if (shipBuildingBoardPosition + 1 > board.size()) break;
+                if (!board.get(shipBuildingBoardPosition + 1)) break;
+                shipBuildingBoardPosition = shipBuildingBoardPosition + 1;break;
             case UP:
-                if(up()) flag++; break;
+                if (shipBuildingBoardPosition - 3 <= 0) break;
+                if (!board.get(shipBuildingBoardPosition - 3)) break;
+                shipBuildingBoardPosition = shipBuildingBoardPosition - 3;break;
             case DOWN:
-                if(down()) flag++; break;
+                if (shipBuildingBoardPosition + 3 > board.size()) break;
+                if (!board.get(shipBuildingBoardPosition + 3)) break;
+                shipBuildingBoardPosition = shipBuildingBoardPosition + 3; break;
         }
 
-        Log.d(TAG, "onSlideView: direction- " + direction + " can move = " + flag);
-
-        if (flag > 0){
+        if (shipBuildingBoardPosition != temp){
             shipBuildingActivity.animateToView( getViewForPosition(shipBuildingBoardPosition), direction);
+            Log.d(TAG, "onSlideView: direction- " + direction + " can move");
         }
-
-
     }
 
-    private IShipBuildingView.PartSelectionView getViewForPosition(int position){
-        switch(position) {
-            case 2:
-                return EXTRA_PART;
-            case 4:
-                return ENGINE;
-            case 5:
-                return MAIN_BODY;
-            case 6:
-                return CANNON;
-            case 8:
-                return POWER_CORE;
+    private IShipBuildingView.PartSelectionView getViewForPosition(int position) {
+        switch (position) {
+            case 2:         return EXTRA_PART;
+            case 4:         return ENGINE;
+            case 5:         return MAIN_BODY;
+            case 6:         return CANNON;
+            case 8:         return POWER_CORE;
         }
         return null;
     }
 
-    private boolean up(){
-        if (shipBuildingBoardPosition - 3 <= 0) return false;
-        boolean position = board.get(shipBuildingBoardPosition - 3);
-        if (!position) return false;
-        shipBuildingBoardPosition = shipBuildingBoardPosition - 3;
-        return true;
-    }
-
-    private boolean down(){
-        if (shipBuildingBoardPosition + 3 > board.size()) return false;
-        boolean position = board.get(shipBuildingBoardPosition + 3);
-        if (!position) return false;
-        shipBuildingBoardPosition = shipBuildingBoardPosition + 3;
-        return true;
-    }
-
-    private boolean right(){
-        if (shipBuildingBoardPosition + 1 > board.size()) return false;
-        boolean position = board.get(shipBuildingBoardPosition + 1);
-        if (!position) return false;
-        shipBuildingBoardPosition = shipBuildingBoardPosition + 1;
-        return true;
-    }
-
-    private boolean left(){
-        if (shipBuildingBoardPosition - 1 <= 0) return false;
-        boolean position = board.get(shipBuildingBoardPosition - 1);
-        if (!position) return false;
-        shipBuildingBoardPosition = shipBuildingBoardPosition - 1;
-        return true;
-    }
 
     /**
      * The part selection fragments call this function when a part is selected from the parts list. Respond
@@ -339,27 +233,14 @@ public class ShipBuildingController implements IShipBuildingController{
      */
     @Override
     public void onPartSelected(int index) {
-        Log.d(TAG, "onPartSelected: index " + index);
-
         switch(getViewForPosition(shipBuildingBoardPosition)) {
-            case EXTRA_PART:
-                shipPartExtraPart = asteroidsGame.getExtraParts().get(index);
-                break;
-            case ENGINE:
-                shipPartEngines = asteroidsGame.getEngines().get(index);
-                break;
-            case MAIN_BODY:
-                shipPartMainBody = asteroidsGame.getMainBodies().get(index);
-                break;
-            case CANNON:
-                shipPartCannons = asteroidsGame.getCannons().get(index);
-                break;
-            case POWER_CORE:
-                shipPartPowerCores = asteroidsGame.getPowerCores().get(index);
-                break;
+            case EXTRA_PART:        ship.setExtraPart(asteroidsGame.getExtraParts().get(index)); break;
+            case ENGINE:            ship.setEngine(asteroidsGame.getEngines().get(index)); break;
+            case MAIN_BODY:         ship.setMainBody(asteroidsGame.getMainBodies().get(index)); break;
+            case CANNON:            ship.setCannon(asteroidsGame.getCannons().get(index)); break;
+            case POWER_CORE:        ship.setPowerCore(asteroidsGame.getPowerCores().get(index)); break;
         }
-//        draw();
-
+        Log.d(TAG, "onPartSelected: index " + index);
     }
 
     /**

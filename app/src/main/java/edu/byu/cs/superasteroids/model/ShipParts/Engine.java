@@ -28,7 +28,7 @@ public class Engine extends ShipPart {
      * @param attachPoint the attach point for all parts that are not mainBody objects
      * @param scale       scale of item to draw to - taken from game constants
      */
-    public Engine(GameImage image, int speed, double rotation, PointF position, PointF attachPoint, float scale,
+    public Engine(GameImage image, int speed, float rotation, PointF position, PointF attachPoint, float scale,
                   int baseSpeed, int baseTurnRate) {
         super(image, speed, rotation, position, attachPoint, scale);
         this.baseSpeed = baseSpeed;

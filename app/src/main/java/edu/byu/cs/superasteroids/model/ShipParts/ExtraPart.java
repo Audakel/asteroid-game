@@ -17,7 +17,7 @@ public class ExtraPart extends ShipPart{
      * @param attachPoint the attach point for all parts that are not mainBody objects
      * @param scale       scale of item to draw to - taken from game constants
      */
-    public ExtraPart(GameImage image, int speed, double rotation, PointF position, PointF attachPoint, float scale) {
+    public ExtraPart(GameImage image, int speed, float rotation, PointF position, PointF attachPoint, float scale) {
         super(image, speed, rotation, position, attachPoint, scale);
     }
 

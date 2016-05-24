@@ -28,7 +28,7 @@ public class Cannon extends ShipPart{
      * @param attackSound sound to play on firing of gun
      * @param damage how much damage does the cannon do
      */
-    public Cannon(GameImage image, int speed, double rotation, PointF position, PointF attachPoint, float scale,
+    public Cannon(GameImage image, int speed, float rotation, PointF position, PointF attachPoint, float scale,
                   PointF emitPoint, GameImage attackImage, String attackSound, String damage) {
 
         super(image, speed, rotation, position, attachPoint, scale);
@@ -37,6 +37,7 @@ public class Cannon extends ShipPart{
         this.attackSound = attackSound;
         this.damage = damage;
     }
+
 
     @Override
     public void draw(){

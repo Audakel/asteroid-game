@@ -3,23 +3,28 @@ package edu.byu.cs.superasteroids.model.ShipParts;
 import android.content.ContentValues;
 import android.graphics.PointF;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import edu.byu.cs.superasteroids.database.Contract;
 import edu.byu.cs.superasteroids.helper.DrawingHelper;
 import edu.byu.cs.superasteroids.helper.GraphicsUtils;
+import edu.byu.cs.superasteroids.helper.content.ContentManager;
 import edu.byu.cs.superasteroids.model.GameImage;
 import edu.byu.cs.superasteroids.model.MovableObject;
 
-import static edu.byu.cs.superasteroids.Constants.SCALE_FACTOR;
-import static edu.byu.cs.superasteroids.Constants.STARTING_SHIP_OPACITY;
+import static edu.byu.cs.superasteroids.Constants.*;
+import static edu.byu.cs.superasteroids.helper.DrawingHelper.getGameViewHeight;
+import static edu.byu.cs.superasteroids.helper.DrawingHelper.getGameViewWidth;
 
 /**
  * Created by audakel on 5/23/16.
  */
 public class ShipPart extends MovableObject {
     protected ContentValues contentValues;
-    protected PointF attachPoint;
-    protected float scale;
-    protected int imageIndex;
+    private PointF attachPoint;
+    private float scale;
+    private Integer imageIndex;
 
     /**
      *
@@ -30,21 +35,40 @@ public class ShipPart extends MovableObject {
      * @param attachPoint the attach point for all parts that are not mainBody objects
      * @param scale scale of item to draw to - taken from game constants
      */
-    public ShipPart(GameImage image, int speed, double rotation, PointF position, PointF attachPoint, float scale) {
+    public ShipPart(GameImage image, int speed, float rotation, PointF position, PointF attachPoint, float scale) {
         super(image, speed, rotation, position);
         this.attachPoint = attachPoint;
         this.scale = scale;
     }
 
-    public void drawAttachedToMainBody(int imageIndex, float rotationDegrees, MainBody mainBody){
+    /**
+     * Construct an object from a json object
+     * @param jo
+     * @throws JSONException
+     */
+
+
+
+//        (new GameImage(jo.getInt("imageWidth"), jo.getInt("imageHeight"), jo.getString("image")),
+//                0, 0, new PointF(getGameViewWidth() / 2, getGameViewHeight() / 2), null, SCALE_FACTOR);
+
+
+
+
+    public PointF extractPointFromString(String string){
+         return new PointF(Float.valueOf(string.split(",")[0]),
+                Float.valueOf(string.split(",")[1]));
+    }
+
+    public void drawAttachedToMainBody(int imageIndex, MainBody mainBody){
         super.draw();
         if(mainBody == null) return;
 
         DrawingHelper.drawImage(
                 imageIndex,
-                partCenterPoint(imageIndex, mainBody).x,
-                partCenterPoint(imageIndex, mainBody).y,
-                rotationDegrees,
+                partCenteredOffMainBody(mainBody).x,
+                partCenteredOffMainBody(mainBody).y,
+                getRotation(),
                 SCALE_FACTOR,
                 SCALE_FACTOR,
                 STARTING_SHIP_OPACITY
@@ -54,9 +78,9 @@ public class ShipPart extends MovableObject {
     /**
      *
      * @param mainBody takes a mainBody and will reference itself to get the part object
-     * @return the point at which
+     * @return the point at which the part should be drawn to attach to the ship
      */
-    private PointF partCenterPoint(MainBody mainBody) {
+    private PointF partCenteredOffMainBody(MainBody mainBody) {
 
         PointF mainBodyAttachPoint = getMainBodyAttachPoint(mainBody);
 
@@ -79,23 +103,24 @@ public class ShipPart extends MovableObject {
 
         centerPoint = GraphicsUtils.rotate(
                 GraphicsUtils.subtract(centerPoint, getViewPosition()),
-                GraphicsUtils.degreesToRadians(rotationDegrees)
+                GraphicsUtils.degreesToRadians(getRotation())
         );
-        centerPoint = GraphicsUtils.add(centerPoint, getViewPosition());
 
-        return centerPoint;
+        return GraphicsUtils.add(centerPoint, getViewPosition());
     }
 
     /**
-     * This will calculate the the attach point on the main body for the given part.
-     * @param part the part that the attach point is needed.
+     * This will calculate the the attach point on the main body for the given part. it references
+     * this.getClass() to find out what it is
+     *
+     * @param mainBody to reference all the different attach points
      * @return the attach point for the given part.
      */
     private PointF getMainBodyAttachPoint(MainBody mainBody) {
         switch(this.getClass().getSimpleName()) {
-            case "Cannon":		return mainBody.getCannonAttach();
-            case "Engine": 	    return mainBody.getEngineAttach();
-            case "ExtraPart":	return mainBody.getExtraAttach();
+            case CANNON:		return mainBody.getCannonAttach();
+            case ENGINE: 	    return mainBody.getEngineAttach();
+            case EXTRA_PART:	return mainBody.getExtraAttach();
             default:            return null;
         }
     }
@@ -132,6 +157,10 @@ public class ShipPart extends MovableObject {
     }
 
     public int getImageIndex() {
+        if (imageIndex != null) return imageIndex;
+
+        setImageIndex(ContentManager.getInstance().getImageId(getGameImage().getFilePath()));
+
         return imageIndex;
     }
 

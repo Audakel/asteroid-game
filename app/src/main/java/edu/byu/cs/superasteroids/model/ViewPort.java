@@ -20,7 +20,7 @@ public class ViewPort extends MovableObject{
      * @param rotation current rotation of obj
      * @param position current position of obj in space
      */
-    public ViewPort(GameImage image, int speed, double rotation, PointF position) {
+    public ViewPort(GameImage image, int speed, float rotation, PointF position) {
         super(image, speed, rotation, position);
 
     }

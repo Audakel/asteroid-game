@@ -1,2 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/home/audakel/Android/Sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
+        <dex dex="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-v4-19.1.0_85d43679a1a0c990f9b8b6cda2bfe4fb616c654f/classes.dex" />
+    </item>
+    <item
+        jar="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28">
+        <dex dex="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-19.1.0_2e53947f6abe9ec61a887774800e81f85cf869c7/classes.dex" />
+    </item>
+    <item
+        jar="/home/audakel/android-studio/gradle/m2repository/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.2.4_b3d1dd31d1e8564581542d08988d69f23147e5d5/classes.dex" />
+    </item>
+    <item
+        jar="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="490d0c5ec3881e9cab02cd2ea2dbf2e366ba15da">
+        <dex dex="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_8108a8556c0515c0626afb65658e1701f28b9270/classes.dex" />
+    </item>
+    <item
+        jar="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/libs/json-simple-1.1.1.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="5d6f9b6a9ddca2a28c0216cc44efb2e20d9c23b5">
+        <dex dex="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/2/json-simple-1.1.1_da9085b391cd6cb9f18189158c1ad1887440b26b/classes.dex" />
+    </item>
+    <item
+        jar="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="d2304247e877cfd1fd43debfbed835f4f2b43130">
+        <dex dex="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_6c91a4922cd40d7b9198ab6a9dec0c1a9b75af6d/classes.dex" />
+    </item>
+
+</items>

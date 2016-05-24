@@ -134,12 +134,12 @@ public final class Contract implements BaseColumns {
         };
     }
 
-    public static Object[] allAteroidGameObjects() {
-        return new Object[]{
-            new Asteroid(), new Cannon(), new Engine(), new ExtraPart(), new Level(), new LevelObject(),
-                new LevelAsteroid(), new MainBody(), new PowerCore()
-        };
-    }
+//    public static Object[] allAteroidGameObjects() {
+//        return new Object[]{
+//            new Asteroid(), new Cannon(), new Engine(), new ExtraPart(), new Level(), new LevelObject(),
+//                new LevelAsteroid(), new MainBody(), new PowerCore()
+//        };
+//    }
 
     public static Uri[] allAteroidUris() {
         return new Uri[]{

@@ -1,8 +1,10 @@
 package edu.byu.cs.superasteroids.model;
 
+import android.content.Context;
 import android.graphics.PointF;
 
 import edu.byu.cs.superasteroids.helper.DrawingHelper;
+import edu.byu.cs.superasteroids.helper.content.ContentManager;
 import edu.byu.cs.superasteroids.model.ShipParts.Cannon;
 import edu.byu.cs.superasteroids.model.ShipParts.Engine;
 import edu.byu.cs.superasteroids.model.ShipParts.ExtraPart;
@@ -18,6 +20,10 @@ import static edu.byu.cs.superasteroids.Constants.STARTING_SHIP_SAFE_TIME;
 
 /**
  * Created by audakel on 5/23/16.
+ */
+
+/**
+ * Holds all the ship peices for easy drawing etc..
  */
 public class Ship extends MovableObject {
     /**
@@ -40,8 +46,6 @@ public class Ship extends MovableObject {
      * Power core of ship
      */
     private PowerCore powerCore;
-
-
     /**
      * Degree of rotaion for ship
      */
@@ -66,14 +70,11 @@ public class Ship extends MovableObject {
      * Opacity value of ship
      */
     private int shipOpacity = STARTING_SHIP_OPACITY;
+    /**
+     * Context of activity calling ship
+     */
+    private Context context;
 
-
-    // Database index of corresponding item
-    private int mainBodyIndex;
-    private int cannonIndex;
-    private int extraPartIndex;
-    private int engineIndex;
-    private int powerCoreIndex;
 
     public Ship() {
         super(new GameImage(0,0,""), 0, 0, new PointF(0,0));
@@ -86,32 +87,105 @@ public class Ship extends MovableObject {
 
     @Override
     public void draw(){
-        drawMainBody();
-        drawEngine();
-        drawCannon();
-        drawExtraPart();
+        mainBody.draw();
+        engine.drawAttachedToMainBody(engine.getImageIndex(), mainBody);
+        cannon.drawAttachedToMainBody(cannon.getImageIndex(), mainBody);
+        extraPart.drawAttachedToMainBody(extraPart.getImageIndex(), mainBody);
     }
 
-    private void drawCannon() {
-
+    public MainBody getMainBody() {
+        return mainBody;
     }
 
-    private void drawEngine() {
-
+    public void setMainBody(MainBody mainBody) {
+        this.mainBody = mainBody;
     }
 
-    private void drawExtraPart() {
-
+    public Cannon getCannon() {
+        return cannon;
     }
 
-    private void drawMainBody() {
+    public void setCannon(Cannon cannon) {
+        this.cannon = cannon;
     }
 
-    private PointF getMainBodyAttatchPoint(ShipPart part){
-
+    public ExtraPart getExtraPart() {
+        return extraPart;
     }
 
-    private PointF getCenterPoint(ShipPart part){
+    public void setExtraPart(ExtraPart extraPart) {
+        this.extraPart = extraPart;
+    }
 
+    public Engine getEngine() {
+        return engine;
+    }
+
+    public void setEngine(Engine engine) {
+        this.engine = engine;
+    }
+
+    public PowerCore getPowerCore() {
+        return powerCore;
+    }
+
+    public void setPowerCore(PowerCore powerCore) {
+        this.powerCore = powerCore;
+    }
+
+    public float getRotationDegrees() {
+        return rotationDegrees;
+    }
+
+    public void setRotationDegrees(float rotationDegrees) {
+        this.rotationDegrees = rotationDegrees;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    public boolean isSafe() {
+        return safe;
+    }
+
+    public void setSafe(boolean safe) {
+        this.safe = safe;
+    }
+
+    public boolean isDead() {
+        return dead;
+    }
+
+    public void setDead(boolean dead) {
+        this.dead = dead;
+    }
+
+    public double getSafeTime() {
+        return safeTime;
+    }
+
+    public void setSafeTime(double safeTime) {
+        this.safeTime = safeTime;
+    }
+
+    public int getShipOpacity() {
+        return shipOpacity;
+    }
+
+    public void setShipOpacity(int shipOpacity) {
+        this.shipOpacity = shipOpacity;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 }
