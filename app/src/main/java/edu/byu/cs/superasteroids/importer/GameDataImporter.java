@@ -2,7 +2,6 @@ package edu.byu.cs.superasteroids.importer;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
@@ -14,22 +13,22 @@ import org.json.JSONObject;
 
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 import edu.byu.cs.superasteroids.database.Contract;
 import edu.byu.cs.superasteroids.interfaces.IGameDataImporter;
 import edu.byu.cs.superasteroids.model.Asteroid;
 import edu.byu.cs.superasteroids.model.AsteroidsGame;
-import edu.byu.cs.superasteroids.model.Cannon;
-import edu.byu.cs.superasteroids.model.Engine;
-import edu.byu.cs.superasteroids.model.ExtraPart;
+import edu.byu.cs.superasteroids.model.ShipParts.Cannon;
+import edu.byu.cs.superasteroids.model.ShipParts.Engine;
+import edu.byu.cs.superasteroids.model.ShipParts.ExtraPart;
 import edu.byu.cs.superasteroids.model.Level;
 import edu.byu.cs.superasteroids.model.LevelAsteroid;
 import edu.byu.cs.superasteroids.model.LevelObject;
-import edu.byu.cs.superasteroids.model.MainBody;
+import edu.byu.cs.superasteroids.model.ShipParts.MainBody;
 import edu.byu.cs.superasteroids.model.ObjectImage;
-import edu.byu.cs.superasteroids.model.PowerCore;
+import edu.byu.cs.superasteroids.model.ShipParts.PowerCore;
+import edu.byu.cs.superasteroids.model.ShipParts.ShipPart;
 
 /**
  * Created by audakel on 5/16/16.
@@ -43,8 +42,6 @@ public class GameDataImporter implements IGameDataImporter {
     public GameDataImporter(Context context) {
         this.context = context;
     }
-
-
 
     /**
      *
@@ -86,6 +83,11 @@ public class GameDataImporter implements IGameDataImporter {
         for (Asteroid asteroid : asteroidsGame.getAsteroids()){
             context.getContentResolver().insert(Contract.URI_ASTEROID, asteroid.getContentValues());
         }
+
+//        TODO:: Refactor out duplicate code and figure out how to make list of different types
+//        for (ShipPart shipPart : asteroidsGame.getShipParts()) {
+//
+//        }
 
         for (Cannon cannon : asteroidsGame.getCannons()){
             context.getContentResolver().insert(Contract.URI_CANNON, cannon.getContentValues());

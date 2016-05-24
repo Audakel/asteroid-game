@@ -1,6 +1,7 @@
 package edu.byu.cs.superasteroids.ship_builder;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -59,7 +60,8 @@ public class PartSelectionFragment extends FragmentView {
 
 			@Override
 			public void onClick(View arg0) {
-				getController().onStartGamePressed();
+                Log.d("PartSelectionFragment", "onClick: onStartGamePressed");
+                getController().onStartGamePressed();
 			}
 		});
 		

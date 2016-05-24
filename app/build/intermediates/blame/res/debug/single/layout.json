@@ -1,11 +1,11 @@
 [
     {
-        "merged": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_icon.xml",
-        "source": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/layout/abc_list_menu_item_icon.xml"
-    },
-    {
         "merged": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/res/merged/debug/layout/fragment_main.xml",
         "source": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/src/main/res/layout/fragment_main.xml"
+    },
+    {
+        "merged": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_icon.xml",
+        "source": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/layout/abc_list_menu_item_icon.xml"
     },
     {
         "merged": "/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/res/merged/debug/layout/abc_action_bar_title_item.xml",

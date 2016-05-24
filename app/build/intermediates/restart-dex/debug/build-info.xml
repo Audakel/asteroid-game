@@ -4,31 +4,34 @@
     api-level="23"
     density="420dpi"
     format="7"
-    timestamp="21147316406296" >
+    timestamp="582841459784" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="122" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="13" />
     <task
         name="verifier"
-        duration="0" />
+        duration="5" />
 
-    <build timestamp="3454596762312" >
+    <artifact
+        location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_2/classes.dex"
+        type="DEX" />
+
+    <build timestamp="286566453790" >
         <artifact
             location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/outputs/apk/app-debug.apk"
             type="MAIN" />
     </build>
-    <build timestamp="21104934351175" >
+    <build timestamp="582841459784" >
         <artifact
             location="/home/audakel/AndroidStudioProjects/didactic-octo-engine-asteroid-game/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_2/classes.dex"
             type="DEX" />
     </build>
-    <build timestamp="21147316406296" />
 
 </instant-run>

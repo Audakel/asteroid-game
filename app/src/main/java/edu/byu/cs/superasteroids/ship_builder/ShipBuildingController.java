@@ -1,13 +1,11 @@
 package edu.byu.cs.superasteroids.ship_builder;
 
 import android.content.Context;
-import android.graphics.Rect;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import edu.byu.cs.superasteroids.database.Contract;
 import edu.byu.cs.superasteroids.helper.DrawingHelper;
@@ -17,14 +15,13 @@ import edu.byu.cs.superasteroids.importer.GameDataImporter;
 import edu.byu.cs.superasteroids.interfaces.IShipBuildingController;
 import edu.byu.cs.superasteroids.interfaces.IShipBuildingView;
 import edu.byu.cs.superasteroids.interfaces.IView;
-import edu.byu.cs.superasteroids.model.Asteroid;
 import edu.byu.cs.superasteroids.model.AsteroidsGame;
-import edu.byu.cs.superasteroids.model.Cannon;
-import edu.byu.cs.superasteroids.model.Engine;
-import edu.byu.cs.superasteroids.model.ExtraPart;
+import edu.byu.cs.superasteroids.model.ShipParts.Cannon;
+import edu.byu.cs.superasteroids.model.ShipParts.Engine;
+import edu.byu.cs.superasteroids.model.ShipParts.ExtraPart;
 import edu.byu.cs.superasteroids.model.Level;
-import edu.byu.cs.superasteroids.model.MainBody;
-import edu.byu.cs.superasteroids.model.PowerCore;
+import edu.byu.cs.superasteroids.model.ShipParts.MainBody;
+import edu.byu.cs.superasteroids.model.ShipParts.PowerCore;
 
 import static edu.byu.cs.superasteroids.interfaces.IShipBuildingView.PartSelectionView.CANNON;
 import static edu.byu.cs.superasteroids.interfaces.IShipBuildingView.PartSelectionView.ENGINE;
@@ -159,14 +156,14 @@ public class ShipBuildingController implements IShipBuildingController{
 
         pictureIdList = new ArrayList<>();
         for (Cannon cannon : asteroidsGame.getCannons()) {
-            Integer id = content.loadImage(cannon.getImage());
+            Integer id = content.loadImage(cannon.getGameImage());
             pictureIdList.add(id);
         }
         shipBuildingActivity.setPartViewImageList(IShipBuildingView.PartSelectionView.CANNON, pictureIdList);
 
         pictureIdList = new ArrayList<>();
         for (Engine engine: asteroidsGame.getEngines()) {
-            Integer id = content.loadImage(engine.getImage());
+            Integer id = content.loadImage(engine.getGameImage());
             pictureIdList.add(id);
         }
         shipBuildingActivity.setPartViewImageList(IShipBuildingView.PartSelectionView.ENGINE, pictureIdList);
@@ -228,14 +225,14 @@ public class ShipBuildingController implements IShipBuildingController{
         }
 
         if (shipPartCannons != null){
-            DrawingHelper.drawImage(content.getImageId(shipPartCannons.getImage()),
+            DrawingHelper.drawImage(content.getImageId(shipPartCannons.getGameImage()),
                     calculateOffsetX(shipPartMainBody.getCannonAttach(), shipPartCannons.getAttachPoint()),
                     calculateOffsetY(shipPartMainBody.getCannonAttach(), shipPartCannons.getAttachPoint()),
                     rotationDegrees,scaleX,scaleY,alpha);
         }
 
         if (shipPartEngines != null){
-            DrawingHelper.drawImage(content.getImageId(shipPartEngines.getImage()),
+            DrawingHelper.drawImage(content.getImageId(shipPartEngines.getGameImage()),
                     calculateOffsetX(shipPartMainBody.getEngineAttach(), shipPartEngines.getAttachPoint()),
                     calculateOffsetY(shipPartMainBody.getEngineAttach(), shipPartEngines.getAttachPoint()),
                     rotationDegrees,scaleX,scaleY,alpha);
@@ -249,7 +246,7 @@ public class ShipBuildingController implements IShipBuildingController{
         }
 
 //        if (shipPartPowerCores != null){
-//            DrawingHelper.drawImage(content.getImageId(shipPartPowerCores.getImage()),
+//            DrawingHelper.drawImage(content.getImageId(shipPartPowerCores.getGameImage()),
 //                    calculateOffsetX(shipPartMainBody.getA(), shipPartExtraPart.getAttachPoint()),
 //                    calculateOffsetY(shipPartMainBody.getExtraAttach(), shipPartExtraPart.getAttachPoint()),
 //                    rotationDegrees,scaleX,scaleY,alpha);

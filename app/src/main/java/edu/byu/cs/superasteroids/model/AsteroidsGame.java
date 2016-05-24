@@ -1,6 +1,14 @@
 package edu.byu.cs.superasteroids.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
+
+import edu.byu.cs.superasteroids.model.ShipParts.Cannon;
+import edu.byu.cs.superasteroids.model.ShipParts.Engine;
+import edu.byu.cs.superasteroids.model.ShipParts.ExtraPart;
+import edu.byu.cs.superasteroids.model.ShipParts.MainBody;
+import edu.byu.cs.superasteroids.model.ShipParts.PowerCore;
+import edu.byu.cs.superasteroids.model.ShipParts.ShipPart;
 
 /**
  * Created by audakel on 5/17/16.
@@ -14,6 +22,9 @@ public class AsteroidsGame {
     private ArrayList<MainBody> mainBodies = new ArrayList<>();
     private ArrayList<PowerCore> powerCores = new ArrayList<>();
     private ArrayList<ObjectImage> objectImages = new ArrayList<>();
+
+//    private ArrayList<ShipPart> shipParts = new ArrayList<>();
+
 
 
 
