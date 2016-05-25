@@ -3,17 +3,14 @@ package edu.byu.cs.superasteroids.model;
 import android.content.Context;
 import android.graphics.PointF;
 
-import edu.byu.cs.superasteroids.helper.DrawingHelper;
-import edu.byu.cs.superasteroids.helper.content.ContentManager;
-import edu.byu.cs.superasteroids.model.ShipParts.Cannon;
-import edu.byu.cs.superasteroids.model.ShipParts.Engine;
-import edu.byu.cs.superasteroids.model.ShipParts.ExtraPart;
-import edu.byu.cs.superasteroids.model.ShipParts.MainBody;
-import edu.byu.cs.superasteroids.model.ShipParts.PowerCore;
-import edu.byu.cs.superasteroids.model.ShipParts.ShipPart;
+import edu.byu.cs.superasteroids.model.shipParts.Cannon;
+import edu.byu.cs.superasteroids.model.shipParts.Engine;
+import edu.byu.cs.superasteroids.model.shipParts.ExtraPart;
+import edu.byu.cs.superasteroids.model.shipParts.MainBody;
+import edu.byu.cs.superasteroids.model.shipParts.PowerCore;
 
 import static edu.byu.cs.superasteroids.Constants.STARTING_SHIP_LIVES;
-import static edu.byu.cs.superasteroids.Constants.STARTING_SHIP_OPACITY;
+import static edu.byu.cs.superasteroids.Constants.OPACITY_SHIP;
 import static edu.byu.cs.superasteroids.Constants.STARTING_SHIP_ROTATION;
 import static edu.byu.cs.superasteroids.Constants.STARTING_SHIP_SAFE;
 import static edu.byu.cs.superasteroids.Constants.STARTING_SHIP_SAFE_TIME;
@@ -71,7 +68,7 @@ public class Ship extends MovableObject {
     /**
      * Opacity value of ship
      */
-    private int shipOpacity = STARTING_SHIP_OPACITY;
+    private int shipOpacity = OPACITY_SHIP;
     /**
      * Context of activity calling ship
      */
@@ -108,6 +105,10 @@ public class Ship extends MovableObject {
 
     public void setMainBody(MainBody mainBody) {
         this.mainBody = mainBody;
+
+        if (getMainBody().getPosition().x == 0 && getMainBody().getPosition().y ==0){
+            getMainBody().setPosition(new PointF(getGameViewWidth() / 2, getGameViewHeight() / 2));
+        }
     }
 
     public Cannon getCannon() {

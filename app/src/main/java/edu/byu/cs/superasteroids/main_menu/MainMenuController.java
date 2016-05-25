@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import edu.byu.cs.superasteroids.helper.content.ContentManager;
 import edu.byu.cs.superasteroids.interfaces.IView;
 import edu.byu.cs.superasteroids.interfaces.IMainMenuController;
 
@@ -12,13 +13,15 @@ import edu.byu.cs.superasteroids.interfaces.IMainMenuController;
  */
 public class MainMenuController implements IMainMenuController {
     Context context;
+    MainActivity mainActivity;
 
-    public MainMenuController(Context context){
-        this.context = context;
+    public MainMenuController(MainActivity mainActivity){
+        this.mainActivity = mainActivity;
     }
+
     @Override
     public void onQuickPlayPressed() {
-
+        mainActivity.startGame();
     }
 
     @Override

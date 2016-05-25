@@ -1,14 +1,13 @@
 package edu.byu.cs.superasteroids.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
-import edu.byu.cs.superasteroids.model.ShipParts.Cannon;
-import edu.byu.cs.superasteroids.model.ShipParts.Engine;
-import edu.byu.cs.superasteroids.model.ShipParts.ExtraPart;
-import edu.byu.cs.superasteroids.model.ShipParts.MainBody;
-import edu.byu.cs.superasteroids.model.ShipParts.PowerCore;
-import edu.byu.cs.superasteroids.model.ShipParts.ShipPart;
+import edu.byu.cs.superasteroids.model.asteroids.Asteroid;
+import edu.byu.cs.superasteroids.model.shipParts.Cannon;
+import edu.byu.cs.superasteroids.model.shipParts.Engine;
+import edu.byu.cs.superasteroids.model.shipParts.ExtraPart;
+import edu.byu.cs.superasteroids.model.shipParts.MainBody;
+import edu.byu.cs.superasteroids.model.shipParts.PowerCore;
 
 /**
  * Created by audakel on 5/17/16.
@@ -29,6 +28,13 @@ public class AsteroidsGame {
     private ArrayList<ObjectImage> objectImages = new ArrayList<>();
     private Ship ship;
 
+    public ArrayList<ObjectImage> getObjectImages() {
+        return objectImages;
+    }
+
+    public void setShip(Ship ship) {
+        this.ship = ship;
+    }
 
     public ArrayList<Asteroid> getAsteroids() {
         return asteroids;

@@ -9,7 +9,6 @@ import java.util.List;
 
 import edu.byu.cs.superasteroids.database.Contract;
 import edu.byu.cs.superasteroids.game.GameHolder;
-import edu.byu.cs.superasteroids.helper.DrawingHelper;
 import edu.byu.cs.superasteroids.helper.content.ContentManager;
 import edu.byu.cs.superasteroids.importer.GameDataExtractor;
 import edu.byu.cs.superasteroids.importer.GameDataImporter;
@@ -18,12 +17,12 @@ import edu.byu.cs.superasteroids.interfaces.IShipBuildingView;
 import edu.byu.cs.superasteroids.interfaces.IView;
 import edu.byu.cs.superasteroids.model.AsteroidsGame;
 import edu.byu.cs.superasteroids.model.Ship;
-import edu.byu.cs.superasteroids.model.ShipParts.Cannon;
-import edu.byu.cs.superasteroids.model.ShipParts.Engine;
-import edu.byu.cs.superasteroids.model.ShipParts.ExtraPart;
+import edu.byu.cs.superasteroids.model.shipParts.Cannon;
+import edu.byu.cs.superasteroids.model.shipParts.Engine;
+import edu.byu.cs.superasteroids.model.shipParts.ExtraPart;
 import edu.byu.cs.superasteroids.model.Level;
-import edu.byu.cs.superasteroids.model.ShipParts.MainBody;
-import edu.byu.cs.superasteroids.model.ShipParts.PowerCore;
+import edu.byu.cs.superasteroids.model.shipParts.MainBody;
+import edu.byu.cs.superasteroids.model.shipParts.PowerCore;
 
 import static edu.byu.cs.superasteroids.interfaces.IShipBuildingView.PartSelectionView.CANNON;
 import static edu.byu.cs.superasteroids.interfaces.IShipBuildingView.PartSelectionView.ENGINE;
@@ -76,21 +75,21 @@ public class ShipBuildingController implements IShipBuildingController{
         switch(partView) {
             case EXTRA_PART:
                 shipBuildingActivity.setArrow(partView, UP, false, Contract.EXTRA_PARTS);
-                shipBuildingActivity.setArrow(partView, RIGHT, false, "");
-                shipBuildingActivity.setArrow(partView, DOWN, true, Contract.MAIN_BODIES);
+                shipBuildingActivity.setArrow(partView, DOWN, false, "");
+                shipBuildingActivity.setArrow(partView, RIGHT, true, Contract.MAIN_BODIES);
                 shipBuildingActivity.setArrow(partView, LEFT, false, "");
                 break;
             case ENGINE:
-                shipBuildingActivity.setArrow(partView, UP, false, Contract.ENGINES);
-                shipBuildingActivity.setArrow(partView, RIGHT, true, Contract.MAIN_BODIES);
+                shipBuildingActivity.setArrow(partView, UP, true, Contract.MAIN_BODIES);
+                shipBuildingActivity.setArrow(partView, RIGHT, false, Contract.MAIN_BODIES);
                 shipBuildingActivity.setArrow(partView, DOWN, false, "");
                 shipBuildingActivity.setArrow(partView, LEFT, false, "");
                 break;
             case MAIN_BODY:
-                shipBuildingActivity.setArrow(partView, UP, true, Contract.EXTRA_PARTS);
+                shipBuildingActivity.setArrow(partView, UP, true, Contract.POWER_CORES);
                 shipBuildingActivity.setArrow(partView, RIGHT, true, Contract.CANNONS);
-                shipBuildingActivity.setArrow(partView, DOWN, true, Contract.POWER_CORES);
-                shipBuildingActivity.setArrow(partView, LEFT, true, Contract.ENGINES);
+                shipBuildingActivity.setArrow(partView, DOWN, true, Contract.ENGINES);
+                shipBuildingActivity.setArrow(partView, LEFT, true, Contract.EXTRA_PARTS);
                 break;
             case CANNON:
                 shipBuildingActivity.setArrow(partView, UP, false, Contract.CANNONS);
@@ -99,10 +98,10 @@ public class ShipBuildingController implements IShipBuildingController{
                 shipBuildingActivity.setArrow(partView, LEFT, true, Contract.MAIN_BODIES);
                 break;
             case POWER_CORE:
-                shipBuildingActivity.setArrow(partView, UP, true, Contract.MAIN_BODIES);
+                shipBuildingActivity.setArrow(partView, UP, false, Contract.POWER_CORES);
                 shipBuildingActivity.setArrow(partView, RIGHT, false, "");
-                shipBuildingActivity.setArrow(partView, DOWN, false, "");
-                shipBuildingActivity.setArrow(partView, LEFT, false, Contract.POWER_CORES);
+                shipBuildingActivity.setArrow(partView, DOWN, true, Contract.POWER_CORES);
+                shipBuildingActivity.setArrow(partView, LEFT, false, "");
                 break;
         }
     }
@@ -218,11 +217,17 @@ public class ShipBuildingController implements IShipBuildingController{
     private IShipBuildingView.PartSelectionView getViewForPosition(int position) {
         Log.d(TAG, "getViewForPosition: position = " + position);
         switch (position) {
-            case 2:         return EXTRA_PART;
-            case 4:         return ENGINE;
+//            case 2:         return EXTRA_PART;
+//            case 4:         return ENGINE;
+//            case 5:         return MAIN_BODY;
+//            case 6:         return CANNON;
+//            case 8:         return POWER_CORE;
+
+            case 2:         return POWER_CORE;
+            case 4:         return EXTRA_PART;
             case 5:         return MAIN_BODY;
             case 6:         return CANNON;
-            case 8:         return POWER_CORE;
+            case 8:         return ENGINE;
         }
         return null;
     }

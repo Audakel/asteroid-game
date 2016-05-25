@@ -2,7 +2,6 @@ package edu.byu.cs.superasteroids.importer;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.graphics.PointF;
 import android.net.Uri;
 import android.util.Log;
 
@@ -19,18 +18,17 @@ import java.util.Scanner;
 
 import edu.byu.cs.superasteroids.database.Contract;
 import edu.byu.cs.superasteroids.interfaces.IGameDataImporter;
-import edu.byu.cs.superasteroids.model.Asteroid;
+import edu.byu.cs.superasteroids.model.asteroids.Asteroid;
 import edu.byu.cs.superasteroids.model.AsteroidsGame;
-import edu.byu.cs.superasteroids.model.ShipParts.Cannon;
-import edu.byu.cs.superasteroids.model.ShipParts.Engine;
-import edu.byu.cs.superasteroids.model.ShipParts.ExtraPart;
+import edu.byu.cs.superasteroids.model.shipParts.Cannon;
+import edu.byu.cs.superasteroids.model.shipParts.Engine;
+import edu.byu.cs.superasteroids.model.shipParts.ExtraPart;
 import edu.byu.cs.superasteroids.model.Level;
 import edu.byu.cs.superasteroids.model.LevelAsteroid;
 import edu.byu.cs.superasteroids.model.LevelObject;
-import edu.byu.cs.superasteroids.model.ShipParts.MainBody;
+import edu.byu.cs.superasteroids.model.shipParts.MainBody;
 import edu.byu.cs.superasteroids.model.ObjectImage;
-import edu.byu.cs.superasteroids.model.ShipParts.PowerCore;
-import edu.byu.cs.superasteroids.model.ShipParts.ShipPart;
+import edu.byu.cs.superasteroids.model.shipParts.PowerCore;
 
 /**
  * Created by audakel on 5/16/16.

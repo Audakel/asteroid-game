@@ -32,6 +32,7 @@ public class GameHolder {
     private static ViewPort viewPort;
 
 
+
     public static void init(Context baseContext){
         asteroidsGame = new AsteroidsGame();
         viewPort = new ViewPort(

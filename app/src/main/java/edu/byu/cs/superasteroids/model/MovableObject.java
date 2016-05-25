@@ -9,7 +9,7 @@ import edu.byu.cs.superasteroids.helper.GraphicsUtils;
 import edu.byu.cs.superasteroids.helper.content.ContentManager;
 
 import static edu.byu.cs.superasteroids.Constants.SCALE_FACTOR;
-import static edu.byu.cs.superasteroids.Constants.STARTING_SHIP_OPACITY;
+import static edu.byu.cs.superasteroids.Constants.OPACITY_SHIP;
 /**
  * Created by audakel on 5/23/16.
  */
@@ -65,7 +65,7 @@ public class MovableObject extends VisiableObject {
                 getRotation(),
                 SCALE_FACTOR,
                 SCALE_FACTOR,
-                STARTING_SHIP_OPACITY
+                OPACITY_SHIP
         );
     }
 

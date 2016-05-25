@@ -7,16 +7,6 @@ package edu.byu.cs.superasteroids.database;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-import edu.byu.cs.superasteroids.model.Asteroid;
-import edu.byu.cs.superasteroids.model.ShipParts.Cannon;
-import edu.byu.cs.superasteroids.model.ShipParts.Engine;
-import edu.byu.cs.superasteroids.model.ShipParts.ExtraPart;
-import edu.byu.cs.superasteroids.model.Level;
-import edu.byu.cs.superasteroids.model.LevelAsteroid;
-import edu.byu.cs.superasteroids.model.LevelObject;
-import edu.byu.cs.superasteroids.model.ShipParts.MainBody;
-import edu.byu.cs.superasteroids.model.ShipParts.PowerCore;
-
 /**
  * This class is the contract that describes tables and fields in the
  * CET Founders database.

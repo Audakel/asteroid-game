@@ -38,10 +38,9 @@ public class GameDataExtractor {
 
     /**
      *
-     * @param level takes a level number
      * @return the game info for everything, and the level info for just that level
      */
-    public AsteroidsGame getAsteroidsGameFromDb(int level) {
+    public AsteroidsGame getAsteroidsGameFromDb() {
 //        Cursor cursor;
 //        Object gameObject;
 //        AsteroidsGame asteroidsGame = new AsteroidsGame();
