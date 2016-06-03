@@ -115,7 +115,7 @@ public class ShipPart extends MovableObject {
                 getRotation(),
                 SCALE_FACTOR,
                 SCALE_FACTOR,
-                OPACITY_SHIP
+                OPACITY_FULL
         );
     }
 
@@ -140,9 +140,9 @@ public class ShipPart extends MovableObject {
         );
 
         PointF centerPoint = new PointF(
-                getViewPosition().x + SCALE_FACTOR * ((mainBodyAttachPoint.x - mainBodyCenterPoint.x)
+                mainBody.getViewPosition().x + SCALE_FACTOR * ((mainBodyAttachPoint.x - mainBodyCenterPoint.x)
                                         + (partCenterPoint.x - this.getAttachPoint().x)),
-                getViewPosition().y + SCALE_FACTOR * ((mainBodyAttachPoint.y - mainBodyCenterPoint.y)
+                mainBody.getViewPosition().y + SCALE_FACTOR * ((mainBodyAttachPoint.y - mainBodyCenterPoint.y)
                                         + (partCenterPoint.y - this.getAttachPoint().y))
         );
 

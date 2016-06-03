@@ -20,6 +20,7 @@ import edu.byu.cs.superasteroids.database.Contract;
 import edu.byu.cs.superasteroids.interfaces.IGameDataImporter;
 import edu.byu.cs.superasteroids.model.asteroids.Asteroid;
 import edu.byu.cs.superasteroids.model.AsteroidsGame;
+import edu.byu.cs.superasteroids.model.asteroids.AsteroidRegular;
 import edu.byu.cs.superasteroids.model.shipParts.Cannon;
 import edu.byu.cs.superasteroids.model.shipParts.Engine;
 import edu.byu.cs.superasteroids.model.shipParts.ExtraPart;
@@ -112,10 +113,9 @@ public class GameDataImporter implements IGameDataImporter {
         for (Level level : asteroidsGame.getLevels()){
             Uri levelUri = context.getContentResolver().insert(Contract.URI_LEVEL, level.getContentValues());
 
-            if (level.getLevelAsteroids().length > 0){
+            if (level.getLevelAsteroids().size() > 0){
                 for (LevelAsteroid levelAsteroid : level.getLevelAsteroids()){
-                    ContentValues contentValues = new ContentValues();
-                    contentValues = levelAsteroid.getContentValues();
+                    ContentValues contentValues = levelAsteroid.getContentValues();
                     contentValues.put(Contract.LEVEL_ID, level.getNumber());
                     Uri uriAsteroid = context.getContentResolver().insert(Contract.URI_LEVEL_ASTEROID, contentValues);
                     Log.d(TAG, "importGameDataToDataBase: inserting levelAsteroid:  levelId -"
@@ -123,19 +123,16 @@ public class GameDataImporter implements IGameDataImporter {
                 }
              }
 
-            if (level.getLevelObjects().length > 0){
+            if (level.getLevelObjects().size() > 0){
                 for (LevelObject levelObject : level.getLevelObjects()) {
-                    ContentValues contentValues = new ContentValues();
-                    contentValues = levelObject.getContentValues();
+                    ContentValues  contentValues = levelObject.getContentValues();
                     contentValues.put(Contract.LEVEL_ID, level.getNumber());
                     Uri uriObject = context.getContentResolver().insert(Contract.URI_LEVEL_OBJECT, contentValues);
                     Log.d(TAG, "importGameDataToDataBase: inserting levelObject: levelId "
                             + uriObject.getLastPathSegment() + " level: " + level.getNumber());
                 }
             }
-
         }
-
         return true;
     }
 
@@ -154,6 +151,7 @@ public class GameDataImporter implements IGameDataImporter {
         ArrayList<PowerCore> powerCores= new ArrayList<>();
         ArrayList<ExtraPart> extraParts= new ArrayList<>();
         ArrayList<ObjectImage> objectImages= new ArrayList<>();
+        ArrayList<Asteroid> genericAsteroids = new ArrayList<>();
         Gson gson = new Gson();
         JSONArray tempArray;
 
@@ -166,37 +164,14 @@ public class GameDataImporter implements IGameDataImporter {
 
                 for (int i = 0; i < tempArray.length(); i++) {
                     switch (key){
-                        case Contract.CANNONS:
-                            Cannon cannon = new Cannon(tempArray.getJSONObject(i));
-                            cannons.add(cannon);
-                            break;
-                        case Contract.ENGINES:
-                            Engine engine = new Engine(tempArray.getJSONObject(i));
-                            engines.add(engine);
-                            break;
-                        case Contract.EXTRA_PARTS:
-                            ExtraPart extraPart = new ExtraPart(tempArray.getJSONObject(i));
-                            extraParts.add(extraPart);
-                            break;
-                        case Contract.MAIN_BODIES:
-                            MainBody mainBody = new MainBody(tempArray.getJSONObject(i));
-                            mainBodies.add(mainBody);
-                            break;
-                        case Contract.POWER_CORES:
-                            PowerCore powerCore = new PowerCore(tempArray.getJSONObject(i));
-                            powerCores.add(powerCore);
-                            break;
-                        case Contract.OBJECTS:
-                            objectImages.add(new ObjectImage(tempArray.getString(i)));
-                            break;
-                        case Contract.ASTEROIDS:
-                            Asteroid asteroid = gson.fromJson(tempArray.getJSONObject(i).toString(), Asteroid.class);
-                            asteroids.add(asteroid);
-                            break;
-                        case Contract.LEVELS:
-                            Level level = gson.fromJson(tempArray.getJSONObject(i).toString(), Level.class);
-                            levels.add(level);
-                            break;
+                        case Contract.CANNONS:          cannons.add(new Cannon(tempArray.getJSONObject(i))); break;
+                        case Contract.ENGINES:          engines.add(new Engine(tempArray.getJSONObject(i))); break;
+                        case Contract.EXTRA_PARTS:      extraParts.add(new ExtraPart(tempArray.getJSONObject(i))); break;
+                        case Contract.MAIN_BODIES:      mainBodies.add(new MainBody(tempArray.getJSONObject(i))); break;
+                        case Contract.POWER_CORES:      powerCores.add(new PowerCore(tempArray.getJSONObject(i)));break;
+                        case Contract.OBJECTS:          objectImages.add(new ObjectImage(tempArray.getString(i))); break;
+                        case Contract.ASTEROIDS:        genericAsteroids.add(new Asteroid(tempArray.getJSONObject(i))); break;
+                        case Contract.LEVELS:           levels.add(new Level(tempArray.getJSONObject(i)));break;
                     }
                 }
             }

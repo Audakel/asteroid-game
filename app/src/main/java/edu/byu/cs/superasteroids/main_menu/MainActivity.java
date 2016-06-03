@@ -52,7 +52,7 @@ public class MainActivity extends ActionBarActivityView implements IMainMenuView
         setController(controller);
 
         // Init the game
-        GameHolder.init(this.getBaseContext());
+        GameHolder.init(this);
 
         // Initialize your database
         String init = Contract.AUTHORITY;
@@ -112,7 +112,7 @@ public class MainActivity extends ActionBarActivityView implements IMainMenuView
 
     public void quickPlay(View v) {
         if (getController() != null) {
-            ((IMainMenuController) getController()).onQuickPlayPressed();
+            ((IMainMenuController) getController()).onQuickPlayPressed(getApplicationContext());
         }
     }
 

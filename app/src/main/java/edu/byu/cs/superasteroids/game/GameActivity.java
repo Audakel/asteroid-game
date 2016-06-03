@@ -35,7 +35,7 @@ public class GameActivity extends ActivityView {
         FrameLayout frame = (FrameLayout)this.findViewById(R.id.game_frame);
         frame.addView(gameView);
 
-        gameDelegate = new GameDelegate();
+        gameDelegate = new GameDelegate(getApplicationContext());
 
         
         //Set the view's game delegate and have it load content

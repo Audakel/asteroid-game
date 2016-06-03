@@ -26,6 +26,7 @@ public class AsteroidsGame {
     private ArrayList<MainBody> mainBodies = new ArrayList<>();
     private ArrayList<PowerCore> powerCores = new ArrayList<>();
     private ArrayList<ObjectImage> objectImages = new ArrayList<>();
+    private ArrayList<Asteroid> genericAsteroids = new ArrayList<>();
     private Ship ship;
 
     public ArrayList<ObjectImage> getObjectImages() {
@@ -46,6 +47,14 @@ public class AsteroidsGame {
 
     public ArrayList<Cannon> getCannons() {
         return cannons;
+    }
+
+    public ArrayList<Asteroid> getGenericAsteroids() {
+        return genericAsteroids;
+    }
+
+    public void setGenericAsteroids(ArrayList<Asteroid> genericAsteroids) {
+        this.genericAsteroids = genericAsteroids;
     }
 
     public void setCannons(ArrayList<Cannon> cannons) {

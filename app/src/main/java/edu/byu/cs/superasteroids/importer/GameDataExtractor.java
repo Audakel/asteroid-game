@@ -124,7 +124,7 @@ public class GameDataExtractor {
                 map.put(column_name, data+"");
             }
             Log.d(TAG, "getLevelInfoFromDb: got level info from db!");
-            gameLevel = new Level(map);
+//            gameLevel = new Level(map);
         }
         cursor.close();
 
@@ -149,7 +149,7 @@ public class GameDataExtractor {
                 }
                 levelAsteroids[row++] = new LevelAsteroid(map);
             }
-            gameLevel.setLevelAsteroids(levelAsteroids);
+//            gameLevel.setLevelAsteroids(levelAsteroids);
             Log.d(TAG, "getLevelInfoFromDb: got level Asteroids! (" + levelAsteroids.length+")");
         }
         cursor.close();
@@ -175,7 +175,7 @@ public class GameDataExtractor {
                 }
                 levelObjects[row++] = new LevelObject(map);
             }
-            gameLevel.setLevelObjects(levelObjects);
+//            gameLevel.setLevelObjects(levelObjects);
             Log.d(TAG, "getLevelInfoFromDb: got level Objects! (" + levelObjects.length+")");
         }
         cursor.close();

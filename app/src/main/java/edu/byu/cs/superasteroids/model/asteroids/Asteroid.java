@@ -3,10 +3,14 @@ package edu.byu.cs.superasteroids.model.asteroids;
 import android.content.ContentValues;
 import android.graphics.PointF;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Random;
 
 import edu.byu.cs.superasteroids.Constants;
 import edu.byu.cs.superasteroids.database.Contract;
+import edu.byu.cs.superasteroids.helper.GraphicsUtils;
 import edu.byu.cs.superasteroids.model.GameImage;
 import edu.byu.cs.superasteroids.model.Level;
 import edu.byu.cs.superasteroids.model.MovableObject;
@@ -21,6 +25,10 @@ public class Asteroid extends MovableObject {
      * The type of the asteroid.
      */
     private String type;
+    /**
+     * Name of asteroid - same as type
+     */
+    private String name;
     /**
      * Booelan on if the asteroid has been hit of not.
      */
@@ -60,6 +68,18 @@ public class Asteroid extends MovableObject {
         this.currentLevel = currentLevel;
         this.health = ASTEROID_HEALTH;
         this.scale = ASTEROID_SCALE;
+
+        if (getSpeed() == 0){
+            setSpeed(getRandomSpeed());
+        }
+
+        if (rotation == 0){
+            setRotation(getRandomRotation());
+        }
+
+        if (position == null){
+            setPosition(getRandomPosition());
+        }
     }
 
 
@@ -74,6 +94,23 @@ public class Asteroid extends MovableObject {
         this.dead = false;
         this.health = ASTEROID_HEALTH;
         this.scale = ASTEROID_SCALE;
+    }
+
+    /**
+     * Helper json constructor
+     */
+    public Asteroid(JSONObject jo)  {
+        super(null, 0,0, null);
+
+        try {
+            this.setGameImage(new GameImage(jo.getInt("imageWidth"),  jo.getInt("imageHeight"), jo.getString("image")));
+            this.name = jo.getString("name");
+            this.type = jo.getString("type");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -91,6 +128,12 @@ public class Asteroid extends MovableObject {
         if (health > 1) makeMiniAsteroids();
     }
 
+    @Override
+    public void update(double time) {
+        super.update(time);
+    }
+
+
 
     /**
      * Creates the correct number of small asteroids and adds them to the current level
@@ -107,26 +150,21 @@ public class Asteroid extends MovableObject {
     }
 
 
-    /**
-     * For helping with drawing the asteroid
-     * @return a random position in space map
-     */
-    public PointF getRandomPosition() {
-        return new PointF(
-                new Random().nextInt(getGameImage().getWidth()),
-                new Random().nextInt(getGameImage().getHeight())
-        );
+    @Override
+    public PointF getPosition() {
+        if (position == null){
+            setPosition(getRandomPosition());
+        }
+        return super.getPosition();
     }
 
-    /**
-     * Helper for drawing asteroid
-     * @return random rotation of the image
-     */
-    public float getRandomRotation() {
-        return new Random().nextInt(360);
+    @Override
+    public float getRotation() {
+        if (rotation == 0.0){
+            setRotation(getRandomRotation());
+        }
+        return super.getRotation();
     }
-
-
 
     public boolean isDead() {
         return dead;
@@ -150,6 +188,14 @@ public class Asteroid extends MovableObject {
 
     public void setCurrentLevel(Level currentLevel) {
         this.currentLevel = currentLevel;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public float getScale() {

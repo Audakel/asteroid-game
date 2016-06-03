@@ -7,7 +7,10 @@ import android.graphics.PointF;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 import edu.byu.cs.superasteroids.database.Contract;
+import edu.byu.cs.superasteroids.helper.content.ContentManager;
 import edu.byu.cs.superasteroids.model.GameImage;
 
 import static edu.byu.cs.superasteroids.Constants.SCALE_FACTOR;
@@ -20,6 +23,7 @@ public class Cannon extends ShipPart{
     private GameImage attackImage;
     private String attackSound;
     private int damage;
+
 
     /**
      *
@@ -122,8 +126,20 @@ public class Cannon extends ShipPart{
     }
 
     public String getAttackSound() {
+
         return attackSound;
     }
+
+    public int getAttackSoundId() {
+
+        try {
+            return ContentManager.getInstance().loadSound(getAttackSound());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
 
     public void setAttackSound(String attackSound) {
         this.attackSound = attackSound;

@@ -1,6 +1,7 @@
 package edu.byu.cs.superasteroids.model;
 
 import android.content.ContentValues;
+import android.graphics.PointF;
 
 import java.util.HashMap;
 
@@ -24,18 +25,30 @@ public class LevelObject {
         this.scale = Float.valueOf(map.get(Contract.LEVEL_OBJECT_SCALE));
     }
 
+    public LevelObject(String position, int objectId, float scale) {
+        this.position = position;
+        this.objectId = objectId;
+        this.scale = scale;
+    }
+
+    public PointF extractPointFromString(String string){
+        return new PointF(Float.valueOf(string.split(",")[0]),
+                Float.valueOf(string.split(",")[1]));
+    }
+
     public ContentValues getContentValues(){
         values = new ContentValues();
 
-        values.put(Contract.LEVEL_OBJECT_POSITION, getPosition());
+        values.put(Contract.LEVEL_OBJECT_POSITION, getPosition().x + "," + getPosition().y);
         values.put(Contract.LEVEL_OBJECT_OBJECT_ID, getObjectId());
         values.put(Contract.LEVEL_OBJECT_SCALE, getScale());
 
         return values;
     }
 
-    public String getPosition() {
-        return position;
+    public PointF getPosition() {
+
+        return extractPointFromString(position);
     }
 
     public void setPosition(String position) {

@@ -6,12 +6,19 @@ package edu.byu.cs.superasteroids.model;
 
 import android.media.Image;
 
+import edu.byu.cs.superasteroids.base.GameDelegate;
+
 /**
  * All objects that are visiable
  */
 public class VisiableObject {
     protected GameImage image;
     protected long objectId;
+    /**
+     * Optional reference to the game delagate which holds all info. Has to be set with a setter
+     */
+    private GameDelegate gameDelegate;
+
 
     public VisiableObject(GameImage image) {
         this.image = image;
@@ -30,6 +37,23 @@ public class VisiableObject {
      */
     public void update(double time){
 
+
+    }
+
+    public GameImage getImage() {
+        return image;
+    }
+
+    public void setImage(GameImage image) {
+        this.image = image;
+    }
+
+    public GameDelegate getGameDelegate() {
+        return gameDelegate;
+    }
+
+    public void setGameDelegate(GameDelegate gameDelegate) {
+        this.gameDelegate = gameDelegate;
     }
 
     public GameImage getGameImage() {

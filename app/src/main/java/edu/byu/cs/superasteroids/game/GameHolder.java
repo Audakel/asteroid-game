@@ -6,6 +6,9 @@ import android.util.Log;
 
 import edu.byu.cs.superasteroids.database.DatabaseHelper;
 import edu.byu.cs.superasteroids.helper.DrawingHelper;
+import edu.byu.cs.superasteroids.importer.GameDataExtractor;
+import edu.byu.cs.superasteroids.importer.GameDataImporter;
+import edu.byu.cs.superasteroids.main_menu.MainActivity;
 import edu.byu.cs.superasteroids.model.AsteroidsGame;
 import edu.byu.cs.superasteroids.model.GameImage;
 import edu.byu.cs.superasteroids.model.Space;
@@ -31,15 +34,23 @@ public class GameHolder {
      */
     private static ViewPort viewPort;
 
+    private static Context context;
 
-
-    public static void init(Context baseContext){
+    public static void init(MainActivity baseContext){
+        context = baseContext;
         asteroidsGame = new AsteroidsGame();
+//        asteroidsGame = new GameDataExtractor(baseContext).getAsteroidsGameFromDb();
         viewPort = new ViewPort(
                 new GameImage(getGameViewWidth(), getGameViewHeight(), ""),
                 new PointF(getGameViewWidth() / 2, getGameViewHeight() / 2));
 
         Log.d("GameHolder", "init: ");
+    }
+
+    public static void startGame(){
+        MainActivity mainActivity = new MainActivity();
+        mainActivity.startGame();
+
     }
 
 

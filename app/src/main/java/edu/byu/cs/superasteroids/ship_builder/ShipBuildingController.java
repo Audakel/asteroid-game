@@ -11,7 +11,6 @@ import edu.byu.cs.superasteroids.database.Contract;
 import edu.byu.cs.superasteroids.game.GameHolder;
 import edu.byu.cs.superasteroids.helper.content.ContentManager;
 import edu.byu.cs.superasteroids.importer.GameDataExtractor;
-import edu.byu.cs.superasteroids.importer.GameDataImporter;
 import edu.byu.cs.superasteroids.interfaces.IShipBuildingController;
 import edu.byu.cs.superasteroids.interfaces.IShipBuildingView;
 import edu.byu.cs.superasteroids.interfaces.IView;
@@ -20,7 +19,6 @@ import edu.byu.cs.superasteroids.model.Ship;
 import edu.byu.cs.superasteroids.model.shipParts.Cannon;
 import edu.byu.cs.superasteroids.model.shipParts.Engine;
 import edu.byu.cs.superasteroids.model.shipParts.ExtraPart;
-import edu.byu.cs.superasteroids.model.Level;
 import edu.byu.cs.superasteroids.model.shipParts.MainBody;
 import edu.byu.cs.superasteroids.model.shipParts.PowerCore;
 
@@ -38,6 +36,7 @@ import static edu.byu.cs.superasteroids.interfaces.IShipBuildingView.ViewDirecti
  * Created by audakel on 5/16/16.
  */
 public class ShipBuildingController implements IShipBuildingController{
+    private  ShipBuilderShipView shipBuildingView;
     private Context context;
     private ShipBuildingActivity shipBuildingActivity;
     private String TAG = getClass().getSimpleName();
@@ -45,22 +44,23 @@ public class ShipBuildingController implements IShipBuildingController{
     private List<Boolean> board;
     private ContentManager content;
     private AsteroidsGame asteroidsGame;
+    private boolean shipComplete = false;
 
     private Ship ship;
     GameHolder gameHolder;
 
-    public ShipBuildingController(ShipBuildingActivity shipBuildingActivity) {
-        context = shipBuildingActivity.getApplicationContext();
+    public ShipBuildingController(ShipBuildingActivity shipBuildingActivity, Context context) {
         this.shipBuildingActivity = shipBuildingActivity;
+        this.context = context;
         this.ship = GameHolder.getAsteroidsGame().getShip();
         Log.d(TAG, "ShipBuildingController: shipBuildingActivity- " + shipBuildingActivity);
 
     }
 
-    public ShipBuildingController(Context context) {
-        Log.d(TAG, "ShipBuildingController: context- " + context);
-        this.context = context;
-    }
+//    public ShipBuildingController(ShipBuilderShipView shipBuilderShipView) {
+//        Log.d(TAG, "ShipBuildingController: context- " + context);
+//        this.context = context;
+//    }
 
     /**
      * The ship building view calls this function when a part selection view is loaded. This function
@@ -120,17 +120,13 @@ public class ShipBuildingController implements IShipBuildingController{
         this.content = content;
         Log.d(TAG, "loadContent: content- " + content);
 
-        GameDataImporter gameDataImporter;
-        GameDataExtractor gameDataExtractor;
-        Level levelObject;
-        int level;
-
-
-        level = 1;
-        gameDataExtractor = new GameDataExtractor(context);
 
         //TODO:: fix asteroids game for real
-        asteroidsGame = gameDataExtractor.getAsteroidsGameFromDb(level);
+        if (asteroidsGame != null){
+            return;
+        }
+
+        asteroidsGame = new GameDataExtractor(context).getAsteroidsGameFromDb();
 
         ArrayList<Integer> pictureIdList = new ArrayList<>();
         for (MainBody mainBody : asteroidsGame.getMainBodies()) {
@@ -178,6 +174,7 @@ public class ShipBuildingController implements IShipBuildingController{
         ship.draw();
     }
 
+
     /**
      * The ShipBuildingView calls this function when the user makes a swipe/fling motion in the
      * screen. Respond to the user's swipe/fling motion in this function.
@@ -217,12 +214,6 @@ public class ShipBuildingController implements IShipBuildingController{
     private IShipBuildingView.PartSelectionView getViewForPosition(int position) {
         Log.d(TAG, "getViewForPosition: position = " + position);
         switch (position) {
-//            case 2:         return EXTRA_PART;
-//            case 4:         return ENGINE;
-//            case 5:         return MAIN_BODY;
-//            case 6:         return CANNON;
-//            case 8:         return POWER_CORE;
-
             case 2:         return POWER_CORE;
             case 4:         return EXTRA_PART;
             case 5:         return MAIN_BODY;
@@ -248,6 +239,20 @@ public class ShipBuildingController implements IShipBuildingController{
             case POWER_CORE:        ship.setPowerCore(asteroidsGame.getPowerCores().get(index)); break;
         }
         Log.d(TAG, "onPartSelected: index " + index);
+        shipComplete();
+    }
+
+    private void shipComplete() {
+        if (ship.getExtraPart().getGameImage().getFilePath() == "") return;
+        if (ship.getEngine().getGameImage().getFilePath() == "") return;
+        if (ship.getMainBody().getGameImage().getFilePath() == "") return;
+        if (ship.getCannon().getGameImage().getFilePath() == "") return;
+        if (ship.getPowerCore().getGameImage().getFilePath() == "") return;
+
+        shipBuildingActivity.setStartGameButton(true);
+
+
+
     }
 
     /**
@@ -257,6 +262,7 @@ public class ShipBuildingController implements IShipBuildingController{
     public void onStartGamePressed() {
         Log.d(TAG, "onStartGamePressed: ");
         shipBuildingActivity.startGame();
+
     }
 
     /**

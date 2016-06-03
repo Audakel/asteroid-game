@@ -14,7 +14,11 @@ public class LevelAsteroid{
     private int asteroidId;
     private ContentValues values;
 
-    public LevelAsteroid(){}
+    public LevelAsteroid(int number, int id){
+        this.number = number;
+        this.asteroidId = id;
+    }
+
     public LevelAsteroid(HashMap<String, String> map){
         this.number = Integer.valueOf(map.get(Contract.LEVEL_ASTEROID_NUMBER));
         this.asteroidId = Integer.valueOf(map.get(Contract.LEVEL_ASTEROID_ASTEROID_ID));

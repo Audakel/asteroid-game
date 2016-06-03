@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import java.util.ArrayList;
 
 import edu.byu.cs.superasteroids.Constants;
+import edu.byu.cs.superasteroids.game.GameHolder;
 import edu.byu.cs.superasteroids.helper.DrawingHelper;
 import edu.byu.cs.superasteroids.helper.GraphicsUtils;
 import edu.byu.cs.superasteroids.model.asteroids.Asteroid;
@@ -14,7 +15,7 @@ import static edu.byu.cs.superasteroids.Constants.MINIMAP_ASTEROIDS_WIDTH;
 import static edu.byu.cs.superasteroids.Constants.MINIMAP_ASTEROID_COLOR;
 import static edu.byu.cs.superasteroids.Constants.MINIMAP_SHIP_COLOR;
 import static edu.byu.cs.superasteroids.Constants.MINIMAP_SHIP_WIDTH;
-import static edu.byu.cs.superasteroids.Constants.OPACITY_MINIMAP;
+import static edu.byu.cs.superasteroids.Constants.OPACITY_PARTIAL;
 
 /**
  * Created by audakel on 5/24/16.
@@ -29,9 +30,10 @@ public class MiniMap extends MovableObject{
      * @param rotation current rotation of obj
      * @param position current position of obj in space
      */
-    public MiniMap(GameImage image, int speed, float rotation, PointF position, ArrayList<Asteroid> asteroids) {
-        super(image, speed, rotation, position);
+    public MiniMap(GameImage image, ArrayList<Asteroid> asteroids) {
+        super(image, 0, 0, new PointF(0,0));
         this.asteroids = asteroids;
+        this.ship = GameHolder.getAsteroidsGame().getShip();
     }
 
     @Override
@@ -42,15 +44,15 @@ public class MiniMap extends MovableObject{
         DrawingHelper.drawFilledRectangle(
                 new Rect(x,y, x + getGameImage().getWidth(), y + getGameImage().getHeight()),
                 Constants.COLOR_MINIMAP,
-                Constants.OPACITY_MINIMAP
+                Constants.OPACITY_PARTIAL
         );
 
         // Draw ship
-        drawHelper(ship.getPosition(), MINIMAP_SHIP_WIDTH, MINIMAP_SHIP_COLOR, OPACITY_MINIMAP);
+        drawHelper(ship.getPosition(), MINIMAP_SHIP_WIDTH, MINIMAP_SHIP_COLOR, OPACITY_PARTIAL);
 
         // Draw asteroid
         for (Asteroid asteroid : asteroids){
-            drawHelper(asteroid.getPosition(), MINIMAP_ASTEROIDS_WIDTH, MINIMAP_ASTEROID_COLOR, OPACITY_MINIMAP);
+            drawHelper(asteroid.getPosition(), MINIMAP_ASTEROIDS_WIDTH, MINIMAP_ASTEROID_COLOR, OPACITY_PARTIAL);
         }
     }
 

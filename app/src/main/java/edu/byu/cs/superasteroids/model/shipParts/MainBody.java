@@ -62,6 +62,14 @@ public class MainBody extends ShipPart {
         }
     }
 
+    @Override
+    public PointF getPosition() {
+        if (getGameDelegate() != null){
+
+            setPosition(getGameDelegate().getShip().getPosition());
+        }
+        return position;
+    }
 
     /**
      * Helper empty constructor
